@@ -47,9 +47,12 @@ namespace ArmorPotions.Factories
             
             data.Velocity = ReadVector2(element.SelectSingleNode("Velocity"));
 
-            SpriteInfo sprite = CreateSpriteSheet(element.SelectSingleNode("SpriteSheets"));
-            data.Sprites.Add(sprite.Name, sprite.Sprite);
-            data.Texture = sprite.Sprite.Texture;
+            foreach (XmlNode node in element.SelectSingleNode("SpriteSheets").SelectNodes("Sprite"))
+            {
+                SpriteInfo sprite = CreateSpriteSheet(node);
+                data.Sprites.Add(sprite.Name, sprite.Sprite);
+                data.Texture = sprite.Sprite.Texture;
+            }
 
             data.IdleComponent = GetAIComponent(element.SelectSingleNode("IdleComponent"));//CreateInstance<IAIComponent>((GetAttributeType(element, "IdleComponent")));
             data.DecisionComponent = GetAIComponent(element.SelectSingleNode("DecisionComponent")); //CreateInstance<IAIComponent>((GetAttributeType(element, "DecisionComponent")));
@@ -83,10 +86,9 @@ namespace ArmorPotions.Factories
             return Content.Load<Texture2D>(BasePath + @"\" + element.Attributes["Texture"].Value);
         }
 
-        private SpriteInfo CreateSpriteSheet(XmlNode element)
+        private SpriteInfo CreateSpriteSheet(XmlNode sprite)
         {
             Dictionary<AnimationKey, Animation> animations = new Dictionary<AnimationKey, Animation>();
-            XmlNode sprite = element.SelectSingleNode("Sprite");
 
             foreach (XmlNode node in sprite.SelectNodes("Animation"))
             {

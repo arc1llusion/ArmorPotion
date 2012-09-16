@@ -23,10 +23,16 @@
     <IdleComponent Type="ArmorPotions.Components.MoveRandom" />
     <DecisionComponent Type="ArmorPotions.Components.Decide" />
     <ActionComponents>
-      <ActionComponent Name="AoEDrop" Type="ArmorPotions.Components.AoEDrop" Wait="5000" LifeTime ="200" AttackTexture="Images\Enemy\LightBugAttack"/>
+      <ActionComponent Name="AoEDrop" Type="ArmorPotions.Components.AoEDrop" Wait="1000" LifeTime ="200" AttackTexture="Images\Enemy\LightBugAttack"/>
     </ActionComponents>
     <SpriteSheets>
       <Sprite Texture="LightBugWalking" Name="Walking">
+        <Animation Key="Down" Width="128" Height="128" FrameCount="4" xOffset="0" yOffset="0" FramesPerSecond="1" />
+        <Animation Key="Left" Width="128" Height="128" FrameCount="4" xOffset="0" yOffset="128" FramesPerSecond="1" />
+        <Animation Key="Right" Width="128" Height="128" FrameCount="4" xOffset="0" yOffset="256" FramesPerSecond="1" />
+        <Animation Key="Up" Width="128" Height="128" FrameCount="4" xOffset="0" yOffset="384" FramesPerSecond="1" />
+      </Sprite>
+      <Sprite Texture="LightBugCharge" Name="Charging">
         <Animation Key="Down" Width="128" Height="128" FrameCount="4" xOffset="0" yOffset="0" FramesPerSecond="1" />
         <Animation Key="Left" Width="128" Height="128" FrameCount="4" xOffset="0" yOffset="128" FramesPerSecond="1" />
         <Animation Key="Right" Width="128" Height="128" FrameCount="4" xOffset="0" yOffset="256" FramesPerSecond="1" />

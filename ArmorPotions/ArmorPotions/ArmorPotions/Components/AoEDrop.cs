@@ -33,6 +33,10 @@ namespace ArmorPotions.Components
         {
             _lifetime = _defaultLifetime;
             _waitTime = _defaultWaitTime;
+            AnimationKey currentAnimation = enemy.CurrentSprite.CurrentAnimation;
+            enemy.CurrentSpriteKey = "Charging";
+            enemy.CurrentSprite.IsAnimating = true;
+            enemy.CurrentSprite.CurrentAnimation = currentAnimation;
         }
 
         public int LifeTime
@@ -64,6 +68,7 @@ namespace ArmorPotions.Components
                 enemy.World.Projectiles.Add(_projectile);
                 _lifetime = _defaultLifetime;
                 _isSetUp = true;
+                enemy.CurrentSpriteKey = "Walking";
             }
             else if(canAttack && _isSetUp)
             {
