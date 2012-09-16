@@ -66,6 +66,7 @@
     <Compile Include="Images\Enemy\EnemyData.xml">
       <Name>EnemyData</Name>
       <Importer>XmlSourceImporter</Importer>
+      <SubType>Designer</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>

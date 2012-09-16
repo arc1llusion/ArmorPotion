@@ -6,6 +6,8 @@ using ArmorPotionFramework.WorldClasses;
 using Microsoft.Xna.Framework.Content;
 using ArmorPotionFramework.Utility;
 using System.Xml;
+using System.Reflection;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace ArmorPotionFramework.Loading
 {
@@ -74,6 +76,22 @@ namespace ArmorPotionFramework.Loading
         protected virtual N CreateInstance<N>(Type type, Object[] args)
         {
             return (N)Activator.CreateInstance(type, args);
+        }
+
+        protected virtual void SetProperties<N>(N obj, XmlNode node)
+        {
+            PropertyInfo[] properties = obj.GetType().GetProperties();
+
+            foreach (PropertyInfo property in properties)
+            {
+                if (node.Attributes[property.Name] != null)
+                {
+                    if (property.PropertyType == typeof(Texture2D))
+                        property.SetValue(obj, Content.Load<Texture2D>(node.Attributes[property.Name].Value), null);
+                    else
+                        property.SetValue(obj, Convert.ChangeType(node.Attributes[property.Name].Value, property.PropertyType), null);
+                }
+            }
         }
 
         #endregion

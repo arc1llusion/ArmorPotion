@@ -51,14 +51,12 @@ namespace ArmorPotions.Factories
             data.Sprites.Add(sprite.Name, sprite.Sprite);
             data.Texture = sprite.Sprite.Texture;
 
-            data.IdleComponent = CreateInstance<IAIComponent>((GetAttributeType(element, "IdleComponent")));
-            data.DecisionComponent = CreateInstance<IAIComponent>((GetAttributeType(element, "DecisionComponent")));
+            data.IdleComponent = GetAIComponent(element.SelectSingleNode("IdleComponent"));//CreateInstance<IAIComponent>((GetAttributeType(element, "IdleComponent")));
+            data.DecisionComponent = GetAIComponent(element.SelectSingleNode("DecisionComponent")); //CreateInstance<IAIComponent>((GetAttributeType(element, "DecisionComponent")));
 
             foreach (XmlNode node in element.SelectSingleNode("ActionComponents").SelectNodes("ActionComponent"))
             {
-                data.ActionComponents.Add(
-                    node.Attributes["Name"].Value,
-                    CreateInstance<IAIComponent>(GetAttributeType(node.Attributes["Type"].Value)));
+                data.ActionComponents.Add(node.Attributes["Name"].Value, GetAIComponent(node));
             }
 
             name = data.Name;
@@ -105,6 +103,14 @@ namespace ArmorPotions.Factories
             }
 
             return new SpriteInfo(sprite.Attributes["Name"].Value, new AnimatedSprite(ReadTexture(sprite), animations));
+        }
+
+        private IAIComponent GetAIComponent(XmlNode node)
+        {
+            IAIComponent component = CreateInstance<IAIComponent>(GetAttributeType(node.Attributes["Type"].Value));
+            SetProperties<IAIComponent>(component, node);
+
+            return component;
         }
     }
 }
