@@ -103,6 +103,8 @@ namespace ArmorPotions
             // Allows the game to exit
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
                 this.Exit();
+            if (InputHandler.KeyDown(Keys.Escape))
+                this.Exit();
 
             world.Update(gameTime);
             //lProj.Update(gameTime);

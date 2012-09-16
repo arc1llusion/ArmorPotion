@@ -122,7 +122,7 @@
     <Compile Include="Game1.cs" />
     <Compile Include="Tiles\DoorTile.cs" />
     <Compile Include="Tiles\FloorTile.cs" />
-    <Compile Include="Tiles\Lava.cs" />
+    <Compile Include="Tiles\LavaTile.cs" />
     <Compile Include="Tiles\SwitchTile.cs" />
     <Compile Include="Tiles\WallTile.cs" />
     <Compile Include="Tiles\WaterTile.cs" />
