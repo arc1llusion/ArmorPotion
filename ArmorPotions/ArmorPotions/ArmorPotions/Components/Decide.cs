@@ -15,7 +15,12 @@ namespace ArmorPotions.Components
 
         public void Update(GameTime gameTime, Enemy enemy)
         {
-            enemy.ActionComponents.Values.ElementAt(RandomGenerator.Random.Next(0, enemy.ActionComponents.Count)).Update(gameTime, enemy);
+            int selection = RandomGenerator.Random.Next(0, enemy.ActionComponents.Count);
+            IAIComponent component = enemy.ActionComponents.Values.ElementAt(selection);
+
+            component.SetUp(enemy);
+            
+            enemy.ActiveComponent = component.Update;
         }
 
         public void SetUp(Enemy enemy)

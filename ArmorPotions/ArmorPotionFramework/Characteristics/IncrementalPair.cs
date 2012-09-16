@@ -96,6 +96,24 @@ namespace ArmorPotionFramework.Characteristics
                 currentValue = maximumValue;
         }
 
+        public void AddToMax(IncrementalValue value, int modifier = 1)
+        {
+            if (modifier < 1) modifier = 1;
+
+            maximumValue = (int)maximumValue + ((int)value * modifier);
+            if (currentValue > maximumValue)
+                currentValue = maximumValue;
+        }
+
+        public void RemoveFromMax(IncrementalValue value, int modifier = 1)
+        {
+            if (modifier < 1) modifier = 1;
+
+            maximumValue = (int)maximumValue - ((int)value * modifier);
+            if (currentValue > maximumValue)
+                currentValue = maximumValue;
+        }
+
         #endregion
     }
 }

@@ -19,6 +19,8 @@ namespace ArmorPotions.Items.TempaQuipItems
         public Gun(Texture2D icon, String name, AnimatedSprite sprite)
             : base(icon, name, sprite)
         {
+            this._allowMulti = true;
+            this._hasProjectile = false;
         }
 
         public override void OnEquip(Player equippedBy)
@@ -29,7 +31,7 @@ namespace ArmorPotions.Items.TempaQuipItems
         {
             Vector2 newPosition = new Vector2(activatedBy.Position.X - activatedBy.CurrentSprite.Width / 2, activatedBy.Position.Y - activatedBy.CurrentSprite.Height / 2);
 
-            _projectile = new LinearProjectile(activatedBy.World, 5, newPosition, InputHandler.CurrentMousePosition);
+            _projectile = new LinearProjectile(activatedBy.World, this, 75, newPosition, InputHandler.CurrentMousePosition);
             _projectile.AnimatedSprites.Add("Normal", AnimatedSprite);
 
             activatedBy.World.Projectiles.Add(_projectile);

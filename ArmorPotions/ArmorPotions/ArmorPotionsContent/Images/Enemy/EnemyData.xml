@@ -24,6 +24,7 @@
     <DecisionComponent Type="ArmorPotions.Components.Decide" />
     <ActionComponents>
       <ActionComponent Name="Move" Type="ArmorPotions.Components.Move"/>
+      <ActionComponent Name="AoEDrop" Type="ArmorPotions.Components.AoEDrop" />
     </ActionComponents>
     <SpriteSheets>
       <Sprite Texture="LightBugWalking" Name="Walking">

@@ -63,17 +63,14 @@ namespace ArmorPotions
             EnemyFactory factory = new EnemyFactory(world, @"Images\Enemy");
             ItemFactory itemFactory = new ItemFactory(world, @"Items");
 
-            world.Enemies.Add(factory.Create("MaleFighter"));
+            //world.Enemies.Add(factory.Create("MaleFighter"));
             world.Enemies.Add(factory.Create("LightBug"));
-            world.Enemies.Add(factory.Create("MaleFighter"));
+            //world.Enemies.Add(factory.Create("MaleFighter"));
 
             Item item = itemFactory.Create("Super Awesome Potion");
             item.Position = new Vector2(70, 70);
 
             world.item = item;
-
-
-
             //lProj = new LinearProjectile(world, 5, world.Player.Position, new Vector2(300, 300));
 
             Animation animation = new Animation(1, 256, 256, 0, 0);
@@ -82,11 +79,9 @@ namespace ArmorPotions
             world.Player.Inventory.TempaQuips.Add(new Gun(null, "BobsGun", sprite));
             world.Player.Inventory.SelectRelativeTempaQuip(world.Player, 0);
 
+            world.Player.Inventory.TempaQuips.Add(new Zapper(null, "BobsZappter", sprite.Clone()));
+
             //lProj.AnimatedSprites.Add("Normal", sprite);
-
-
-
-            // TODO: use this.Content to load your game content here
         }
 
         /// <summary>

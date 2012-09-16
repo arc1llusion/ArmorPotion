@@ -34,6 +34,9 @@ namespace ArmorPotionFramework.Items
         protected List<Modifier> _modifiers;
         protected Vector2 _position;
         protected AnimatedSprite _sprite;
+        
+        protected bool _allowMulti;
+        protected bool _hasProjectile;
 
         public Item(Texture2D icon, String name)
         {
@@ -89,6 +92,17 @@ namespace ArmorPotionFramework.Items
             {
                 return this._modifiers;
             }
+        }
+
+        public bool HasProjectile
+        {
+            get { return this._hasProjectile; }
+            set { this._hasProjectile = value; }
+        }
+
+        public bool AllowMulti
+        {
+            get { return this._allowMulti; }
         }
 
         public abstract void CollectedBy(Player player);

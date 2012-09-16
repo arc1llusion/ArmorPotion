@@ -116,6 +116,11 @@ namespace ArmorPotionFramework.EntityClasses
 
                 _inventory.ActivateTempaQuip(this);
             }
+
+            if (InputHandler.KeyPressed(Keys.Left))
+                _inventory.SelectRelativeTempaQuip(this, -1);
+            else if (InputHandler.KeyPressed(Keys.Right))
+                _inventory.SelectRelativeTempaQuip(this, 1);
         }
 
         public void Damage(IncrementalValue pair, int modifier)

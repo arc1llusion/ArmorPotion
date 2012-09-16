@@ -110,6 +110,7 @@
     <Compile Include="Items\PermaQuip.cs" />
     <Compile Include="Items\TempaQuip.cs" />
     <Compile Include="Loading\Factory.cs" />
+    <Compile Include="Projectiles\AreaOfEffectProjectile.cs" />
     <Compile Include="Projectiles\LinearProjectile.cs" />
     <Compile Include="Projectiles\Projectile.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -13,6 +13,8 @@ namespace ArmorPotions.Components
         private int max;
         private int current;
 
+        private int life;
+
         public Move()
         {
             max = 500;
@@ -24,9 +26,10 @@ namespace ArmorPotions.Components
             if (current > 0)
             {
                 current -= gameTime.ElapsedGameTime.Milliseconds;
+                life -= gameTime.ElapsedGameTime.Milliseconds;
                 enemy.Position = enemy.Position + enemy.Velocity;
 
-                if (!enemy.HasPlayerInSight)
+                if (life < 0)
                     enemy.ActionComplete();
             }
             else
@@ -37,7 +40,7 @@ namespace ArmorPotions.Components
 
         public void SetUp(Enemy enemy)
         {
-            throw new NotImplementedException();
+            life = 3000;
         }
     }
 }

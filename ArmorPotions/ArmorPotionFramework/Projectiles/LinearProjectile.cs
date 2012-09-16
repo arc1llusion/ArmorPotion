@@ -5,6 +5,7 @@ using System.Text;
 using ArmorPotionFramework.WorldClasses;
 using Microsoft.Xna.Framework;
 using ArmorPotionFramework.Utility;
+using ArmorPotionFramework.Items;
 
 namespace ArmorPotionFramework.Projectiles
 {
@@ -15,8 +16,8 @@ namespace ArmorPotionFramework.Projectiles
         private Vector2 _destination;
         private double _angle;
 
-        public LinearProjectile(World world, float liveDistance, Vector2 startingPosition, Vector2 destination)
-            : base(world)
+        public LinearProjectile(World world, Item source, float liveDistance, Vector2 startingPosition, Vector2 destination)
+            : base(world, source)
         {
             _liveDistance = liveDistance;
             _startingPosition = startingPosition;
@@ -24,7 +25,7 @@ namespace ArmorPotionFramework.Projectiles
             _angle = GameMath.CalculateAngle(startingPosition, destination);
 
             Position = startingPosition;
-            Velocity = new Vector2((float)Math.Cos(_angle), (float)Math.Sin(_angle));
+            Velocity = new Vector2((float)Math.Cos(_angle) * 2, (float)Math.Sin(_angle) * 2);
         }
 
         public float LiveDistance
@@ -49,7 +50,8 @@ namespace ArmorPotionFramework.Projectiles
             _position.X += _velocity.X;
             _position.Y += _velocity.Y;
 
-            if (_position.X + _position.Y > _liveDistance)
+            double distance = GameMath.Distance(_startingPosition, _position);
+            if (distance  > _liveDistance)
                 this._isAlive = false;
         }
 

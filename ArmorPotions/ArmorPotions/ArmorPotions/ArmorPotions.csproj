@@ -107,6 +107,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Components\AoEDrop.cs" />
     <Compile Include="Components\Decide.cs" />
     <Compile Include="Components\Move.cs" />
     <Compile Include="Components\MoveRandom.cs" />
@@ -114,6 +115,7 @@
     <Compile Include="Factories\ItemFactory.cs" />
     <Compile Include="Items\Potion.cs" />
     <Compile Include="Items\TempaQuipItems\Gun.cs" />
+    <Compile Include="Items\TempaQuipItems\Zapper.cs" />
     <Compile Include="MapStuff\MapLoader.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />

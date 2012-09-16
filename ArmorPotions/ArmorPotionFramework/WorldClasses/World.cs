@@ -81,7 +81,9 @@ namespace ArmorPotionFramework.WorldClasses
         public void Update(GameTime gameTime)
         {
             _enemies.ForEach(enemy => enemy.Update(gameTime));
-            _projectiles.ForEach(enemy => enemy.Update(gameTime));
+
+            UpdateProjectiles(gameTime);
+
             _player.Update(gameTime);
 
             if (_player.Position.X > 70 &&
@@ -100,5 +102,27 @@ namespace ArmorPotionFramework.WorldClasses
             _player.Draw(gameTime, spriteBatch);
             if(item != null) item.DrawIcon(spriteBatch);
         }
+
+        #region Helper Methods
+
+        public void UpdateProjectiles(GameTime gameTime)
+        {
+            List<Projectile> removedProjectiles = new List<Projectile>();
+            foreach (Projectile projectile in _projectiles)
+            {
+                projectile.Update(gameTime);
+
+                if (!projectile.IsAlive)
+                    removedProjectiles.Add(projectile);
+            }
+
+            foreach (Projectile projectile in removedProjectiles)
+            {
+                if(projectile.Source != null) projectile.Source.HasProjectile = false;
+                _projectiles.Remove(projectile);
+            }
+        }
+
+        #endregion
     }
 }

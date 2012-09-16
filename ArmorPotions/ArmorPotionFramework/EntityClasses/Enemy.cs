@@ -76,6 +76,19 @@ namespace ArmorPotionFramework.EntityClasses
             }
         }
 
+        public Action<GameTime, Enemy> ActiveComponent
+        {
+            get
+            {
+                return _currentAction;
+            }
+
+            set
+            {
+                this._currentAction = value;
+            }
+        }
+
         public Dictionary<String, IAIComponent> ActionComponents
         {
             get
