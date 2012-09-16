@@ -97,8 +97,8 @@ namespace ArmorPotionFramework.WorldClasses
 
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
+            DrawProjectiles(gameTime, spriteBatch);
             _enemies.ForEach(enemy => enemy.Draw(gameTime, spriteBatch));
-            _projectiles.ForEach(enemy => enemy.Draw(gameTime, spriteBatch));
             _player.Draw(gameTime, spriteBatch);
             if(item != null) item.DrawIcon(spriteBatch);
         }
@@ -120,6 +120,14 @@ namespace ArmorPotionFramework.WorldClasses
             {
                 if(projectile.Source != null) projectile.Source.HasProjectile = false;
                 _projectiles.Remove(projectile);
+            }
+        }
+
+        public void DrawProjectiles(GameTime gameTime, SpriteBatch spriteBatch)
+        {
+            for (int i = _projectiles.Count - 1; i >= 0; i--)
+            {
+                _projectiles[i].Draw(gameTime, spriteBatch);
             }
         }
 

@@ -108,7 +108,7 @@ namespace ArmorPotionFramework.EntityClasses
                 CurrentSprite.Reset();
             }
 
-            if (InputHandler.KeyPressed(Keys.Space))
+            if (InputHandler.KeyDown(Keys.Space))
             {
                 //object o = _inventory.CurrentInstaQuip;
                 //_inventory.ConsumeInstaQuip(this);

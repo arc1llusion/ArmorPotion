@@ -81,6 +81,8 @@ namespace ArmorPotions
 
             world.Player.Inventory.TempaQuips.Add(new Zapper(null, "BobsZappter", sprite.Clone()));
 
+            world.Player.Inventory.TempaQuips.Add(new SomeConeWeapon(null, "BobsCone", sprite.Clone()));
+
             //lProj.AnimatedSprites.Add("Normal", sprite);
         }
 

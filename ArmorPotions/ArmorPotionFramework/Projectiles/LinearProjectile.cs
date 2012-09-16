@@ -11,10 +11,10 @@ namespace ArmorPotionFramework.Projectiles
 {
     public class LinearProjectile : Projectile
     {
-        private float _liveDistance;
-        private Vector2 _startingPosition;
-        private Vector2 _destination;
-        private double _angle;
+        protected float _liveDistance;
+        protected Vector2 _startingPosition;
+        protected Vector2 _destination;
+        protected double _angle;
 
         public LinearProjectile(World world, Item source, float liveDistance, Vector2 startingPosition, Vector2 destination)
             : base(world, source)

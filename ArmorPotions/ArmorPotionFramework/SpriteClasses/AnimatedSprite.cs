@@ -110,21 +110,26 @@ namespace ArmorPotionFramework.SpriteClasses
 
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch, Vector2 position, Camera camera)
         {
+            this.Draw(gameTime, spriteBatch, position, camera, 0);
+        }
+
+        public void Draw(GameTime gameTime, SpriteBatch spriteBatch, Vector2 position, Camera camera, float textureScale)
+        {
             Rectangle currentRect = _animations[_currentAnimation].CurrentFrameRect;
             Rectangle tempRect = new Rectangle(
-                currentRect.X + (int)camera.CameraX, 
+                currentRect.X + (int)camera.CameraX,
                 currentRect.Y + (int)camera.CameraY,
                 currentRect.Width,
                 currentRect.Height);
-   
+
             spriteBatch.Draw(
                 _texture,
-                new Vector2(position.X*camera.Scale, position.Y*camera.Scale),
+                new Vector2(position.X * camera.Scale, position.Y * camera.Scale),
                 currentRect,
                 _tintColor,
                 0,
                 Vector2.Zero,
-                camera.Scale,
+                camera.Scale + textureScale,
                 SpriteEffects.None,
                 0);
         }
