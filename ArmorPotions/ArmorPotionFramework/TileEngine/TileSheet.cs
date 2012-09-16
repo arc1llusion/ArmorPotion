@@ -6,11 +6,15 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace ArmorPotionFramework.TileEngine
 {
-    class TileSheet
+    public class TileSheet
     {
         Texture2D _tileSheet;
 
         public TileSheet(Texture2D setTileSheet)
+        {
+
+        }
+        public TileSheet(String fileLocation)
         {
 
         }

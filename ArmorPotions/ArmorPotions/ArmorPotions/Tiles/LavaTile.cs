@@ -6,9 +6,9 @@ using ArmorPotionFramework.TileEngine;
 
 namespace ArmorPotions.Tiles
 {
-    class Lava : Tile
+    class LavaTile : Tile
     {
-        public Lava()
+        public LavaTile()
             : base(null)
         {
         }

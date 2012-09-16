@@ -13,6 +13,7 @@ namespace ArmorPotion.MapStuff
     {
         public static Map Load(String mapTopLocation, String mapBottomLocation)
         {
+            TileSheet tileSheet = new TileSheet("");
             Map loadedMap = new Map(loadMap(mapTopLocation),loadMap(mapBottomLocation));
 
             return loadedMap;
