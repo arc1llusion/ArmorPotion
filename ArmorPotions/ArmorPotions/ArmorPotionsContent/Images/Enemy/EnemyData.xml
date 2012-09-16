@@ -18,12 +18,16 @@
     </SpriteSheets>
   </Enemy>
   <Enemy Name="LightBug">
-    <Texture Path="Images\Enemy" Width="32" Height="32" FrameCount="3" />
+    <Texture Path="Images\Enemy" Width="32" Height="32" FrameCount="4" />
     <Velocity X="1" Y="0" />
     <IdleComponent Type="ArmorPotions.Components.MoveRandom" />
     <DecisionComponent Type="ArmorPotions.Components.Decide" />
     <ActionComponents>
+<<<<<<< HEAD
       <ActionComponent Name="AoEDrop" Type="ArmorPotions.Components.AoEDrop" Wait="1000" LifeTime ="200" AttackTexture="Images\Enemy\LightBugAttack"/>
+=======
+      <ActionComponent Name="AoEDrop" Type="ArmorPotions.Components.AoEDrop" Wait="1000" LifeTime ="300" AttackTexture="Images\Enemy\LightBugAttack"/>
+>>>>>>> origin/master
     </ActionComponents>
     <SpriteSheets>
       <Sprite Texture="LightBugWalking" Name="Walking">
