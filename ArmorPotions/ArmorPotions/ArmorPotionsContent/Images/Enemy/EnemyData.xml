@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Enemies>
+  <Enemy Name="MaleFighter">
+    <Texture Path="Images\Enemy" Width="32" Height="32" FrameCount="3" />
+    <Velocity X="1" Y="0" />
+    <IdleComponent Type="ArmorPotions.Components.MoveRandom" />
+    <DecisionComponent Type="ArmorPotions.Components.Decide" />
+    <ActionComponents>
+      <ActionComponent Name="Move" Type="ArmorPotions.Components.Move"/>
+    </ActionComponents>
+    <SpriteSheets>
+      <Sprite Texture="MaleFighter" Name="Walking">
+        <Animation Key="Down" Width="32" Height="32" FrameCount="3" xOffset="0" yOffset="0" FramesPerSecond="1" />
+        <Animation Key="Left" Width="32" Height="32" FrameCount="3" xOffset="0" yOffset="32" FramesPerSecond="1" />
+        <Animation Key="Right" Width="32" Height="32" FrameCount="3" xOffset="0" yOffset="64" FramesPerSecond="1" />
+        <Animation Key="Up" Width="32" Height="32" FrameCount="3" xOffset="0" yOffset="96" FramesPerSecond="1" />
+      </Sprite>
+    </SpriteSheets>
+  </Enemy>
+  <Enemy Name="LightBug">
+    <Texture Path="Images\Enemy" Width="32" Height="32" FrameCount="3" />
+    <Velocity X="1" Y="0" />
+    <IdleComponent Type="ArmorPotions.Components.MoveRandom" />
+    <DecisionComponent Type="ArmorPotions.Components.Decide" />
+    <ActionComponents>
+      <ActionComponent Name="Move" Type="ArmorPotions.Components.Move"/>
+    </ActionComponents>
+    <SpriteSheets>
+      <Sprite Texture="LightBugWalking" Name="Walking">
+        <Animation Key="Down" Width="128" Height="128" FrameCount="4" xOffset="0" yOffset="0" FramesPerSecond="1" />
+        <Animation Key="Left" Width="128" Height="128" FrameCount="4" xOffset="0" yOffset="128" FramesPerSecond="1" />
+        <Animation Key="Right" Width="128" Height="128" FrameCount="4" xOffset="0" yOffset="256" FramesPerSecond="1" />
+        <Animation Key="Up" Width="128" Height="128" FrameCount="4" xOffset="0" yOffset="384" FramesPerSecond="1" />
+      </Sprite>
+    </SpriteSheets>
+  </Enemy>
+</Enemies>

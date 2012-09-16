@@ -1,0 +1,4 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Items>
+  <Item Type="ArmorPotions.Items.Potion" Texture="Items\Images\Potion" Name="Super Awesome Potion"></Item>
+</Items>
