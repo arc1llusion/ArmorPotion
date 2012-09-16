@@ -6,6 +6,7 @@ using System.IO;
 using Microsoft.Xna.Framework;
 using ArmorPotionFramework.TileEngine;
 using ArmorPotions.Tiles;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace ArmorPotion.MapStuff
 {
@@ -14,6 +15,16 @@ namespace ArmorPotion.MapStuff
         public static Map Load(String mapTopLocation, String mapBottomLocation)
         {
             TileSheet tileSheet = new TileSheet("");
+            Texture2D floor_Texture;
+            Texture2D wall_Texture;
+            Texture2D door_Texture;
+            Texture2D water_Texture;
+            Texture2D lava_Texture;
+            Texture2D ice_Texture;
+            Texture2D lightSwitch_Texture;
+            Texture2D fireSwitch_Texture;
+            Texture2D iceSwitch_Texture;
+
             Map loadedMap = new Map(loadMap(mapTopLocation),loadMap(mapBottomLocation));
 
             return loadedMap;
