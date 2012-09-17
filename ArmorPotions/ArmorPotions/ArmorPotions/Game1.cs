@@ -67,7 +67,10 @@ namespace ArmorPotions
             world.CurrentDungeon = dungeonOne;
 
             //world.Enemies.Add(factory.Create("MaleFighter"));
-            world.Enemies.Add(factory.Create("LightBug"));
+            Enemy enemy = factory.Create("LightBug");
+            enemy.Position = new Vector2(400, 400);
+
+            world.Enemies.Add(enemy);
             //world.Enemies.Add(factory.Create("MaleFighter"));
 
             Item item = itemFactory.Create("Super Awesome Potion");
@@ -77,12 +80,14 @@ namespace ArmorPotions
             //lProj = new LinearProjectile(world, 5, world.Player.Position, new Vector2(300, 300));
 
             Animation animation = new Animation(1, 32, 32, 0, 0);
+            Animation animation2 = new Animation(1, 256, 256, 0, 0);
             AnimatedSprite sprite = new AnimatedSprite(Content.Load<Texture2D>(@"Items\Weapons\Fireball"), new Dictionary<AnimationKey, Animation> { { AnimationKey.Down, animation } });
+            AnimatedSprite light = new AnimatedSprite(Content.Load<Texture2D>(@"Images\Enemy\LightBugAttack"), new Dictionary<AnimationKey, Animation> { { AnimationKey.Down, animation2 } });
 
             world.Player.Inventory.TempaQuips.Add(new Gun(null, "BobsGun", sprite));
             world.Player.Inventory.SelectRelativeTempaQuip(world.Player, 0);
 
-            world.Player.Inventory.TempaQuips.Add(new Zapper(null, "BobsZappter", sprite.Clone()));
+            world.Player.Inventory.TempaQuips.Add(new Zapper(null, "BobsZapper", light));
 
             world.Player.Inventory.TempaQuips.Add(new SomeConeWeapon(null, "BobsCone", sprite.Clone()));
 

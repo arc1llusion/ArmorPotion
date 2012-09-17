@@ -30,9 +30,7 @@ namespace ArmorPotions.Items.TempaQuipItems
         {
             if (!_hasProjectile)
             {
-                Vector2 newPosition = new Vector2(activatedBy.Position.X - activatedBy.CurrentSprite.Width / 2, activatedBy.Position.Y - activatedBy.CurrentSprite.Height / 2);
-
-                AreaOfEffectProjectile projectile = new AreaOfEffectProjectile(activatedBy.World, this, newPosition, 3000);
+                AreaOfEffectProjectile projectile = new AreaOfEffectProjectile(activatedBy.World, this, CenterEntity(activatedBy), 3000);
                 projectile.AnimatedSprites.Add("Normal", AnimatedSprite);
 
                 activatedBy.World.Projectiles.Add(projectile);

@@ -13,17 +13,11 @@ namespace ArmorPotions.Items.TempaQuipItems
 {
     public class SomeConeWeapon : TempaQuip
     {
-        protected int _maxWaitTime;
-        protected int _currentWaitTime;
-
         public SomeConeWeapon(Texture2D icon, String name, AnimatedSprite sprite)
-            : base(icon, name, sprite)
+            : base(icon, name, sprite, 20)
         {
             this._allowMulti = false;
             this._hasProjectile = false;
-
-            _maxWaitTime = 100;
-            _currentWaitTime = _maxWaitTime;
         }
 
         public override void OnEquip(ArmorPotionFramework.EntityClasses.Player equippedBy)
@@ -36,9 +30,8 @@ namespace ArmorPotions.Items.TempaQuipItems
             if (_currentWaitTime < 0)
             {
                 _currentWaitTime = _maxWaitTime;
-                Vector2 newPosition = new Vector2(activatedBy.Position.X - activatedBy.CurrentSprite.Width / 2, activatedBy.Position.Y - activatedBy.CurrentSprite.Height / 2);
 
-                ConeProjectile projectile = new ConeProjectile(activatedBy.World, this, 75, newPosition, InputHandler.CurrentMousePosition, Math.PI / 4);
+                ConeProjectile projectile = new ConeProjectile(activatedBy.World, this, 75, CenterEntity(activatedBy), InputHandler.CurrentMousePosition, Math.PI / 4);
                 projectile.AnimatedSprites.Add("Normal", AnimatedSprite);
 
                 activatedBy.World.Projectiles.Add(projectile);

@@ -16,17 +16,11 @@ namespace ArmorPotions.Items.TempaQuipItems
     {
         LinearProjectile _projectile;
 
-        protected int _maxWaitTime;
-        protected int _currentWaitTime;
-
         public Gun(Texture2D icon, String name, AnimatedSprite sprite)
-            : base(icon, name, sprite)
+            : base(icon, name, sprite, 400)
         {
             this._allowMulti = true;
             this._hasProjectile = false;
-
-            _maxWaitTime = 200;
-            _currentWaitTime = _maxWaitTime;
         }
 
         public override void OnEquip(Player equippedBy)
@@ -39,9 +33,8 @@ namespace ArmorPotions.Items.TempaQuipItems
             if (_currentWaitTime < 0)
             {
                 _currentWaitTime = _maxWaitTime;
-                Vector2 newPosition = new Vector2(activatedBy.Position.X - activatedBy.CurrentSprite.Width / 2, activatedBy.Position.Y - activatedBy.CurrentSprite.Height / 2);
 
-                _projectile = new LinearProjectile(activatedBy.World, this, 75, newPosition, InputHandler.CurrentMousePosition);
+                _projectile = new LinearProjectile(activatedBy.World, this, 75, CenterEntity(activatedBy), InputHandler.CurrentMousePosition);
                 _projectile.AnimatedSprites.Add("Normal", AnimatedSprite);
 
                 activatedBy.World.Projectiles.Add(_projectile);

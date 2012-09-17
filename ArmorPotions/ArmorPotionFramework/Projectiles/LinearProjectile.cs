@@ -49,7 +49,7 @@ namespace ArmorPotionFramework.Projectiles
 
             _position.X += _velocity.X;
             _position.Y += _velocity.Y;
-
+ 
             double distance = GameMath.Distance(_startingPosition, _position);
             if (distance  > _liveDistance)
                 this._isAlive = false;

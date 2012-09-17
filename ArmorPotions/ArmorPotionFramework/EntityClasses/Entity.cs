@@ -61,6 +61,14 @@ namespace ArmorPotionFramework.EntityClasses
             }
         }
 
+        public Vector2 PositionOffset
+        {
+            get
+            {
+                return (new Vector2(_position.X - CurrentSprite.Width / 2, _position.Y - CurrentSprite.Height / 2) - World.Camera.CameraOffset);
+            }
+        }
+
         public Vector2 Velocity
         {
             get
