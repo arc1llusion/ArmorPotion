@@ -13,7 +13,6 @@ namespace ArmorPotions.Items.TempaQuipItems
 {
     public class Zapper : TempaQuip
     {
-
         public Zapper(Texture2D icon, String name, AnimatedSprite sprite)
             : base(icon, name, sprite)
         {
@@ -27,7 +26,7 @@ namespace ArmorPotions.Items.TempaQuipItems
             equippedBy.Health.Heal(ArmorPotionFramework.Characteristics.IncrementalValue.Full, 2);
         }
 
-        public override void OnActivate(ArmorPotionFramework.EntityClasses.Player activatedBy)
+        public override void OnActivate(GameTime gameTime, ArmorPotionFramework.EntityClasses.Player activatedBy)
         {
             if (!_hasProjectile)
             {

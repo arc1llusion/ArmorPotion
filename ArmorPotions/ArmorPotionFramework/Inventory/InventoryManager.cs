@@ -143,9 +143,9 @@ namespace ArmorPotionFramework.Inventory
             PermaQuips.Remove(CurrentPermaQuip);
         }
 
-        public void ActivateTempaQuip(Player player)
+        public void ActivateTempaQuip(GameTime gameTime, Player player)
         {
-            CurrentTempaQuip.OnActivate(player);
+            CurrentTempaQuip.OnActivate(gameTime, player);
         }
 
         private void ForwardIndex<T>(ref int index, List<T> list)
