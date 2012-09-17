@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using ArmorPotionFramework.TileEngine;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace ArmorPotions.Tiles
 {
     class DoorTile : Tile
     {
-        public DoorTile() : base(null)
+        public DoorTile(TileType tileType, Texture2D texture) : base(null)
         {
 
         }

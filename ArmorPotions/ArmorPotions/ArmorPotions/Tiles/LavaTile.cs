@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using ArmorPotionFramework.TileEngine;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace ArmorPotions.Tiles
 {
     class LavaTile : Tile
     {
-        public LavaTile()
+        public LavaTile(TileType tileType, Texture2D lavaTexture, Texture2D cooledLavaTexture, bool isCooled)
             : base(null)
         {
         }

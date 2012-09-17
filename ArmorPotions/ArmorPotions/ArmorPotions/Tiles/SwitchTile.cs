@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using ArmorPotionFramework.TileEngine;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace ArmorPotions.Tiles
 {
@@ -17,7 +18,7 @@ namespace ArmorPotions.Tiles
         SwitchType switchType;
         Tile linkedTile;
         bool _switchOn;
-        public SwitchTile(SwitchType setType) : base(null)
+        public SwitchTile(TileType tileType, Texture2D switchOffTexture, Texture2D switchOnTexture, SwitchType setType) : base(null)
         {
             switchType = setType;
         }
