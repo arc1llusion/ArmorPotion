@@ -8,6 +8,7 @@ Content\Tiles\CooledLavaTile.xnb
 Content\Tiles\DoorTile.xnb
 Content\Tiles\FireSwitch.xnb
 Content\Tiles\FloorTile.xnb
+Content\Tiles\IceTile.xnb
 Content\Tiles\IceSwitch.xnb
 Content\Tiles\LavaTile.xnb
 Content\Tiles\LightningSwitch.xnb
@@ -15,11 +16,10 @@ Content\Tiles\WallTile.xnb
 Content\Tiles\WaterTile.xnb
 Content\Items\Weapons\Eball.xnb
 Content\Images\Enemy\LightBugCharge.xnb
+Content\Tiles\HoleTile.xnb
+Content\Tiles\SwitchTile.xnb
+Content\Tiles\DeepWaterTile.xnb
 Content\Images\Enemy\EnemyData.xnb
 Content\Items\ItemData.xnb
 Content\Fonts\ControlFont.xnb
 Content\Sound\ChickenScream.xnb
-Content\Tiles\IceTile.xnb
-Content\Tiles\HoleTile.xnb
-Content\Tiles\SwitchTile.xnb
-Content\Tiles\DeepWaterTile.xnb

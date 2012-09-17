@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual C# Express 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArmorPotions", "ArmorPotions\ArmorPotions\ArmorPotions.csproj", "{CBC83365-B90B-44AA-939F-145DA559B935}"
 EndProject
-Project("{96E2B04D-8817-42C6-938A-82C39BA4D311}") = "ArmorPotionsContent", "ArmorPotions\ArmorPotionsContent\ArmorPotionsContent.contentproj", "{9D920FAC-4E09-444F-BF82-E6F04AF3F12F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArmorPotionsContent", "ArmorPotions\ArmorPotionsContent\ArmorPotionsContent.contentproj", "{9D920FAC-4E09-444F-BF82-E6F04AF3F12F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArmorPotionFramework", "ArmorPotionFramework\ArmorPotionFramework.csproj", "{C45C3877-E352-4EA3-81DE-ECBEE916AD71}"
 EndProject
