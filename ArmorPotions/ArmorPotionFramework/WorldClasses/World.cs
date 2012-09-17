@@ -35,10 +35,6 @@ namespace ArmorPotionFramework.WorldClasses
             _camera = new Camera(_game, 0, 0, _game.Window.ClientBounds.Width, _game.Window.ClientBounds.Height, 1);
             _game.Components.Add(new InputHandler(_game));
             _game.Components.Add(_camera);
-
-
-
-
         }
 
         public ArmorPotionsGame Game

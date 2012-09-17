@@ -11,6 +11,8 @@ using ArmorPotionFramework.Characteristics;
 using ArmorPotionFramework.Inventory;
 using ArmorPotionFramework.Input;
 using Microsoft.Xna.Framework.Input;
+using ArmorPotionFramework.TileEngine;
+using ArmorPotionFramework.Utility;
 
 
 namespace ArmorPotionFramework.EntityClasses
@@ -53,6 +55,8 @@ namespace ArmorPotionFramework.EntityClasses
             _shield = new IncrementalPair(IncrementalValue.Full, 3);
             _inventory = new InventoryManager();
             _velocity = new Vector2(3, 3);
+
+            this.XCollisionOffset = 30;
         }
 
         public IncrementalPair Health
@@ -76,28 +80,31 @@ namespace ArmorPotionFramework.EntityClasses
         {
             base.Update(gameTime);
 
+            float deltaX = 0;
+            float deltaY = 0;
+
             if (InputHandler.KeyDown(Keys.W))
             {
-                _position.Y -= _velocity.Y;
+                deltaY -= _velocity.Y;
                 CurrentSprite.CurrentAnimation = (AnimationKey)Enum.Parse(typeof(AnimationKey), "Up");
                 CurrentSprite.IsAnimating = true;
             }
             else if (InputHandler.KeyDown(Keys.S))
             {
-                _position.Y += _velocity.Y;
+                deltaY += _velocity.Y;
                 CurrentSprite.CurrentAnimation = (AnimationKey)Enum.Parse(typeof(AnimationKey), "Down");
                 CurrentSprite.IsAnimating = true;
             }
 
             if (InputHandler.KeyDown(Keys.A))
             {
-                _position.X -= _velocity.X;
+                deltaX -= _velocity.X;
                 CurrentSprite.CurrentAnimation = (AnimationKey)Enum.Parse(typeof(AnimationKey), "Left");
                 CurrentSprite.IsAnimating = true;
             }
             else if (InputHandler.KeyDown(Keys.D))
             {
-                _position.X += _velocity.X;
+                deltaX += _velocity.X;
                 CurrentSprite.CurrentAnimation = (AnimationKey)Enum.Parse(typeof(AnimationKey), "Right");
                 CurrentSprite.IsAnimating = true;
             }
@@ -117,10 +124,49 @@ namespace ArmorPotionFramework.EntityClasses
                 _inventory.ActivateTempaQuip(gameTime, this);
             }
 
+            HandleCollisions(new Vector2(deltaX, deltaY));
+
             if (InputHandler.KeyPressed(Keys.Left))
                 _inventory.SelectRelativeTempaQuip(this, -1);
             else if (InputHandler.KeyPressed(Keys.Right))
                 _inventory.SelectRelativeTempaQuip(this, 1);
+        }
+
+        private void HandleCollisions(Vector2 velocity)
+        {
+            Rectangle bounds = BoundingRectangle;
+
+            int leftTile = (int)Math.Floor((float)bounds.Left / Tile.Width);
+            int rightTile = (int)Math.Ceiling(((float)bounds.Right / Tile.Width)) - 1;
+            int topTile = (int)Math.Floor((float)bounds.Top / Tile.Height);
+            int bottomTile = (int)Math.Ceiling(((float)bounds.Bottom / Tile.Height)) - 1;
+
+            Map map = World.CurrentDungeon;
+
+            bool collided = false;
+
+            for (int y = topTile; y <= bottomTile; y++)
+            {
+                for (int x = leftTile; x <= rightTile; x++)
+                {
+                    TileInfo? tile = map.GetTile(1, x, y);
+                    if (tile.HasValue)
+                    {
+                        Rectangle tileRect = tile.Value.Bounds;
+                        Rectangle velRectangle = new Rectangle(
+                                                            bounds.X + (int)velocity.X,
+                                                            bounds.Y + (int)velocity.Y,
+                                                            bounds.Width + (int)velocity.X,
+                                                            bounds.Height + (int)velocity.Y);
+
+                                         
+                        collided = velRectangle.Intersects(tileRect);
+                    }
+                }
+            }
+
+            if (!collided)
+                _position += velocity;
         }
 
         public void Damage(IncrementalValue pair, int modifier)

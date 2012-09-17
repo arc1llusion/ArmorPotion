@@ -10,36 +10,60 @@ namespace ArmorPotionFramework.TileEngine
 {
     public class Map
     {
-
-        Tile[,] tileMapBotom = new Tile[50, 50];
-        Tile[,] tileMapTop = new Tile[50, 50];
-        World _world;
+        private List<Tile[,]> _tileMaps;
+        private int _width, _height;
+        private World _world;
 
         public Map(Tile[,] mapTop, Tile[,] mapBottom, World world)
         {
-            tileMapTop = mapTop;
-            tileMapBotom = mapBottom;
+            _tileMaps = new List<Tile[,]>();
+            _tileMaps.Add(mapBottom);
+            _tileMaps.Add(mapTop);
+
+            if (mapTop.GetLength(0) != mapBottom.GetLength(0) || mapBottom.GetLength(1) != mapTop.GetLength(1))
+                throw new Exception("Invalid map lengths.");
+
+            _width = mapTop.GetLength(0) - 1;
+            _height = mapBottom.GetLength(1) - 1;
+
             _world = world;
         }
         public void Update()
         {
         }
 
+        public TileInfo? GetTile(int layer, int tileX, int tileY)
+        {
+            if(tileX < 0 || tileY < 0 || tileX > _width || tileY > _height)
+                return null;
+
+            Tile tile = _tileMaps[layer][tileX, tileY];
+
+            if (tile == null) return null;
+
+            TileInfo info = new TileInfo(new Rectangle(
+                                            (tileX) * Tile.Width, 
+                                            (tileY) * Tile.Height, 
+                                            Tile.Width, Tile.Height), 
+                                            tile.TileType);
+
+            return info;
+        }
+
         public void Draw(GameTime gameTime, SpriteBatch spritebatch)
         {
-            for (int i = 0; i <= tileMapBotom.GetLength(1) - 1; i++)
+            for (int i = 0; i <= _width; i++)
             {
-                for (int c = 0; c <= tileMapBotom.GetLength(1) - 1; c++)
+                for (int c = 0; c <= _height; c++)
                 {
-                    if (tileMapBotom[c, i] != null)
+                    if (_tileMaps[0][c, i] != null)
                     {
-                        spritebatch.Draw(tileMapBotom[c, i].Texture, tileMapBotom[c, i].Position - _world.Camera.CameraOffset, null, Color.White, 0f, Vector2.Zero, _world.Camera.Scale, SpriteEffects.None, 1f);
+                        spritebatch.Draw(_tileMaps[0][c, i].Texture, new Vector2(i * Tile.Width, c * Tile.Height) - _world.Camera.CameraOffset, null, Color.White, 0f, Vector2.Zero, _world.Camera.Scale, SpriteEffects.None, 0f);
                     }
-                    if (tileMapTop[c, i] != null)
+                    if (_tileMaps[1][c, i] != null)
                     {
-                        spritebatch.Draw(tileMapTop[c, i].Texture, tileMapTop[c, i].Position - _world.Camera.CameraOffset, null, Color.White, 0f, Vector2.Zero, _world.Camera.Scale, SpriteEffects.None, 1f);
-                    }
-                    
+                        spritebatch.Draw(_tileMaps[1][c, i].Texture, new Vector2(i * Tile.Width, c * Tile.Height) - _world.Camera.CameraOffset, null, Color.White, 0f, Vector2.Zero, _world.Camera.Scale, SpriteEffects.None, 0f);
+                    }                    
                 }
             }
         }

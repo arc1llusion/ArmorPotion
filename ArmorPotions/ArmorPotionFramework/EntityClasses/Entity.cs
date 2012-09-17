@@ -20,11 +20,13 @@ namespace ArmorPotionFramework.EntityClasses
 
         protected Vector2 _xVelocityLimit;
         protected Vector2 _yVelocityLimit;
-
         private Texture2D _entityTexture;
 
         private Dictionary<String, AnimatedSprite> _animatedSprite;
         private String _currentSpriteKey;
+
+        private int _xCollisionOffset;
+        private int _yCollisionOffset;
 
         public Entity(World world)
         {
@@ -35,46 +37,43 @@ namespace ArmorPotionFramework.EntityClasses
 
             _animatedSprite = new Dictionary<String, AnimatedSprite>();
             _currentSpriteKey = String.Empty;
+
+            _xCollisionOffset = 0;
+            _yCollisionOffset = 0;
         }
 
         public World World
         {
-            get
-            {
-                return this._world;
-            }
-            internal set
-            {
-                this._world = World;
-            }
+            get { return this._world; }
+            internal set { this._world = World; }
         }
 
         public Vector2 Position
         {
-            get
-            {
-                return this._position;
-            }
-            set
-            {
-                this._position = value;
-            }
+            get { return this._position; }
+            set { this._position = value; }
         }
 
         public Vector2 PositionOffset
         {
-            get
-            {
-                return (new Vector2(_position.X - CurrentSprite.Width / 2, _position.Y - CurrentSprite.Height / 2) - World.Camera.CameraOffset);
-            }
+            get { return (new Vector2(_position.X, _position.Y) - World.Camera.CameraOffset); }
+        }
+
+        public int XCollisionOffset
+        {
+            get { return this._xCollisionOffset; }
+            set { this._xCollisionOffset = value; }
+        }
+
+        public int YCollisionOffset
+        {
+            get { return this._yCollisionOffset; }
+            set { this._yCollisionOffset = value; }
         }
 
         public Vector2 Velocity
         {
-            get
-            {
-                return this._velocity;
-            }
+            get { return this._velocity; }
             set
             {
                 this._velocity.X = MathHelper.Clamp(value.X, _xVelocityLimit.X, _xVelocityLimit.Y);
@@ -84,27 +83,15 @@ namespace ArmorPotionFramework.EntityClasses
 
         public virtual Texture2D Texture
         {
-            get
-            {
-                return this._entityTexture;
-            }
-            set
-            {
-                this._entityTexture = value;
-            }
+            get { return this._entityTexture; }
+            set { this._entityTexture = value; }
         }
 
         public Dictionary<String, AnimatedSprite> AnimatedSprites
         {
-            get
-            {
-                return this._animatedSprite;
-            }
+            get { return this._animatedSprite; }
 
-            protected internal set
-            {
-                this._animatedSprite = value;
-            }
+            protected internal set { this._animatedSprite = value; }
         }
 
         public String CurrentSpriteKey
@@ -127,21 +114,18 @@ namespace ArmorPotionFramework.EntityClasses
 
         public AnimatedSprite CurrentSprite
         {
-            get
-            {
-                return this._animatedSprite[CurrentSpriteKey];
-            }
+            get { return this._animatedSprite[CurrentSpriteKey]; }
         }
 
         public Rectangle BoundingRectangle
         {
             get
             {
-                return new Rectangle( 
-                    (int)Math.Ceiling(_position.X), 
-                    (int)Math.Ceiling(_position.Y), 
-                    CurrentSprite.Width, 
-                    CurrentSprite.Height);
+                return new Rectangle(
+                    (int)Math.Ceiling(_position.X) + _xCollisionOffset,
+                    (int)Math.Ceiling(_position.Y) + _yCollisionOffset,
+                    CurrentSprite.Width - _xCollisionOffset,
+                    CurrentSprite.Height - _yCollisionOffset);
             }
         }
 
