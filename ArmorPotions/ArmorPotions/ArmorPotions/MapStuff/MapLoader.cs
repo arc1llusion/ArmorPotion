@@ -7,30 +7,42 @@ using Microsoft.Xna.Framework;
 using ArmorPotionFramework.TileEngine;
 using ArmorPotions.Tiles;
 using Microsoft.Xna.Framework.Graphics;
+using ArmorPotionFramework.WorldClasses;
 
 namespace ArmorPotion.MapStuff
 {
     static class MapLoader
     {
-        public static Map Load(String mapTopLocation, String mapBottomLocation)
+        public static Map Load(String mapTopLocation, String mapBottomLocation, World world)
         {
-            TileSheet tileSheet = new TileSheet("");
-            Texture2D floor_Texture;
-            Texture2D wall_Texture;
-            Texture2D door_Texture;
-            Texture2D water_Texture;
-            Texture2D lava_Texture;
-            Texture2D ice_Texture;
-            Texture2D lightSwitch_Texture;
-            Texture2D fireSwitch_Texture;
-            Texture2D iceSwitch_Texture;
+            Dictionary<int, Texture2D> textureDictionary = new Dictionary<int,Texture2D>();
 
-            Map loadedMap = new Map(loadMap(mapTopLocation),loadMap(mapBottomLocation));
+
+            textureDictionary.Add(01, world.Game.Content.Load<Texture2D>(@"Tiles\FloorTile"));
+            textureDictionary.Add(02, world.Game.Content.Load<Texture2D>(@"Tiles\WallTile"));
+            textureDictionary.Add(03, world.Game.Content.Load<Texture2D>(@"Tiles\DoorTile"));
+            textureDictionary.Add(04, world.Game.Content.Load<Texture2D>(@"Tiles\SwitchTile"));
+            textureDictionary.Add(05, world.Game.Content.Load<Texture2D>(@"Tiles\HoleTile"));
+            textureDictionary.Add(06, world.Game.Content.Load<Texture2D>(@"Tiles\WaterTile"));
+            textureDictionary.Add(07, world.Game.Content.Load<Texture2D>(@"Tiles\LavaTile"));
+            textureDictionary.Add(08, world.Game.Content.Load<Texture2D>(@"Tiles\CooledLavaTile"));
+            textureDictionary.Add(09, world.Game.Content.Load<Texture2D>(@"Tiles\IceTile"));
+            textureDictionary.Add(10, world.Game.Content.Load<Texture2D>(@"Tiles\DeepWaterTile"));
+            textureDictionary.Add(11, world.Game.Content.Load<Texture2D>(@"Tiles\LightningSwitch"));
+            textureDictionary.Add(12, world.Game.Content.Load<Texture2D>(@"Tiles\FireSwitch"));
+            textureDictionary.Add(13, world.Game.Content.Load<Texture2D>(@"Tiles\IceSwitch"));
+
+            Texture2D[] tileTextureArray = new Texture2D[9];
+
+
+
+
+            Map loadedMap = new Map(loadMap(mapTopLocation, textureDictionary), loadMap(mapBottomLocation, textureDictionary));
 
             return loadedMap;
         }
 
-        public static Tile[,] loadMap(String fileLoaction)
+        public static Tile[,] loadMap(String fileLoaction, Dictionary<int, Texture2D> textureDict)
         {
             Tile[,] map = new Tile[50, 50];
           
@@ -47,47 +59,48 @@ namespace ArmorPotion.MapStuff
                         String[] tempArray = temp.Split('|');
                         for (int c = 0; c <= numCells - 1; c++)
                         {
-                            int tileNum = int.Parse(tempArray[c].Substring(0,2));
-                            switch (tileNum)
+                            int tileID = int.Parse(tempArray[c].Substring(0, 2));
+                            int imageID = int.Parse(tempArray[c].Substring(2, 2));
+                            switch (tileID)
                             {
                                 case 0:
-                                   map[i,c] = null;
+                                   map[c,i] = null;
                                    break;
                                 case 1:
-                                   map[i, c] = new FloorTile();
+                                   map[c, i] = new FloorTile();
                                    break;
                                 case 2:
-                                   map[i, c] = new WallTile();
+                                   map[c, i] = new WallTile();
                                    break;
                                 case 3:
-                                   map[i, c] = new FloorTile();
+                                   map[c, i] = new DoorTile();
                                    break;
                                 case 4:
-                                   map[i, c] = new FloorTile();
+                                   map[c, i] = new LavaTile();
                                    break;
                                 case 5:
-                                   map[i, c] = new FloorTile();
+                                   map[c, i] = new WaterTile(TileType.Passable, textureDict[6], textureDict[9], false);
                                    break;
                                 case 6:
-                                   map[i, c] = new FloorTile();
+                                   map[c, i] = new FloorTile();
                                    break;
                                 case 7:
-                                   map[i, c] = new FloorTile();
+                                   map[c, i] = new FloorTile();
                                    break;
                                 case 8:
-                                   map[i, c] = new FloorTile();
+                                   map[c, i] = new WaterTile(TileType.Passable, textureDict[6], textureDict[9], true);
                                    break;
                                 case 9:
-                                   map[i, c] = new FloorTile();
+                                   map[c, i] = new FloorTile();
                                    break;
                                 case 10:
-                                   map[i, c] = new FloorTile();
+                                   map[c, i] = new FloorTile();
                                    break;
                                 case 11:
-                                   map[i, c] = new FloorTile();
+                                   map[c, i] = new FloorTile();
                                    break;
                                 case 12:
-                                   map[i, c] = new FloorTile();
+                                   map[c, i] = new FloorTile();
                                    break;
                             }
 

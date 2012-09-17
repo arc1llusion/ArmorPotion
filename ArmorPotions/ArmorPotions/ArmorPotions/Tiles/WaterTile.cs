@@ -12,7 +12,7 @@ namespace ArmorPotions.Tiles
         bool _isDeep;
         bool _isFrozen;
 
-        public WaterTile(TileType tileType, Texture2D texture) : base(null)
+        public WaterTile(TileType tileType, Texture2D waterTexture, Texture2D iceTexture, bool isFrozen) : base(null)
         {
         }
 
