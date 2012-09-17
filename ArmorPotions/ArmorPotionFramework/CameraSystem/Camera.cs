@@ -84,7 +84,15 @@ namespace ArmorPotionFramework.CameraSystem
             }
         }
 
-        public Vector2 cameraCenter
+        public Vector2 CameraOffset
+        {
+            get
+            {
+                return new Vector2(_cameraX, _cameraY);
+            }
+        }
+
+        public Vector2 CameraCenter
         {
             get
             {

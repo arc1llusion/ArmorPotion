@@ -57,7 +57,7 @@ namespace ArmorPotionFramework.Projectiles
 
         public override void Draw(GameTime gameTime, Microsoft.Xna.Framework.Graphics.SpriteBatch spriteBatch)
         {
-            CurrentSprite.Draw(gameTime, spriteBatch, _position, World.Camera);
+            CurrentSprite.Draw(gameTime, spriteBatch, _position - World.Camera.CameraOffset, World.Camera);
         }
     }
 }

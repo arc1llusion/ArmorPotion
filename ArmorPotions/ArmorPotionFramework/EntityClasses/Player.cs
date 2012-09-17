@@ -140,7 +140,7 @@ namespace ArmorPotionFramework.EntityClasses
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            CurrentSprite.Draw(gameTime, spriteBatch, Position, World.Camera);
+            CurrentSprite.Draw(gameTime, spriteBatch, new Vector2(Position.X - CurrentSprite.Width / 2, Position.Y - CurrentSprite.Height / 2) - World.Camera.CameraOffset, World.Camera);
             spriteBatch.DrawString(World.Game.Content.Load<SpriteFont>(@"Fonts\ControlFont"), "Player Health: " + _health.CurrentValue, new Vector2(500, 10), Color.Black);
             spriteBatch.DrawString(World.Game.Content.Load<SpriteFont>(@"Fonts\ControlFont"), "Player Shield: " + _shield.CurrentValue, new Vector2(500, 50), Color.Black);
         }

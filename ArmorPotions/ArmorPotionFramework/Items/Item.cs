@@ -107,14 +107,25 @@ namespace ArmorPotionFramework.Items
 
         public abstract void CollectedBy(Player player);
 
-        public void Draw(SpriteBatch spriteBatch)
+        public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             
         }
 
-        public void DrawIcon(SpriteBatch spriteBatch)
+        public void DrawIcon(GameTime gameTime, SpriteBatch spriteBatch)
         {
             if (_icon != null) spriteBatch.Draw(_icon, _position, Color.White);
+        }
+
+        /// <summary>
+        /// Use when taking camera into account. Otherwise, the icon is part of the inventory screen without need for camera
+        /// </summary>
+        /// <param name="gameTime">The gameTime needed</param>
+        /// <param name="spriteBatch">spritebatch to perform draw</param>
+        /// <param name="cameraOffset">The camera offset to consider</param>
+        public void DrawIcon(GameTime gameTime, SpriteBatch spriteBatch, Vector2 cameraOffset)
+        {
+            if (_icon != null) spriteBatch.Draw(_icon, _position - cameraOffset, Color.White);
         }
     }
 }

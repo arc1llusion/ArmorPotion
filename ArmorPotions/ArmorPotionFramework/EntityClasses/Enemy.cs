@@ -128,7 +128,7 @@ namespace ArmorPotionFramework.EntityClasses
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            CurrentSprite.Draw(gameTime, spriteBatch, Position, World.Camera);
+            CurrentSprite.Draw(gameTime, spriteBatch, new Vector2(Position.X - CurrentSprite.Width / 2, Position.Y - CurrentSprite.Height / 2) - World.Camera.CameraOffset, World.Camera);
         }
 
         public void ActionComplete()

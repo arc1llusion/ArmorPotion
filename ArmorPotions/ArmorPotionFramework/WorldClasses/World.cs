@@ -28,6 +28,7 @@ namespace ArmorPotionFramework.WorldClasses
             _enemies = new List<Enemy>();
             _projectiles = new List<Projectile>();
             _player = new Player(this, _game.Content.Load<Texture2D>(@"Player\PlayerWalking"));
+            _player.Position = new Vector2(1, 1);
 
             _camera = new Camera(_game, 0, 0, _game.Window.ClientBounds.Width, _game.Window.ClientBounds.Height, 1);
             _game.Components.Add(new InputHandler(_game));
@@ -80,6 +81,8 @@ namespace ArmorPotionFramework.WorldClasses
 
         public void Update(GameTime gameTime)
         {
+            Camera.CameraCenter = _player.Position;
+
             _enemies.ForEach(enemy => enemy.Update(gameTime));
 
             UpdateProjectiles(gameTime);
@@ -100,7 +103,7 @@ namespace ArmorPotionFramework.WorldClasses
             DrawProjectiles(gameTime, spriteBatch);
             _enemies.ForEach(enemy => enemy.Draw(gameTime, spriteBatch));
             _player.Draw(gameTime, spriteBatch);
-            if(item != null) item.DrawIcon(spriteBatch);
+            if(item != null) item.DrawIcon(gameTime, spriteBatch, Camera.CameraOffset);
         }
 
         #region Helper Methods
