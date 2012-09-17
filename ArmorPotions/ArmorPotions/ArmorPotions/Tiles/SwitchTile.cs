@@ -18,7 +18,8 @@ namespace ArmorPotions.Tiles
         SwitchType switchType;
         Tile linkedTile;
         bool _switchOn;
-        public SwitchTile(TileType tileType, Texture2D switchOffTexture, Texture2D switchOnTexture, SwitchType setType) : base(null)
+        public SwitchTile(TileType tileType, Texture2D switchOffTexture, Texture2D switchOnTexture, SwitchType setType)
+            : base(tileType, switchOffTexture)
         {
             switchType = setType;
         }

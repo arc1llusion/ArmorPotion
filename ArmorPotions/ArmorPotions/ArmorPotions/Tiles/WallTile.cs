@@ -9,7 +9,8 @@ namespace ArmorPotions.Tiles
 {
     class WallTile : Tile
     {
-        public WallTile(TileType tileType, Texture2D texture) : base(null)
+        public WallTile(TileType tileType, Texture2D texture)
+            : base(tileType, texture)
         {
         }
 

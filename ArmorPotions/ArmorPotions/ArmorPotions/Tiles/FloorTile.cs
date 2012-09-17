@@ -10,7 +10,7 @@ namespace ArmorPotions.Tiles
     class FloorTile : Tile
     {
         public FloorTile(TileType tileType, Texture2D texture)
-            : base(null)
+            : base(tileType, texture)
         {
 
         }

@@ -10,6 +10,7 @@ using ArmorPotionFramework.Items;
 using ArmorPotionFramework.Input;
 using ArmorPotionFramework.CameraSystem;
 using ArmorPotionFramework.Projectiles;
+using ArmorPotionFramework.TileEngine;
 
 namespace ArmorPotionFramework.WorldClasses
 {
@@ -21,6 +22,7 @@ namespace ArmorPotionFramework.WorldClasses
         private Camera _camera;
         private List<Enemy> _enemies;
         private List<Projectile> _projectiles;
+        private Map currentDungeon;
 
         public World(ArmorPotionsGame game)
         {
@@ -33,6 +35,10 @@ namespace ArmorPotionFramework.WorldClasses
             _camera = new Camera(_game, 0, 0, _game.Window.ClientBounds.Width, _game.Window.ClientBounds.Height, 1);
             _game.Components.Add(new InputHandler(_game));
             _game.Components.Add(_camera);
+
+
+
+
         }
 
         public ArmorPotionsGame Game
@@ -79,6 +85,17 @@ namespace ArmorPotionFramework.WorldClasses
             }
         }
 
+        public Map CurrentDungeon
+        {
+            get
+            {
+                return currentDungeon;
+            }
+            set{
+                currentDungeon = value;
+            }
+        }
+
         public void Update(GameTime gameTime)
         {
             Camera.CameraCenter = _player.Position;
@@ -100,6 +117,7 @@ namespace ArmorPotionFramework.WorldClasses
 
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
+            DrawMap(gameTime, spriteBatch);
             DrawProjectiles(gameTime, spriteBatch);
             _enemies.ForEach(enemy => enemy.Draw(gameTime, spriteBatch));
             _player.Draw(gameTime, spriteBatch);
@@ -132,6 +150,10 @@ namespace ArmorPotionFramework.WorldClasses
             {
                 _projectiles[i].Draw(gameTime, spriteBatch);
             }
+        }
+        public void DrawMap(GameTime gameTime, SpriteBatch spritebatch)
+        {
+            currentDungeon.Draw(gameTime, spritebatch);
         }
 
         #endregion

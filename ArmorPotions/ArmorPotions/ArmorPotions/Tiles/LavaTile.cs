@@ -10,7 +10,7 @@ namespace ArmorPotions.Tiles
     class LavaTile : Tile
     {
         public LavaTile(TileType tileType, Texture2D lavaTexture, Texture2D cooledLavaTexture, bool isCooled)
-            : base(null)
+            : base(tileType, lavaTexture)
         {
         }
         bool _isCooled;

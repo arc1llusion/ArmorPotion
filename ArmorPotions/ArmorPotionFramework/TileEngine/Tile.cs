@@ -11,7 +11,7 @@ namespace ArmorPotionFramework.TileEngine
     public abstract class Tile
     {
         String tileName = "";
-        Vector2 _renderLocation;
+        Vector2 _location;
         Vector2 _tileSize;
         Texture2D _texture;
         Animation standingAnimation;
@@ -19,25 +19,24 @@ namespace ArmorPotionFramework.TileEngine
         public bool _isHidden;
         Rectangle _tileRect;
 
-        public Tile(TileType type, Texture2D texture, Vector2 location, Vector2 size)
+        public Tile(TileType type, Texture2D texture)
         {
             _tileType = type;
             _texture = texture;
-            _tileSize = size;
-            _renderLocation = location; 
         }
         public Tile(Animation animation)
         {
         }
-
         public abstract void onEvent(EventType sendEvent);
-
-        public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
+        public Texture2D Texture
         {
-            //spriteBatch.Draw(_texture, _renderLocation, null, Color.White, 0.0f, new Vector2(0, 0), SpriteEffects.None, 1);
-
+            get { return _texture; }
+            set { _texture = value; }
         }
-
-
+        public Vector2 Position
+        {
+            get { return _location; }
+            set { _location = value; }
+        }
     }
 }

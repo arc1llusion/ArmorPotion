@@ -20,6 +20,8 @@ using ArmorPotions.Factories;
 using ArmorPotionFramework.Items;
 using ArmorPotionFramework.Projectiles;
 using ArmorPotions.Items.TempaQuipItems;
+using ArmorPotionFramework.TileEngine;
+using ArmorPotion.MapStuff;
 
 namespace ArmorPotions
 {
@@ -59,9 +61,10 @@ namespace ArmorPotions
             SpriteBatch = new SpriteBatch(GraphicsDevice);
 
             world = new World(this);
-
             EnemyFactory factory = new EnemyFactory(world, @"Images\Enemy");
             ItemFactory itemFactory = new ItemFactory(world, @"Items");
+            Map dungeonOne = MapLoader.Load("Content/Maps/DungeonOne_top.txt", "Content/Maps/DungeonOne_bottom.txt", world);
+            world.CurrentDungeon = dungeonOne;
 
             //world.Enemies.Add(factory.Create("MaleFighter"));
             world.Enemies.Add(factory.Create("LightBug"));

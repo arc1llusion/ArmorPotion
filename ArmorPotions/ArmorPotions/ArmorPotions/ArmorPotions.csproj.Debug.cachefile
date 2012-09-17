@@ -24,3 +24,5 @@ Content\Images\Enemy\EnemyData.xnb
 Content\Items\ItemData.xnb
 Content\Fonts\ControlFont.xnb
 Content\Sound\ChickenScream.xnb
+Content\Maps\DungeonOne_bottom.txt
+Content\Maps\DungeonOne_top.txt
