@@ -94,6 +94,14 @@ namespace ArmorPotionFramework.Items
             }
         }
 
+        public String Name
+        {
+            get
+            {
+                return this._name;
+            }
+        }
+
         public bool HasProjectile
         {
             get { return this._hasProjectile; }
