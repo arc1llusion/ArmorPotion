@@ -16,12 +16,14 @@ namespace ArmorPotions.Tiles
     public class SwitchTile : Tile
     {
         SwitchType switchType;
-        Tile linkedTile;
+        Dictionary<EventType, List<Tile>> linkedTileDict;
+        String unparsedCoordinateString;
         bool _switchOn;
-        public SwitchTile(TileType tileType, Texture2D switchOffTexture, Texture2D switchOnTexture, SwitchType setType)
-            : base(tileType, switchOffTexture)
+        public SwitchTile(TileType tileType, int tileID, Texture2D switchOffTexture, Texture2D switchOnTexture, SwitchType setType, String linkedTileString)
+            : base(tileType, tileID, switchOffTexture)
         {
             switchType = setType;
+            unparsedCoordinateString = linkedTileString;
         }
 
         public override void onEvent(EventType sendEvent)
@@ -51,8 +53,37 @@ namespace ArmorPotions.Tiles
 
             if (_switchOn)
             {
-                linkedTile.onEvent(EventType.DoorTrigger);
+                foreach (EventType type in linkedTileDict.Keys)
+                {
+                    foreach (Tile tile in linkedTileDict[type])
+                    {
+                        tile.onEvent(type);
+                    }
+                }
             }
         }
+
+        public void addTile(EventType typeToTrigger, Tile tileToBeAdded)
+        {
+            if(linkedTileDict[typeToTrigger] == null){
+                linkedTileDict.Add(typeToTrigger, new List<Tile>());
+            }
+
+            linkedTileDict[typeToTrigger].Add(tileToBeAdded);
+        }
+
+        public void parseOneselfAndAddThineSelfToThouDictionaryOfLinkedTileObjects_Cheers(Tile[,] mapOfTiles)
+        {
+            for (int i = 0; i <= mapOfTiles.GetLength(0) - 1; i++)
+            {
+                for (int c = 0; c <= mapOfTiles.GetLength(1) - 1; c++)
+                {
+
+                }
+            }
+
+        }
+
+
     }
 }

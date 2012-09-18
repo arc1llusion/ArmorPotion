@@ -67,5 +67,12 @@ namespace ArmorPotionFramework.TileEngine
                 }
             }
         }
+
+
+
+        public Tile[,] getMapLevel(int levelNum)
+        {
+            return _tileMaps[levelNum];
+        }
     }
 }

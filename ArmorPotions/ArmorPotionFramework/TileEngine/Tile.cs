@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using ArmorPotionFramework.SpriteClasses;
+using System;
 
 namespace ArmorPotionFramework.TileEngine
 {
@@ -31,6 +30,7 @@ namespace ArmorPotionFramework.TileEngine
 
         #region private/protected fields
 
+        private int _tileID;
         private String _tileName;
         private Vector2 _location;
         private Vector2 _tileSize;
@@ -50,6 +50,13 @@ namespace ArmorPotionFramework.TileEngine
             set { _texture = value; }
         }
 
+        public int TileID
+        {
+            get { return _tileID; }
+            set { _tileID = value; }
+        }
+
+
         public Vector2 Position
         {
             get { return _location; }
@@ -66,11 +73,12 @@ namespace ArmorPotionFramework.TileEngine
 
         #region Constructors
 
-        public Tile(TileType type, Texture2D texture)
+        public Tile(TileType type, int tileID, Texture2D texture)
         {
             _tileType = type;
             _texture = texture;
             _tileName = String.Empty;
+            _tileID = tileID;
         }
         public Tile(Animation animation)
         {
