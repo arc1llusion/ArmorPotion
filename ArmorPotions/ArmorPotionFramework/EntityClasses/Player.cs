@@ -150,7 +150,7 @@ namespace ArmorPotionFramework.EntityClasses
                 for (int x = leftTile; x <= rightTile; x++)
                 {
                     TileInfo? tile = map.GetTile(1, x, y);
-                    if (tile.HasValue)
+                    if (tile.HasValue && tile.Value.Tile.TileType != TileType.Passable)
                     {
                         Rectangle tileRect = tile.Value.Bounds;
                         Rectangle velRectangle = new Rectangle(

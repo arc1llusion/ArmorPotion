@@ -11,6 +11,8 @@ using ArmorPotionFramework.Input;
 using ArmorPotionFramework.CameraSystem;
 using ArmorPotionFramework.Projectiles;
 using ArmorPotionFramework.TileEngine;
+using ArmorPotionFramework.Loading;
+using ArmorPotionFramework.EntityClasses.Data;
 
 namespace ArmorPotionFramework.WorldClasses
 {
@@ -23,6 +25,8 @@ namespace ArmorPotionFramework.WorldClasses
         private List<Enemy> _enemies;
         private List<Projectile> _projectiles;
         private Map currentDungeon;
+
+        private Factory<Enemy, EnemyData> _enemyFactory;
 
         public World(ArmorPotionsGame game)
         {
@@ -89,6 +93,18 @@ namespace ArmorPotionFramework.WorldClasses
             }
             set{
                 currentDungeon = value;
+            }
+        }
+
+        public Factory<Enemy, EnemyData> EnemyFactory
+        {
+            get
+            {
+                return _enemyFactory;
+            }
+            set
+            {
+                this._enemyFactory = value;
             }
         }
 

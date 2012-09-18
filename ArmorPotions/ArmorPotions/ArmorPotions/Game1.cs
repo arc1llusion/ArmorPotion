@@ -58,29 +58,26 @@ namespace ArmorPotions
         protected override void LoadContent()
         {
             // Create a new SpriteBatch, which can be used to draw textures.
-            SpriteBatch = new SpriteBatch(GraphicsDevice);
-
+            SpriteBatch = new SpriteBatch(GraphicsDevice);            
             world = new World(this);
-            EnemyFactory factory = new EnemyFactory(world, @"Images\Enemy");
+
             ItemFactory itemFactory = new ItemFactory(world, @"Items");
             Map dungeonOne = MapLoader.Load("Content/Maps/DungeonOne_top.txt", "Content/Maps/DungeonOne_bottom.txt", world);
             world.CurrentDungeon = dungeonOne;
+            EnemyFactory factory = new EnemyFactory(world, @"Images\Enemy");
+            world.EnemyFactory = factory;
 
-            //world.Enemies.Add(factory.Create("MaleFighter"));
-            Enemy enemy = factory.Create("LightBug");
+            Enemy enemy = world.EnemyFactory.Create("LightBug");
             enemy.Position = new Vector2(400, 400);
-
             world.Enemies.Add(enemy);
-            //world.Enemies.Add(factory.Create("MaleFighter"));
 
             Item item = itemFactory.Create("Super Awesome Potion");
             item.Position = new Vector2(70, 70);
-
             world.item = item;
-            //lProj = new LinearProjectile(world, 5, world.Player.Position, new Vector2(300, 300));
 
             Animation animation = new Animation(1, 32, 32, 0, 0);
             Animation animation2 = new Animation(1, 256, 256, 0, 0);
+
             AnimatedSprite sprite = new AnimatedSprite(Content.Load<Texture2D>(@"Items\Weapons\Fireball"), new Dictionary<AnimationKey, Animation> { { AnimationKey.Down, animation } });
             AnimatedSprite light = new AnimatedSprite(Content.Load<Texture2D>(@"Images\Enemy\LightBugAttack"), new Dictionary<AnimationKey, Animation> { { AnimationKey.Down, animation2 } });
 
@@ -90,8 +87,6 @@ namespace ArmorPotions
             world.Player.Inventory.TempaQuips.Add(new Zapper(null, "BobsZapper", light));
 
             world.Player.Inventory.TempaQuips.Add(new SomeConeWeapon(null, "BobsCone", sprite.Clone()));
-
-            //lProj.AnimatedSprites.Add("Normal", sprite);
         }
 
         /// <summary>

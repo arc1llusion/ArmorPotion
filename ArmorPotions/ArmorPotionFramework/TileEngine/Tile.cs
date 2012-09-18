@@ -11,12 +11,12 @@ namespace ArmorPotionFramework.TileEngine
     public struct TileInfo
     {
         public Rectangle Bounds;
-        public TileType TileType;
+        public Tile Tile;
 
-        public TileInfo(Rectangle bounds, TileType type)
+        public TileInfo(Rectangle bounds, Tile tile)
         {
             Bounds = bounds;
-            TileType = type;
+            Tile = tile;
         }
     }
 
