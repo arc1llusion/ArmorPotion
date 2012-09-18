@@ -14,6 +14,7 @@ namespace ArmorPotions.Components
     {
         private float randomWalkDistance = 50;
         private float currentWalkDistance = 0;
+        private Vector2 velocity = Vector2.Zero;
 
         public void Update(GameTime gameTime, Enemy enemy)
         {
@@ -25,27 +26,34 @@ namespace ArmorPotions.Components
                 switch (r)
                 {
                     case 0:
-                        enemy.Velocity = new Vector2(1, 0);
+                        velocity = new Vector2(1, 0);
                         enemy.CurrentSprite.CurrentAnimation = AnimationKey.Right;
                         break;
                     case 1:
-                        enemy.Velocity = new Vector2(-1, 0);
+                        velocity = new Vector2(-1, 0);
                         enemy.CurrentSprite.CurrentAnimation = AnimationKey.Left;
                         break;
                     case 2:
-                        enemy.Velocity = new Vector2(0, 1);
+                        velocity = new Vector2(0, 1);
                         enemy.CurrentSprite.CurrentAnimation = AnimationKey.Down;
                         break;
                     case 3:
-                        enemy.Velocity = new Vector2(0, -1);
+                        velocity = new Vector2(0, -1);
                         enemy.CurrentSprite.CurrentAnimation = AnimationKey.Up;
                         break;
                 }
             }
             else
             {
-                enemy.Position = enemy.Position + enemy.Velocity;
-                currentWalkDistance -= Math.Abs((enemy.Velocity.X + enemy.Velocity.Y) / 2);
+                if (!enemy.HandleCollisions(velocity).IsColliding)
+                {
+                    enemy.Position = enemy.Position + velocity;
+                    currentWalkDistance -= Math.Abs((velocity.X + velocity.Y) / 2);
+                }
+                else
+                {
+                    currentWalkDistance = 0;
+                }
 
                 if (enemy.HasPlayerInSight)
                     enemy.ActionComplete();
@@ -54,7 +62,6 @@ namespace ArmorPotions.Components
 
         public void SetUp(Enemy enemy)
         {
-            throw new NotImplementedException();
         }
     }
 }

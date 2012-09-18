@@ -1,18 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
+
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
+
 using ArmorPotionFramework.SpriteClasses;
-using ArmorPotionFramework.Game;
 using ArmorPotionFramework.WorldClasses;
 using ArmorPotionFramework.Characteristics;
 using ArmorPotionFramework.Inventory;
 using ArmorPotionFramework.Input;
-using Microsoft.Xna.Framework.Input;
-using ArmorPotionFramework.TileEngine;
 using ArmorPotionFramework.Utility;
+using ArmorPotionFramework.Data;
 
 
 namespace ArmorPotionFramework.EntityClasses
@@ -57,6 +55,7 @@ namespace ArmorPotionFramework.EntityClasses
             _velocity = new Vector2(3, 3);
 
             this.XCollisionOffset = 30;
+            this.TopCollisionOffset = (int)(CurrentSprite.Height / 2);
         }
 
         public IncrementalPair Health
@@ -124,49 +123,22 @@ namespace ArmorPotionFramework.EntityClasses
                 _inventory.ActivateTempaQuip(gameTime, this);
             }
 
-            HandleCollisions(new Vector2(deltaX, deltaY));
+            Vector2 currentVelocity = new Vector2(deltaX, deltaY);
+            CollisionData collisionData = HandleCollisions(currentVelocity);
+
+            if(!collisionData.IsXAxisColliding) {
+                _position.X += currentVelocity.X;
+            }
+
+            if (!collisionData.IsYAxisColliding)
+            {
+                _position.Y += currentVelocity.Y;
+            }
 
             if (InputHandler.KeyPressed(Keys.Left))
                 _inventory.SelectRelativeTempaQuip(this, -1);
             else if (InputHandler.KeyPressed(Keys.Right))
                 _inventory.SelectRelativeTempaQuip(this, 1);
-        }
-
-        private void HandleCollisions(Vector2 velocity)
-        {
-            Rectangle bounds = BoundingRectangle;
-
-            int leftTile = (int)Math.Floor(((float)bounds.Left + velocity.X) / Tile.Width);
-            int rightTile = (int)Math.Ceiling((((float)bounds.Right + velocity.X) / Tile.Width)) - 1;
-            int topTile = (int)Math.Floor(((float)bounds.Top + velocity.Y) / Tile.Height);
-            int bottomTile = (int)Math.Ceiling((((float)bounds.Bottom  + velocity.Y) / Tile.Height)) - 1;
-
-            Map map = World.CurrentDungeon;
-
-            bool collided = false;
-
-            for (int y = topTile; y <= bottomTile; y++)
-            {
-                for (int x = leftTile; x <= rightTile; x++)
-                {
-                    TileInfo? tile = map.GetTile(1, x, y);
-                    if (tile.HasValue && tile.Value.Tile.TileType != TileType.Passable)
-                    {
-                        Rectangle tileRect = tile.Value.Bounds;
-                        Rectangle velRectangle = new Rectangle(
-                                                            bounds.X + (int)velocity.X,
-                                                            bounds.Y + (int)velocity.Y,
-                                                            bounds.Width,
-                                                            bounds.Height);
-
-                                         
-                        collided = velRectangle.Intersects(tileRect);
-                    }
-                }
-            }
-
-            if (!collided)
-                _position += velocity;
         }
 
         public void Damage(IncrementalValue pair, int modifier)

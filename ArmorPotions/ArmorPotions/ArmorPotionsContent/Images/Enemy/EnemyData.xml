@@ -25,6 +25,7 @@
     <ActionComponents>
       <ActionComponent Name="AoEDrop" Type="ArmorPotions.Components.AoEDrop" Wait="1000" LifeTime ="300" AttackTexture="Images\Enemy\LightBugAttack"/>
     </ActionComponents>
+    <CollisionOffset Left="0" Right="0" Top="55" Bottom="10" />
     <SpriteSheets>
       <Sprite Texture="LightBugWalking" Name="Walking">
         <Animation Key="Down" Width="128" Height="128" FrameCount="4" xOffset="0" yOffset="0" FramesPerSecond="1" />

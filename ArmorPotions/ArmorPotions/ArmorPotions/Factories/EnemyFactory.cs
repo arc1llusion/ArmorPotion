@@ -54,8 +54,18 @@ namespace ArmorPotions.Factories
                 data.Texture = sprite.Sprite.Texture;
             }
 
-            data.IdleComponent = GetAIComponent(element.SelectSingleNode("IdleComponent"));//CreateInstance<IAIComponent>((GetAttributeType(element, "IdleComponent")));
-            data.DecisionComponent = GetAIComponent(element.SelectSingleNode("DecisionComponent")); //CreateInstance<IAIComponent>((GetAttributeType(element, "DecisionComponent")));
+            XmlNode collisionNode = element.SelectSingleNode("CollisionOffset");
+
+            if (collisionNode != null)
+            {
+                data.LeftCollisionOffset = int.Parse(collisionNode.Attributes["Left"].Value);
+                data.RightCollisionOffset = int.Parse(collisionNode.Attributes["Right"].Value);
+                data.TopCollisionOffset = int.Parse(collisionNode.Attributes["Top"].Value);
+                data.BottomCollisionOffset = int.Parse(collisionNode.Attributes["Bottom"].Value);
+            }
+
+            data.IdleComponent = GetAIComponent(element.SelectSingleNode("IdleComponent"));
+            data.DecisionComponent = GetAIComponent(element.SelectSingleNode("DecisionComponent"));
 
             foreach (XmlNode node in element.SelectSingleNode("ActionComponents").SelectNodes("ActionComponent"))
             {

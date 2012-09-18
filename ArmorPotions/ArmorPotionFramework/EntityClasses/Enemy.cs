@@ -49,6 +49,11 @@ namespace ArmorPotionFramework.EntityClasses
             this._decisionComponent = data.DecisionComponent;
             this._actionComponents = data.ActionComponents;
 
+            this.LeftCollisionOffset = data.LeftCollisionOffset;
+            this.RightCollisionOffset = data.RightCollisionOffset;
+            this.TopCollisionOffset = data.TopCollisionOffset;
+            this.BottomCollisionOffset = data.BottomCollisionOffset;
+
             this.AnimatedSprites.First().Value.IsAnimating = true;
         }
 
@@ -128,7 +133,8 @@ namespace ArmorPotionFramework.EntityClasses
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            CurrentSprite.Draw(gameTime, spriteBatch, new Vector2(Position.X - CurrentSprite.Width / 2, Position.Y - CurrentSprite.Height / 2) - World.Camera.CameraOffset, World.Camera);
+            RectangleExtensions.DrawRectangleBorder(VisualBoundingRectangle, spriteBatch, 4, Color.White);
+            CurrentSprite.Draw(gameTime, spriteBatch, PositionOffset, World.Camera);
         }
 
         public void ActionComplete()

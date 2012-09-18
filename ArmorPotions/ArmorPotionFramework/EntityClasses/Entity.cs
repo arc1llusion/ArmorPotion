@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using ArmorPotionFramework.Game;
 using ArmorPotionFramework.SpriteClasses;
-using System.Runtime.CompilerServices;
 using ArmorPotionFramework.WorldClasses;
+using ArmorPotionFramework.TileEngine;
+using ArmorPotionFramework.Data;
 
 namespace ArmorPotionFramework.EntityClasses
 {
@@ -25,8 +24,11 @@ namespace ArmorPotionFramework.EntityClasses
         private Dictionary<String, AnimatedSprite> _animatedSprite;
         private String _currentSpriteKey;
 
-        private int _xCollisionOffset;
-        private int _yCollisionOffset;
+        private int _leftCollisionOffset;
+        private int _rightCollisionOffset;
+        private int _topCollisionOffset;
+        private int _bottomCollisionOffset;
+
 
         public Entity(World world)
         {
@@ -38,8 +40,10 @@ namespace ArmorPotionFramework.EntityClasses
             _animatedSprite = new Dictionary<String, AnimatedSprite>();
             _currentSpriteKey = String.Empty;
 
-            _xCollisionOffset = 0;
-            _yCollisionOffset = 0;
+            _leftCollisionOffset = 0;
+            _rightCollisionOffset = 0;
+            _topCollisionOffset = 0;
+            _bottomCollisionOffset = 0;
         }
 
         public World World
@@ -59,16 +63,58 @@ namespace ArmorPotionFramework.EntityClasses
             get { return (new Vector2(_position.X, _position.Y) - World.Camera.CameraOffset); }
         }
 
-        public int XCollisionOffset
+        /// <summary>
+        /// Sets the collision offset from the left of the entity
+        /// </summary>
+        public int LeftCollisionOffset
         {
-            get { return this._xCollisionOffset; }
-            set { this._xCollisionOffset = value; }
+            get { return this._leftCollisionOffset; }
+            set { this._leftCollisionOffset = value; }
         }
 
+        /// <summary>
+        /// Sets the collision offset from the left of the entity
+        /// If there is a left collision, this offset is automatically taken into account when using the BoundingRectangle property
+        /// </summary>
+        public int RightCollisionOffset
+        {
+            get { return this._rightCollisionOffset; }
+            set { this._rightCollisionOffset = value; }
+        }
+
+        /// <summary>
+        /// Sets the collision offset from the top of the entity
+        /// </summary>
+        public int TopCollisionOffset
+        {
+            get { return this._topCollisionOffset; }
+            set { this._topCollisionOffset = value; }
+        }
+
+        /// <summary>
+        /// Sets the collision offset from the Bottom of the entity
+        /// If there is a top collision, this offset is automatically taken into account when using the BoundingRectangle property
+        /// </summary>
+        public int BottomCollisionOffset
+        {
+            get { return this._bottomCollisionOffset; }
+            set { this._bottomCollisionOffset = value; }
+        }
+
+        /// <summary>
+        /// A property that sets both the left and right collision offset if they are the same
+        /// </summary>
+        public int XCollisionOffset
+        {
+            set { this._leftCollisionOffset = value; this._rightCollisionOffset = value; }
+        }
+
+        /// <summary>
+        /// A property that sets both the top and bottom collision offset if they are the same
+        /// </summary>
         public int YCollisionOffset
         {
-            get { return this._yCollisionOffset; }
-            set { this._yCollisionOffset = value; }
+            set { this._topCollisionOffset = value; this._bottomCollisionOffset = value; }
         }
 
         public Vector2 Velocity
@@ -122,10 +168,10 @@ namespace ArmorPotionFramework.EntityClasses
             get
             {
                 return new Rectangle(
-                    (int)Math.Ceiling(_position.X) + _xCollisionOffset,
-                    (int)Math.Ceiling(_position.Y) + _yCollisionOffset,
-                    CurrentSprite.Width - _xCollisionOffset * 2,
-                    CurrentSprite.Height - _yCollisionOffset * 2);
+                    (int)Math.Ceiling(_position.X) + _leftCollisionOffset,
+                    (int)Math.Ceiling(_position.Y) + _topCollisionOffset,
+                    CurrentSprite.Width - (_rightCollisionOffset + _leftCollisionOffset),
+                    CurrentSprite.Height - (_bottomCollisionOffset + _topCollisionOffset));
             }
         }
 
@@ -136,11 +182,55 @@ namespace ArmorPotionFramework.EntityClasses
                 Vector2 cameraOffset = World.Camera.CameraOffset;
 
                 return new Rectangle(
-                    (int)_position.X - (int)cameraOffset.X + _xCollisionOffset,
-                    (int)_position.Y - (int)cameraOffset.Y + _yCollisionOffset,
-                    CurrentSprite.Width - XCollisionOffset * 2,
-                    CurrentSprite.Height - YCollisionOffset * 2);
+                    (int)_position.X - (int)cameraOffset.X + _leftCollisionOffset,
+                    (int)_position.Y - (int)cameraOffset.Y + _topCollisionOffset,
+                    CurrentSprite.Width - (_rightCollisionOffset + _leftCollisionOffset),
+                    CurrentSprite.Height - (_bottomCollisionOffset + _topCollisionOffset));
             }
+        }
+
+        public CollisionData HandleCollisions(Vector2 velocity)
+        {
+            Rectangle bounds = BoundingRectangle;
+
+            int leftTile = (int)Math.Floor(((float)bounds.Left + velocity.X) / Tile.Width);
+            int rightTile = (int)Math.Ceiling((((float)bounds.Right + velocity.X) / Tile.Width)) - 1;
+            int topTile = (int)Math.Floor(((float)bounds.Top + velocity.Y) / Tile.Height);
+            int bottomTile = (int)Math.Ceiling((((float)bounds.Bottom + velocity.Y) / Tile.Height)) - 1;
+
+            Map map = World.CurrentDungeon;
+
+            bool xAxisCollision = false;
+            bool yAxisCollision = false;
+
+            for (int y = topTile; y <= bottomTile; y++)
+            {
+                for (int x = leftTile; x <= rightTile; x++)
+                {
+                    TileInfo? tile = map.GetTile(1, x, y);
+                    if (tile.HasValue && tile.Value.Tile.TileType != TileType.Passable)
+                    {
+                        Rectangle tileRect = tile.Value.Bounds;
+
+                        Rectangle xAxisRectangle = new Rectangle(
+                                                            bounds.X + (int)velocity.X,
+                                                            bounds.Y,
+                                                            bounds.Width,
+                                                            bounds.Height);
+
+                        Rectangle yAxisRectangle = new Rectangle(
+                                                            bounds.X,
+                                                            bounds.Y + (int)velocity.Y,
+                                                            bounds.Width,
+                                                            bounds.Height);
+
+                        xAxisCollision = xAxisRectangle.Intersects(tileRect);
+                        yAxisCollision = yAxisRectangle.Intersects(tileRect);
+                    }
+                }
+            }
+
+            return new CollisionData(xAxisCollision & yAxisCollision, xAxisCollision, yAxisCollision);
         }
 
         public virtual void Update(GameTime gameTime)

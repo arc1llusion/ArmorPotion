@@ -112,7 +112,6 @@ namespace ArmorPotions
                 this.Exit();
 
             world.Update(gameTime);
-            //lProj.Update(gameTime);
 
             base.Update(gameTime);
         }
@@ -128,7 +127,6 @@ namespace ArmorPotions
             SpriteBatch.Begin();
 
             world.Draw(gameTime, SpriteBatch);
-            //lProj.Draw(gameTime, SpriteBatch);
 
             SpriteBatch.End();
 

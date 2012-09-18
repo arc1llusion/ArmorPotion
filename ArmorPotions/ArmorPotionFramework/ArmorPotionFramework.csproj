@@ -95,6 +95,7 @@
     <Compile Include="CameraSystem\Camera.cs" />
     <Compile Include="Characteristics\AttributePair.cs" />
     <Compile Include="Characteristics\IncrementalPair.cs" />
+    <Compile Include="Data\CollisionData.cs" />
     <Compile Include="EntityClasses\Components\IAIComponent.cs" />
     <Compile Include="EntityClasses\Data\EnemyData.cs" />
     <Compile Include="EntityClasses\Enemy.cs" />
