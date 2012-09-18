@@ -58,11 +58,11 @@ namespace ArmorPotionFramework.TileEngine
                 {
                     if (_tileMaps[0][c, i] != null)
                     {
-                        spritebatch.Draw(_tileMaps[0][c, i].Texture, new Vector2(i * Tile.Width, c * Tile.Height) - _world.Camera.CameraOffset, null, Color.White, 0f, Vector2.Zero, _world.Camera.Scale, SpriteEffects.None, 0f);
+                        spritebatch.Draw(_tileMaps[0][c, i].Texture, new Vector2(c * Tile.Width, i * Tile.Height) - _world.Camera.CameraOffset, null, Color.White, 0f, Vector2.Zero, _world.Camera.Scale, SpriteEffects.None, 0f);
                     }
                     if (_tileMaps[1][c, i] != null)
                     {
-                        spritebatch.Draw(_tileMaps[1][c, i].Texture, new Vector2(i * Tile.Width, c * Tile.Height) - _world.Camera.CameraOffset, null, Color.White, 0f, Vector2.Zero, _world.Camera.Scale, SpriteEffects.None, 0f);
+                        spritebatch.Draw(_tileMaps[1][c, i].Texture, new Vector2(c * Tile.Width, i * Tile.Height) - _world.Camera.CameraOffset, null, Color.White, 0f, Vector2.Zero, _world.Camera.Scale, SpriteEffects.None, 0f);
                     }                    
                 }
             }
