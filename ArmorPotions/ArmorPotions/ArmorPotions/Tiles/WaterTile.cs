@@ -14,7 +14,11 @@ namespace ArmorPotions.Tiles
 
         public WaterTile(TileType tileType, Texture2D waterTexture, Texture2D iceTexture, bool isFrozen) : base(tileType,waterTexture)
         {
-            
+            if (isFrozen)
+            {
+                Texture = iceTexture;
+            }
+
         }
 
         public override void onEvent(EventType sendEvent)
@@ -27,9 +31,6 @@ namespace ArmorPotions.Tiles
             }
 
             throw new NotImplementedException();
-        }
-
-        public void Draw(){
         }
 
 
