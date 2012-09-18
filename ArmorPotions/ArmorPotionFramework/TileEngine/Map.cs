@@ -42,9 +42,9 @@ namespace ArmorPotionFramework.TileEngine
             if (tile == null) return null;
 
             TileInfo info = new TileInfo(new Rectangle(
-                                            (tileX) * Tile.Width, 
-                                            (tileY) * Tile.Height, 
-                                            Tile.Width, Tile.Height), 
+                                            (tileX) * Tile.Width + 1, 
+                                            (tileY) * Tile.Height + 1, 
+                                            Tile.Width + 1, Tile.Height + 1), 
                                             tile.TileType);
 
             return info;

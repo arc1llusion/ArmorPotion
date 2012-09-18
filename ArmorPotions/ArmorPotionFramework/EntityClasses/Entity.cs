@@ -124,8 +124,22 @@ namespace ArmorPotionFramework.EntityClasses
                 return new Rectangle(
                     (int)Math.Ceiling(_position.X) + _xCollisionOffset,
                     (int)Math.Ceiling(_position.Y) + _yCollisionOffset,
-                    CurrentSprite.Width - _xCollisionOffset,
-                    CurrentSprite.Height - _yCollisionOffset);
+                    CurrentSprite.Width - _xCollisionOffset * 2,
+                    CurrentSprite.Height - _yCollisionOffset * 2);
+            }
+        }
+
+        public Rectangle VisualBoundingRectangle
+        {
+            get
+            {
+                Vector2 cameraOffset = World.Camera.CameraOffset;
+
+                return new Rectangle(
+                    (int)_position.X - (int)cameraOffset.X + _xCollisionOffset,
+                    (int)_position.Y - (int)cameraOffset.Y + _yCollisionOffset,
+                    CurrentSprite.Width - XCollisionOffset * 2,
+                    CurrentSprite.Height - YCollisionOffset * 2);
             }
         }
 

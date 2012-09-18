@@ -86,26 +86,26 @@ namespace ArmorPotionFramework.EntityClasses
             if (InputHandler.KeyDown(Keys.W))
             {
                 deltaY -= _velocity.Y;
-                CurrentSprite.CurrentAnimation = (AnimationKey)Enum.Parse(typeof(AnimationKey), "Up");
+                CurrentSprite.CurrentAnimation = AnimationKey.Up;
                 CurrentSprite.IsAnimating = true;
             }
             else if (InputHandler.KeyDown(Keys.S))
             {
                 deltaY += _velocity.Y;
-                CurrentSprite.CurrentAnimation = (AnimationKey)Enum.Parse(typeof(AnimationKey), "Down");
+                CurrentSprite.CurrentAnimation = AnimationKey.Down;
                 CurrentSprite.IsAnimating = true;
             }
 
             if (InputHandler.KeyDown(Keys.A))
             {
                 deltaX -= _velocity.X;
-                CurrentSprite.CurrentAnimation = (AnimationKey)Enum.Parse(typeof(AnimationKey), "Left");
+                CurrentSprite.CurrentAnimation = AnimationKey.Left;
                 CurrentSprite.IsAnimating = true;
             }
             else if (InputHandler.KeyDown(Keys.D))
             {
                 deltaX += _velocity.X;
-                CurrentSprite.CurrentAnimation = (AnimationKey)Enum.Parse(typeof(AnimationKey), "Right");
+                CurrentSprite.CurrentAnimation = AnimationKey.Right;
                 CurrentSprite.IsAnimating = true;
             }
 
@@ -136,10 +136,10 @@ namespace ArmorPotionFramework.EntityClasses
         {
             Rectangle bounds = BoundingRectangle;
 
-            int leftTile = (int)Math.Floor((float)bounds.Left / Tile.Width);
-            int rightTile = (int)Math.Ceiling(((float)bounds.Right / Tile.Width)) - 1;
-            int topTile = (int)Math.Floor((float)bounds.Top / Tile.Height);
-            int bottomTile = (int)Math.Ceiling(((float)bounds.Bottom / Tile.Height)) - 1;
+            int leftTile = (int)Math.Floor(((float)bounds.Left + velocity.X) / Tile.Width);
+            int rightTile = (int)Math.Ceiling((((float)bounds.Right + velocity.X) / Tile.Width)) - 1;
+            int topTile = (int)Math.Floor(((float)bounds.Top + velocity.Y) / Tile.Height);
+            int bottomTile = (int)Math.Ceiling((((float)bounds.Bottom  + velocity.Y) / Tile.Height)) - 1;
 
             Map map = World.CurrentDungeon;
 
@@ -156,8 +156,8 @@ namespace ArmorPotionFramework.EntityClasses
                         Rectangle velRectangle = new Rectangle(
                                                             bounds.X + (int)velocity.X,
                                                             bounds.Y + (int)velocity.Y,
-                                                            bounds.Width + (int)velocity.X,
-                                                            bounds.Height + (int)velocity.Y);
+                                                            bounds.Width,
+                                                            bounds.Height);
 
                                          
                         collided = velRectangle.Intersects(tileRect);
@@ -186,6 +186,8 @@ namespace ArmorPotionFramework.EntityClasses
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
+            RectangleExtensions.DrawRectangleBorder(VisualBoundingRectangle, spriteBatch, 4, Color.White);
+
             CurrentSprite.Draw(gameTime, spriteBatch, PositionOffset, World.Camera);
             spriteBatch.DrawString(World.Game.Content.Load<SpriteFont>(@"Fonts\ControlFont"), "Player Health: " + _health.CurrentValue, new Vector2(500, 10), Color.White);
             spriteBatch.DrawString(World.Game.Content.Load<SpriteFont>(@"Fonts\ControlFont"), "Player Shield: " + _shield.CurrentValue, new Vector2(500, 50), Color.White);
