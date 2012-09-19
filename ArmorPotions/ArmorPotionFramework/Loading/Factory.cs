@@ -144,7 +144,12 @@ namespace ArmorPotionFramework.Loading
                 animations.Add((AnimationKey)Enum.Parse(typeof(AnimationKey), node.Attributes["Key"].Value), animation);
             }
 
-            return new SpriteInfo(sprite.Attributes["Name"].Value, new AnimatedSprite(ReadTexture(sprite), animations));
+            AnimatedSprite newSprite = new AnimatedSprite(ReadTexture(sprite), animations);
+
+            if (sprite.Attributes["IsAnimating"] != null)
+                newSprite.IsAnimating = Boolean.Parse(sprite.Attributes["IsAnimating"].Value);
+
+            return new SpriteInfo(sprite.Attributes["Name"].Value, newSprite);
         }
 
         protected Texture2D ReadTexture(XmlNode element)

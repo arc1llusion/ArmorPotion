@@ -9,8 +9,8 @@
     </SpriteSheet>
     <ConstructorArgs>
       <Argument Type="System.Int32" Value="10" />
-      <Argument Type="Sprite" Texture="Weapons\Fireball" Name="Projectile">
-        <Animation Key="Right" Width="32" Height="32" FrameCount="1" xOffset="0" yOffset="0" FramesPerSecond="1" />
+      <Argument Type="Sprite" Texture="Weapons\FireballAnimation" Name="Projectile" IsAnimating="True">
+        <Animation Key="Right" Width="32" Height="32" FrameCount="30" xOffset="32" yOffset="0" FramesPerSecond="19"/>
       </Argument>
       <Argument Type="System.Single" Value="75" />
       <Argument Type="System.Single" Value="100" />

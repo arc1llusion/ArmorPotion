@@ -151,6 +151,7 @@ namespace ArmorPotionFramework.SpriteClasses
             AnimatedSprite sprite = new AnimatedSprite(_texture, animations);
             sprite.Velocity = _velocity;
             sprite.TintColor = _tintColor;
+            sprite.IsAnimating = _isAnimating;
 
             return sprite;
         }

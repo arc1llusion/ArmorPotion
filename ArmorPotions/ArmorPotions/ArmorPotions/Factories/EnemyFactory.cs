@@ -14,6 +14,7 @@ using ArmorPotions;
 using ArmorPotionFramework.EntityClasses.Data;
 using ArmorPotionFramework.WorldClasses;
 using ArmorPotionFramework.Loading;
+using System.Reflection;
 
 namespace ArmorPotions.Factories
 {
@@ -59,7 +60,20 @@ namespace ArmorPotions.Factories
 
             foreach (XmlNode node in element.SelectSingleNode("ActionComponents").SelectNodes("ActionComponent"))
             {
-                data.ActionComponents.Add(node.Attributes["Name"].Value, GetAIComponent(node));
+                IAIComponent ActionComponent = GetAIComponent(node);
+
+                PropertyInfo[] properties = ActionComponent.GetType().GetProperties();
+
+                foreach (PropertyInfo property in properties)
+                {
+                    foreach (XmlNode propNode in node.SelectNodes("Properties"))
+                    {
+                        if (propNode.Attributes["PropertyName"].Value == property.Name && propNode.Attributes["Type"].Value == "SpriteSheet")
+                            property.SetValue(ActionComponent, CreateSpriteSheet(propNode).Sprite, null);
+                    }
+                }
+
+                data.ActionComponents.Add(node.Attributes["Name"].Value, ActionComponent);
             }
 
             SetFields<EnemyData>(data, element.SelectSingleNode("Fields"));

@@ -75,7 +75,7 @@ namespace ArmorPotionFramework.Projectiles
                         newAngle = RandomGenerator.Random.NextDouble() * Math.PI * 2;
 
                     ConeProjectile projectile = new ConeProjectile(World, null, _eventType, _triggerSecondaryProjectileEvents,  _projectileDistance, _position, newAngle, _projectileSpread);
-                    projectile.AnimatedSprites.Add("Normal", AnimatedSprites["Projectile"]);
+                    projectile.AnimatedSprites.Add("Normal", AnimatedSprites["Projectile"].Clone());
 
                     World.ProjectilesToAdd.Add(projectile);
                 }
