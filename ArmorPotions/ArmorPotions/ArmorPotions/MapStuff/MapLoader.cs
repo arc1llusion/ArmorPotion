@@ -98,7 +98,7 @@ namespace ArmorPotion.MapStuff
                                    map[c, i].Position = new Vector2(c*192,i*192);
                                    break;
                                 case 6:
-                                   map[c, i] = new WaterTile(TileType.Passable, tileID, textureDict[6], textureDict[9], false);
+                                   map[c, i] = new WaterTile(TileType.Passable, tileID, textureDict[6], textureDict[9], textureDict[10], false, false);
                                    map[c, i].Position = new Vector2(c*192,i*192);
                                    break;
                                 case 7:
@@ -106,15 +106,15 @@ namespace ArmorPotion.MapStuff
                                    map[c, i].Position = new Vector2(c*192,i*192);
                                    break;
                                 case 8:
-                                   map[c, i] = new LavaTile(TileType.Hole, tileID, textureDict[7], textureDict[8], true);
+                                   map[c, i] = new LavaTile(TileType.Passable, tileID, textureDict[7], textureDict[8], true);
                                    map[c, i].Position = new Vector2(c*192,i*192);
                                    break;
                                 case 9:
-                                   map[c, i] = new WaterTile(TileType.Passable, tileID, textureDict[6], textureDict[9], true);
+                                   map[c, i] = new WaterTile(TileType.Passable, tileID, textureDict[6], textureDict[9], textureDict[10], false, false);
                                    map[c, i].Position = new Vector2(c*192,i*192);
                                    break;
                                 case 10:
-                                   map[c, i] = new FloorTile(TileType.Hole, tileID, textureDict[10]);
+                                   map[c, i] = new WaterTile(TileType.Passable, tileID, textureDict[6], textureDict[9], textureDict[10], true, false);
                                    map[c, i].Position = new Vector2(c*192,i*192);
                                    break;
                                 case 11:
