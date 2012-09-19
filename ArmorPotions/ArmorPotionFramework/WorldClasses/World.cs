@@ -36,7 +36,7 @@ namespace ArmorPotionFramework.WorldClasses
             _player = new Player(this, _game.Content.Load<Texture2D>(@"Player\PlayerWalking"));
             _player.Position = new Vector2(350, 350);
 
-            _camera = new Camera(_game, 0, 0, _game.Window.ClientBounds.Width, _game.Window.ClientBounds.Height, 1);
+            _camera = new Camera(_game, 0, 0, _game.Window.ClientBounds.Width, _game.Window.ClientBounds.Height, 1f);
             _game.Components.Add(new InputHandler(_game));
             _game.Components.Add(_camera);
         }
@@ -130,9 +130,9 @@ namespace ArmorPotionFramework.WorldClasses
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             DrawMap(gameTime, spriteBatch);
-            DrawProjectiles(gameTime, spriteBatch);
             _enemies.ForEach(enemy => enemy.Draw(gameTime, spriteBatch));
             _player.Draw(gameTime, spriteBatch);
+            DrawProjectiles(gameTime, spriteBatch);
             if(item != null) item.DrawIcon(gameTime, spriteBatch, Camera.CameraOffset);
         }
 

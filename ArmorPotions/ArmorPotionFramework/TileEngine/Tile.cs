@@ -23,8 +23,8 @@ namespace ArmorPotionFramework.TileEngine
     {
         #region Static fields
 
-        public static int Width = 192;
-        public static int Height = 192;
+        public static int Width = 128;
+        public static int Height = 128;
 
         #endregion
 
