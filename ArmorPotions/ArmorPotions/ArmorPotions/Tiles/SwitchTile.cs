@@ -23,6 +23,7 @@ namespace ArmorPotions.Tiles
             : base(tileType, tileID, switchOffTexture)
         {
             switchType = setType;
+            linkedTileDict = new Dictionary<EventType,List<Tile>>();
             unparsedCoordinateString = linkedTileString;
         }
 
@@ -65,7 +66,7 @@ namespace ArmorPotions.Tiles
 
         public void addTile(EventType typeToTrigger, Tile tileToBeAdded)
         {
-            if(linkedTileDict[typeToTrigger] == null){
+            if(!linkedTileDict.Keys.Contains(typeToTrigger)){
                 linkedTileDict.Add(typeToTrigger, new List<Tile>());
             }
 
@@ -74,12 +75,13 @@ namespace ArmorPotions.Tiles
 
         public void parseOneselfAndAddThineSelfToThouDictionaryOfLinkedTileObjects_Cheers(Tile[,] mapOfTiles)
         {
-            for (int i = 0; i <= mapOfTiles.GetLength(0) - 1; i++)
+            int numberOfLinkingTiles = (int)int.Parse(unparsedCoordinateString.Substring(0,2));
+            for (int i = 0; i <= numberOfLinkingTiles-1; i++)
             {
-                for (int c = 0; c <= mapOfTiles.GetLength(1) - 1; c++)
-                {
-
-                }
+                int xCoordinate = (int)int.Parse(unparsedCoordinateString.Substring(((i * 6) + 2), 2))-1;
+                int yCoordinate = (int)int.Parse(unparsedCoordinateString.Substring(((i * 6) + 4), 2))-1;
+                int triggerType = (int)int.Parse(unparsedCoordinateString.Substring(((i * 6) + 6), 2));
+                addTile((EventType)Enum.Parse(typeof(EventType), "" + triggerType), mapOfTiles[xCoordinate, yCoordinate]);
             }
 
         }
