@@ -125,6 +125,7 @@
     <Compile Include="Tiles\DoorTile.cs" />
     <Compile Include="Tiles\FloorTile.cs" />
     <Compile Include="Tiles\LavaTile.cs" />
+    <Compile Include="Tiles\StairTile.cs" />
     <Compile Include="Tiles\SwitchTile.cs" />
     <Compile Include="Tiles\WallTile.cs" />
     <Compile Include="Tiles\WaterTile.cs" />

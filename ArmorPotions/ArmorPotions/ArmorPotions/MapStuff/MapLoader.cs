@@ -32,6 +32,7 @@ namespace ArmorPotion.MapStuff
             textureDictionary.Add(12, world.Game.Content.Load<Texture2D>(@"Tiles\FireSwitch"));
             textureDictionary.Add(13, world.Game.Content.Load<Texture2D>(@"Tiles\IceSwitch"));
             textureDictionary.Add(14, world.Game.Content.Load<Texture2D>(@"Tiles\DoorOpenTile"));
+            textureDictionary.Add(14, world.Game.Content.Load<Texture2D>(@"Tiles\LadderTile"));
 
 
 
@@ -79,55 +80,59 @@ namespace ArmorPotion.MapStuff
                                    break;
                                 case 1:
                                    map[c, i] = new FloorTile(TileType.Passable, tileID, textureDict[1]);
-                                   map[c, i].Position = new Vector2(c*192,i*192);
+                                   map[c, i].Position = new Vector2(c*Tile.Width,i*Tile.Height);
                                    break;
                                 case 2:
                                    map[c, i] = new WallTile(TileType.NonPassable, tileID, textureDict[2]);
-                                   map[c, i].Position = new Vector2(c*192,i*192);
+                                   map[c, i].Position = new Vector2(c*Tile.Width,i*Tile.Height);
                                    break;
                                 case 3:
                                    map[c, i] = new DoorTile(TileType.NonPassable, tileID, textureDict[3], textureDict[14]);
-                                   map[c, i].Position = new Vector2(c*192,i*192);
+                                   map[c, i].Position = new Vector2(c*Tile.Width,i*Tile.Height);
                                    break;
                                 case 4:
                                    map[c, i] = new FloorTile(TileType.Passable, tileID, textureDict[4]);
-                                   map[c, i].Position = new Vector2(c*192,i*192);
+                                   map[c, i].Position = new Vector2(c*Tile.Width,i*Tile.Height);
                                    break;
                                 case 5:
                                    map[c, i] = new FloorTile(TileType.Hole, tileID, textureDict[5]);
-                                   map[c, i].Position = new Vector2(c*192,i*192);
+                                   map[c, i].Position = new Vector2(c*Tile.Width,i*Tile.Height);
                                    break;
                                 case 6:
                                    map[c, i] = new WaterTile(TileType.Passable, tileID, textureDict[6], textureDict[9], textureDict[10], false, false);
-                                   map[c, i].Position = new Vector2(c*192,i*192);
+                                   map[c, i].Position = new Vector2(c*Tile.Width,i*Tile.Height);
                                    break;
                                 case 7:
                                    map[c, i] = new LavaTile(TileType.Hole, tileID, textureDict[7], textureDict[8], false);
-                                   map[c, i].Position = new Vector2(c*192,i*192);
+                                   map[c, i].Position = new Vector2(c*Tile.Width,i*Tile.Height);
                                    break;
                                 case 8:
                                    map[c, i] = new LavaTile(TileType.Passable, tileID, textureDict[7], textureDict[8], true);
-                                   map[c, i].Position = new Vector2(c*192,i*192);
+                                   map[c, i].Position = new Vector2(c*Tile.Width,i*Tile.Height);
                                    break;
                                 case 9:
                                    map[c, i] = new WaterTile(TileType.Passable, tileID, textureDict[6], textureDict[9], textureDict[10], false, false);
-                                   map[c, i].Position = new Vector2(c*192,i*192);
+                                   map[c, i].Position = new Vector2(c*Tile.Width,i*Tile.Height);
                                    break;
                                 case 10:
                                    map[c, i] = new WaterTile(TileType.Passable, tileID, textureDict[6], textureDict[9], textureDict[10], true, false);
-                                   map[c, i].Position = new Vector2(c*192,i*192);
+                                   map[c, i].Position = new Vector2(c*Tile.Width,i*Tile.Height);
                                    break;
                                 case 11:
                                    map[c, i] = new SwitchTile(TileType.NonPassable, tileID, textureDict[11], textureDict[11], SwitchType.LightningSwitch, tempArray[c].Substring(6));
-                                   map[c, i].Position = new Vector2(c*192,i*192);
+                                   map[c, i].Position = new Vector2(c*Tile.Width,i*Tile.Height);
                                    break;
                                 case 12:
                                    map[c, i] = new SwitchTile(TileType.NonPassable, tileID, textureDict[12], textureDict[12], SwitchType.FireSwitch, tempArray[c].Substring(6));
-                                   map[c, i].Position = new Vector2(c*192,i*192);
+                                   map[c, i].Position = new Vector2(c*Tile.Width,i*Tile.Height);
                                    break;
                                 case 13:
                                    map[c, i] = new SwitchTile(TileType.NonPassable, tileID, textureDict[13], textureDict[13], SwitchType.IceSwitch, tempArray[c].Substring(6));
-                                   map[c, i].Position = new Vector2(c*192,i*192);
+                                   map[c, i].Position = new Vector2(c*Tile.Width,i*Tile.Height);
+                                   break;
+                                case 14:
+                                   map[c, i] = new StairTile(TileType.NonPassable, tileID, textureDict[14]);
+                                   map[c, i].Position = new Vector2(c*Tile.Width,i*Tile.Height);
                                    break;
                             }
                         }
