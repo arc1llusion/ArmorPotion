@@ -69,8 +69,12 @@ namespace ArmorPotionFramework.Projectiles
             {
                 if (_angle < _beginningAngle + _angleCycle)
                 {
-                    _angle += _deltaAngle;
-                    ConeProjectile projectile = new ConeProjectile(World, null, _eventType, _triggerSecondaryProjectileEvents,  _projectileDistance, _position, _angle, _projectileSpread);
+                    double newAngle = _angle += _deltaAngle;
+
+                    if(_eventType == EventType.IceEvent)
+                        newAngle = RandomGenerator.Random.NextDouble() * Math.PI * 2;
+
+                    ConeProjectile projectile = new ConeProjectile(World, null, _eventType, _triggerSecondaryProjectileEvents,  _projectileDistance, _position, newAngle, _projectileSpread);
                     projectile.AnimatedSprites.Add("Normal", AnimatedSprites["Projectile"]);
 
                     World.ProjectilesToAdd.Add(projectile);
