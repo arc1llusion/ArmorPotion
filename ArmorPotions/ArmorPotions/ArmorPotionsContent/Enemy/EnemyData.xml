@@ -16,14 +16,15 @@
         <Animation Key="Up" Width="32" Height="32" FrameCount="3" xOffset="0" yOffset="96" FramesPerSecond="1" />
       </Sprite>
     </SpriteSheets>
+    <Fields />
   </Enemy>
   <Enemy Name="LightBug">
-    <Texture Path="Images\Enemy" Width="32" Height="32" FrameCount="4" />
+    <Texture Path="Enemy" Width="32" Height="32" FrameCount="4" />
     <Velocity X="1" Y="0" />
     <IdleComponent Type="ArmorPotions.Components.MoveRandom" />
     <DecisionComponent Type="ArmorPotions.Components.Decide" />
     <ActionComponents>
-      <ActionComponent Name="AoEDrop" Type="ArmorPotions.Components.AoEDrop" Wait="1000" LifeTime ="300" AttackTexture="Images\Enemy\LightBugAttack" EventType="LightningEvent"/>
+      <ActionComponent Name="AoEDrop" Type="ArmorPotions.Components.AoEDrop" Wait="1000" LifeTime ="300" AttackTexture="Enemy\LightBugAttack" EventType="LightningEvent"/>
     </ActionComponents>
     <CollisionOffset Left="0" Right="0" Top="55" Bottom="10" />
     <SpriteSheets>
@@ -40,5 +41,6 @@
         <Animation Key="Up" Width="128" Height="128" FrameCount="4" xOffset="0" yOffset="384" FramesPerSecond="1" />
       </Sprite>
     </SpriteSheets>
+    <Fields SightRadius="100" />
   </Enemy>
 </Enemies>

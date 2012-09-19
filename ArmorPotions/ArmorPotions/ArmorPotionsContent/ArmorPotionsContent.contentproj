@@ -42,7 +42,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Images\Enemy\malepanda.png">
+    <Compile Include="Enemy\malepanda.png">
       <Name>malepanda</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
@@ -50,7 +50,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Images\Enemy\malefighter.png">
+    <Compile Include="Enemy\malefighter.png">
       <Name>malefighter</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
@@ -63,7 +63,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Images\Enemy\EnemyData.xml">
+    <Compile Include="Enemy\EnemyData.xml">
       <Name>EnemyData</Name>
       <Importer>XmlSourceImporter</Importer>
       <SubType>Designer</SubType>
@@ -98,14 +98,14 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Images\Enemy\LightBugWalking.png">
+    <Compile Include="Enemy\LightBugWalking.png">
       <Name>LightBugWalking</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Images\Enemy\LightBugAttack.png">
+    <Compile Include="Enemy\LightBugAttack.png">
       <Name>LightBugAttack</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
@@ -171,7 +171,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Images\Enemy\LightBugCharge.png">
+    <Compile Include="Enemy\LightBugCharge.png">
       <Name>LightBugCharge</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>

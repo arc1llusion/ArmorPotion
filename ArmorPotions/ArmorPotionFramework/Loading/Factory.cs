@@ -108,6 +108,24 @@ namespace ArmorPotionFramework.Loading
             }
         }
 
+        protected virtual void SetFields<N>(N obj, XmlNode node)
+        {
+            FieldInfo[] fields = obj.GetType().GetFields();
+
+            foreach (FieldInfo field in fields)
+            {
+                if (node.Attributes[field.Name] != null)
+                {
+                    if (field.FieldType == typeof(Texture2D))
+                        field.SetValue(obj, Content.Load<Texture2D>(node.Attributes[field.Name].Value));
+                    else if (field.FieldType.IsEnum)
+                        field.SetValue(obj, Enum.Parse(field.FieldType, node.Attributes[field.Name].Value));
+                    else
+                        field.SetValue(obj, Convert.ChangeType(node.Attributes[field.Name].Value, field.FieldType));
+                }
+            }
+        }
+
         protected virtual SpriteInfo CreateSpriteSheet(XmlNode sprite)
         {
             Dictionary<AnimationKey, Animation> animations = new Dictionary<AnimationKey, Animation>();

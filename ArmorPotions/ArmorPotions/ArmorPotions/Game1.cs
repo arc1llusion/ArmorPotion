@@ -64,7 +64,7 @@ namespace ArmorPotions
             ItemFactory itemFactory = new ItemFactory(world, @"Items");
             Map dungeonOne = MapLoader.Load("Content/Maps/DungeonOne_top.txt", "Content/Maps/DungeonOne_bottom.txt", world);
             world.CurrentDungeon = dungeonOne;
-            EnemyFactory factory = new EnemyFactory(world, @"Images\Enemy");
+            EnemyFactory factory = new EnemyFactory(world, @"Enemy");
             world.EnemyFactory = factory;
 
             Enemy enemy = world.EnemyFactory.Create("LightBug");
@@ -79,7 +79,7 @@ namespace ArmorPotions
             Animation animation2 = new Animation(1, 256, 256, 0, 0);
 
             AnimatedSprite sprite = new AnimatedSprite(Content.Load<Texture2D>(@"Items\Weapons\Fireball"), new Dictionary<AnimationKey, Animation> { { AnimationKey.Right, animation } });
-            AnimatedSprite light = new AnimatedSprite(Content.Load<Texture2D>(@"Images\Enemy\LightBugAttack"), new Dictionary<AnimationKey, Animation> { { AnimationKey.Right, animation2 } });
+            AnimatedSprite light = new AnimatedSprite(Content.Load<Texture2D>(@"Enemy\LightBugAttack"), new Dictionary<AnimationKey, Animation> { { AnimationKey.Right, animation2 } });
 
             world.Player.Inventory.TempaQuips.Add(new Gun(null, "BobsGun", sprite));
             world.Player.Inventory.SelectRelativeTempaQuip(world.Player, 0);

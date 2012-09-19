@@ -20,8 +20,8 @@ namespace ArmorPotionFramework.EntityClasses
         private IAIComponent _decisionComponent;
         private IAIComponent _idleComponent;
 
-        private bool isAction;
-        private float sightRadius;
+        private bool _isAction;
+        private float _sightRadius;
 
         private delegate void Action(GameTime gameTime, Enemy enemy);
 
@@ -30,16 +30,16 @@ namespace ArmorPotionFramework.EntityClasses
         public Enemy(World world)
             : base(world)
         {
-            isAction = false;
-            sightRadius = 100;
+            _isAction = false;
+            _sightRadius = 100;
             _actionComponents = new Dictionary<String, IAIComponent>();
         }
 
         public Enemy(World world, EnemyData data)
             : base(world)
         {
-            isAction = false;
-            sightRadius = 100;
+            _isAction = false;
+            _sightRadius = data.SightRadius;
 
             this.Texture = data.Texture;
             this.Velocity = data.Velocity;
@@ -106,17 +106,23 @@ namespace ArmorPotionFramework.EntityClasses
         {
             get
             {
-                return (GameMath.Distance(Position, World.Player.Position) < sightRadius);
+                return (GameMath.Distance(Position, World.Player.Position) < _sightRadius);
             }
+        }
+
+        public float SightRadius
+        {
+            get { return this._sightRadius; }
+            set { this._sightRadius = value; }
         }
 
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
 
-            if (!isAction)
+            if (!_isAction)
             {
-                isAction = true;
+                _isAction = true;
 
                 if (!HasPlayerInSight || _actionComponents.Count == 0)
                 {
@@ -139,7 +145,7 @@ namespace ArmorPotionFramework.EntityClasses
 
         public void ActionComplete()
         {
-            isAction = false;
+            _isAction = false;
             _currentAction = null;
         }
     }

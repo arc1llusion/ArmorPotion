@@ -17,8 +17,6 @@ using ArmorPotionFramework.Loading;
 
 namespace ArmorPotions.Factories
 {
-
-
     public class EnemyFactory : ArmorPotionFramework.Loading.Factory<Enemy, EnemyData>
     {
         public EnemyFactory(World world, String basePath) : base(world, basePath)
@@ -63,6 +61,8 @@ namespace ArmorPotions.Factories
             {
                 data.ActionComponents.Add(node.Attributes["Name"].Value, GetAIComponent(node));
             }
+
+            SetFields<EnemyData>(data, element.SelectSingleNode("Fields"));
 
             name = data.Name;
             return data;
