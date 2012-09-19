@@ -12,6 +12,11 @@
       <Argument Type="Sprite" Texture="Weapons\Fireball" Name="Projectile">
         <Animation Key="Right" Width="32" Height="32" FrameCount="1" xOffset="0" yOffset="0" FramesPerSecond="1" />
       </Argument>
+      <Argument Type="System.Single" Value="75" />
+      <Argument Type="System.Single" Value="100" />
+      <Argument Type="System.Int32" Value="45" />
+      <Argument Type="System.Single" Value="2" />
+      <Argument Type="System.Single" Value="1" />
     </ConstructorArgs>
   </Item>
 </Items>
