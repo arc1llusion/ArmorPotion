@@ -27,5 +27,6 @@ Content\Enemy\EnemyData.xnb
 Content\Items\ItemData.xnb
 Content\Fonts\ControlFont.xnb
 Content\Sound\ChickenScream.xnb
+Content\Tiles\LadderTile.xnb
 Content\Maps\DungeonOne_bottom.txt
 Content\Maps\DungeonOne_top.txt

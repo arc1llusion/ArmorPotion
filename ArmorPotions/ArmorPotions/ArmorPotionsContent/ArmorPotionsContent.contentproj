@@ -88,6 +88,7 @@
       <Name>ItemData</Name>
       <Importer>XmlSourceImporter</Importer>
       <Processor>PassThroughProcessor</Processor>
+      <SubType>Designer</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -237,6 +238,13 @@
   <ItemGroup>
     <Compile Include="Items\Weapons\FireballAnimation.png">
       <Name>FireballAnimation</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Tiles\LadderTile.png">
+      <Name>LadderTile</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>

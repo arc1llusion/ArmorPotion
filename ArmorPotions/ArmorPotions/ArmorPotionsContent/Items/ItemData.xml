@@ -7,16 +7,16 @@
     <SpriteSheet Texture="Weapons\Eball" Name="Eball">
       <Animation Key="Right" Width="32" Height="32" FrameCount="1" xOffset="0" yOffset="0" FramesPerSecond="1" />
     </SpriteSheet>
-    <ConstructorArgs>
-      <Argument Type="System.Int32" Value="10" />
-      <Argument Type="Sprite" Texture="Weapons\FireballAnimation" Name="Projectile" IsAnimating="True">
+    <ConstructorArgs> <!-- For additional parameters in an item -->
+      <Argument Type="System.Int32" Value="10" /><!-- Wait -->
+      <Argument Type="Sprite" Texture="Weapons\FireballAnimation" Name="Projectile" IsAnimating="True"><!-- Second Projectile Animation-->
         <Animation Key="Right" Width="32" Height="32" FrameCount="30" xOffset="32" yOffset="0" FramesPerSecond="19"/>
       </Argument>
-      <Argument Type="System.Single" Value="75" />
-      <Argument Type="System.Single" Value="100" />
-      <Argument Type="System.Int32" Value="45" />
-      <Argument Type="System.Single" Value="2" />
-      <Argument Type="System.Single" Value="1" />
+      <Argument Type="System.Single" Value="75" /> <!-- Throw Distance -->
+      <Argument Type="System.Single" Value="100" /> <!-- Projectile Distance -->
+      <Argument Type="System.Int32" Value="45" /> <!-- spread angle -->
+      <Argument Type="System.Single" Value="2" /> <!-- Revolutions -->
+      <Argument Type="System.Single" Value="1" /> <!-- Projectiles Per Iteration -->
     </ConstructorArgs>
   </Item>
 </Items>

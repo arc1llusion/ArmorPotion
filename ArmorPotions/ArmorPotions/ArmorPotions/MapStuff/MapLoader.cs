@@ -17,7 +17,6 @@ namespace ArmorPotion.MapStuff
         {
             Dictionary<int, Texture2D> textureDictionary = new Dictionary<int,Texture2D>();
 
-
             textureDictionary.Add(01, world.Game.Content.Load<Texture2D>(@"Tiles\FloorTile"));
             textureDictionary.Add(02, world.Game.Content.Load<Texture2D>(@"Tiles\WallTile"));
             textureDictionary.Add(03, world.Game.Content.Load<Texture2D>(@"Tiles\DoorTile"));
@@ -32,11 +31,7 @@ namespace ArmorPotion.MapStuff
             textureDictionary.Add(12, world.Game.Content.Load<Texture2D>(@"Tiles\FireSwitch"));
             textureDictionary.Add(13, world.Game.Content.Load<Texture2D>(@"Tiles\IceSwitch"));
             textureDictionary.Add(14, world.Game.Content.Load<Texture2D>(@"Tiles\DoorOpenTile"));
-            textureDictionary.Add(14, world.Game.Content.Load<Texture2D>(@"Tiles\LadderTile"));
-
-
-
-
+            textureDictionary.Add(15, world.Game.Content.Load<Texture2D>(@"Tiles\LadderTile"));
 
             Map loadedMap = new Map(loadMap(mapTopLocation, textureDictionary), loadMap(mapBottomLocation, textureDictionary), world);
             for (int i = 0; i <= loadedMap.getMapLevel(1).GetLength(0) - 1; i++)
