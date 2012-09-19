@@ -32,7 +32,6 @@ namespace ArmorPotion.MapStuff
             textureDictionary.Add(12, world.Game.Content.Load<Texture2D>(@"Tiles\FireSwitch"));
             textureDictionary.Add(13, world.Game.Content.Load<Texture2D>(@"Tiles\IceSwitch"));
 
-            Texture2D[] tileTextureArray = new Texture2D[9];
 
 
 

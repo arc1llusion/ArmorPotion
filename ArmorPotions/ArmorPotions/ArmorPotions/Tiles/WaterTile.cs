@@ -20,15 +20,24 @@ namespace ArmorPotions.Tiles
         {
             _isDeep = isDeep;
             _isFrozen = isFrozen;
-            if (_isFrozen)
+            _waterTexture = waterTexture;
+            _deepWaterTexture = deepWaterTexture;
+            _iceTexture = iceTexture;
+
+            if (_isFrozen && !_isDeep)
             {
                 Texture = iceTexture;
                 TileType = TileType.Passable;
             }
-            else if (_isDeep)
+            else if (_isDeep && !_isFrozen)
             {
                 Texture = deepWaterTexture;
                 TileType = TileType.Hole;
+            }
+            else if (_isDeep && _isFrozen)
+            {
+                Texture = iceTexture;
+                TileType = TileType.Passable;
             }
             else
             {
@@ -48,24 +57,15 @@ namespace ArmorPotions.Tiles
             }
             else if (sendEvent == EventType.FireEvent && _isFrozen)
             {
-                _isFrozen = false;
                 if (_isDeep)
                 {
                     Texture = _deepWaterTexture;
-                    TileType = TileType.Hole;
-                }
-                else
-                {
+                }else{
                     Texture = _waterTexture;
-                    TileType = TileType.Passable;
                 }
-            }
-            else
-            {
-                Texture = _waterTexture;
             }
 
-            throw new NotImplementedException();
+
         }
 
 

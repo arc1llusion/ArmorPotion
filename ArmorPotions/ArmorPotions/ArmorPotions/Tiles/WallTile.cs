@@ -16,7 +16,7 @@ namespace ArmorPotions.Tiles
 
         public override void onEvent(EventType sendEvent)
         {
-            throw new NotImplementedException();
+
         }
     }
 }

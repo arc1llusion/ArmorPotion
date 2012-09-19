@@ -11,6 +11,8 @@ using ArmorPotionFramework.Inventory;
 using ArmorPotionFramework.Input;
 using ArmorPotionFramework.Utility;
 using ArmorPotionFramework.Data;
+using ArmorPotionFramework.TileEngine;
+using System;
 
 
 namespace ArmorPotionFramework.EntityClasses
@@ -145,6 +147,55 @@ namespace ArmorPotionFramework.EntityClasses
                 _inventory.SelectRelativeTempaQuip(this, -1);
             else if (InputHandler.KeyPressed(Keys.Right) || InputHandler.ButtonPressed(Buttons.RightShoulder,PlayerIndex.One))
                 _inventory.SelectRelativeTempaQuip(this, 1);
+
+
+
+            /*
+             * Temp Code below for Switch check, Please Remove eventually
+             * 
+             * 
+             */
+            if (InputHandler.KeyPressed(Keys.I))
+            {
+                for (int i = 0; i <= World.CurrentDungeon.getMapLevel(1).GetLength(0) - 1; i++)
+                {
+                    for (int c = 0; c <= World.CurrentDungeon.getMapLevel(1).GetLength(1) - 1; c++)
+                    {
+                        if (World.CurrentDungeon.getMapLevel(1)[c, i] != null)
+                        {
+                            World.CurrentDungeon.getMapLevel(1)[c, i].onEvent(EventType.IceEvent);
+                        }
+                    }
+                }
+            }
+            
+            if (InputHandler.KeyPressed(Keys.O))
+            {
+                for (int i = 0; i <= World.CurrentDungeon.getMapLevel(1).GetLength(0) - 1; i++)
+                {
+                    for (int c = 0; c <= World.CurrentDungeon.getMapLevel(1).GetLength(1) - 1; c++)
+                    {
+                        if (World.CurrentDungeon.getMapLevel(1)[c, i] != null)
+                        {
+                            World.CurrentDungeon.getMapLevel(1)[c, i].onEvent(EventType.FireEvent);
+                        }
+                    }
+                }
+            }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         }
 
         public void Damage(IncrementalValue pair, int modifier)
@@ -170,6 +221,11 @@ namespace ArmorPotionFramework.EntityClasses
             spriteBatch.DrawString(World.Game.Content.Load<SpriteFont>(@"Fonts\ControlFont"), "Player Health: " + _health.CurrentValue, new Vector2(500, 10), Color.White);
             spriteBatch.DrawString(World.Game.Content.Load<SpriteFont>(@"Fonts\ControlFont"), "Player Shield: " + _shield.CurrentValue, new Vector2(500, 50), Color.White);
             if(_inventory.CurrentTempaQuip != null) spriteBatch.DrawString(World.Game.Content.Load<SpriteFont>(@"Fonts\ControlFont"), "Currently equipped: " + _inventory.CurrentTempaQuip.Name, new Vector2(300, 90), Color.White);
+
+            int coordX = (int)Math.Ceiling( _position.X / Tile.Width);
+            int coordY = (int)Math.Ceiling(_position.Y / Tile.Height);
+
+            spriteBatch.DrawString(World.Game.Content.Load<SpriteFont>(@"Fonts\ControlFont"), "Coords: " + + coordX + ":" + coordY, new Vector2(0, 0), Color.White);
         }
     }
 }

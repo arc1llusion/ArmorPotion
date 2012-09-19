@@ -41,7 +41,6 @@ namespace ArmorPotions.Tiles
                 Texture = _lavaTexture;
                 TileType = TileType.Hole;
             }
-            throw new NotImplementedException();
         }
     }
 }

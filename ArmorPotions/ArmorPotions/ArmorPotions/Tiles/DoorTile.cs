@@ -25,7 +25,6 @@ namespace ArmorPotions.Tiles
             {
                 _isOpened = !_isOpened;
             }
-            throw new NotImplementedException();
         }
     }
 }
