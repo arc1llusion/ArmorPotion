@@ -77,40 +77,6 @@ namespace ArmorPotionFramework.Inventory
             }
         }
 
-        //public void ForwardTempaQuip(Player player)
-        //{
-        //    CurrentTempaQuip.OnUnEquip(player);
-        //    ForwardIndex<TempaQuip>(ref _tempaQuipIndex, _tempaQuips);
-        //    CurrentTempaQuip.OnEquip(player);
-        //}
-
-        //public void BackTempaQuip(Player player)
-        //{
-        //    CurrentTempaQuip.OnUnEquip(player);
-        //    BackIndex<TempaQuip>(ref _tempaQuipIndex, _tempaQuips);
-        //    CurrentTempaQuip.OnEquip(player);
-        //}
-
-        //public void ForwardInstaQuip()
-        //{
-        //    ForwardIndex<InstaQuip>(ref _instaQuipIndex, _instaQuips);
-        //}
-
-        //public void BackInstaQuip()
-        //{
-        //    BackIndex<InstaQuip>(ref _instaQuipIndex, _instaQuips);
-        //}
-
-        //public void ForwardPermaQuip()
-        //{
-        //    ForwardIndex<PermaQuip>(ref _permaQuipIndex, _permaQuips);
-        //}
-
-        //public void BackPermaQuip()
-        //{
-        //    BackIndex<PermaQuip>(ref _permaQuipIndex, _permaQuips);
-        //}
-
         public void SelectRelativeTempaQuip(Player player, int deltaIndex)
         {
             if (CurrentTempaQuip != null)
