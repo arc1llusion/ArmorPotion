@@ -1,4 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Items>
-  <Item Type="ArmorPotions.Items.Potion" Texture="Items\Images\Potion" Name="Super Awesome Potion"></Item>
+  <Item Type="ArmorPotions.Items.Potion" Texture="Items\Images\Potion" Name="Super Awesome Potion">
+    <ConstructorArgs />
+  </Item>
+  <Item Type="ArmorPotions.Items.TempaQuipItems.EBall" Texture="Items\Weapons\Eball" Name="E-Ball Fire">
+    <SpriteSheet Texture="Weapons\Eball" Name="Eball">
+      <Animation Key="Right" Width="32" Height="32" FrameCount="1" xOffset="0" yOffset="0" FramesPerSecond="1" />
+    </SpriteSheet>
+    <ConstructorArgs>
+      <Argument Type="System.Int32" Value="10" />
+      <Argument Type="Sprite" Texture="Weapons\Fireball" Name="Projectile">
+        <Animation Key="Right" Width="32" Height="32" FrameCount="1" xOffset="0" yOffset="0" FramesPerSecond="1" />
+      </Argument>
+    </ConstructorArgs>
+  </Item>
 </Items>

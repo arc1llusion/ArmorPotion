@@ -13,19 +13,11 @@ using ArmorPotionFramework.EntityClasses;
 using ArmorPotions;
 using ArmorPotionFramework.EntityClasses.Data;
 using ArmorPotionFramework.WorldClasses;
+using ArmorPotionFramework.Loading;
 
 namespace ArmorPotions.Factories
 {
-    struct SpriteInfo
-    {
-        public String Name;
-        public AnimatedSprite Sprite;
-        public SpriteInfo(String name, AnimatedSprite sprite)
-        {
-            Name = name;
-            Sprite = sprite;
-        }
-    }
+
 
     public class EnemyFactory : ArmorPotionFramework.Loading.Factory<Enemy, EnemyData>
     {
@@ -89,32 +81,6 @@ namespace ArmorPotions.Factories
         private Vector2 ReadVector2(XmlNode element)
         {
             return new Vector2(float.Parse(element.Attributes["X"].Value), float.Parse(element.Attributes["Y"].Value));
-        }
-
-        private Texture2D ReadTexture(XmlNode element)
-        {
-            return Content.Load<Texture2D>(BasePath + @"\" + element.Attributes["Texture"].Value);
-        }
-
-        private SpriteInfo CreateSpriteSheet(XmlNode sprite)
-        {
-            Dictionary<AnimationKey, Animation> animations = new Dictionary<AnimationKey, Animation>();
-
-            foreach (XmlNode node in sprite.SelectNodes("Animation"))
-            {
-                Animation animation = new Animation(
-                    int.Parse(node.Attributes["FrameCount"].Value),
-                    int.Parse(node.Attributes["Width"].Value),
-                    int.Parse(node.Attributes["Height"].Value),
-                    int.Parse(node.Attributes["xOffset"].Value),
-                    int.Parse(node.Attributes["yOffset"].Value));
-
-                animation.FramesPerSecond = int.Parse(node.Attributes["FramesPerSecond"].Value);
-
-                animations.Add((AnimationKey)Enum.Parse(typeof(AnimationKey), node.Attributes["Key"].Value), animation);
-            }
-
-            return new SpriteInfo(sprite.Attributes["Name"].Value, new AnimatedSprite(ReadTexture(sprite), animations));
         }
 
         private IAIComponent GetAIComponent(XmlNode node)

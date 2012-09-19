@@ -115,6 +115,7 @@
     <Compile Include="Projectiles\ConeProjectile.cs" />
     <Compile Include="Projectiles\LinearProjectile.cs" />
     <Compile Include="Projectiles\Projectile.cs" />
+    <Compile Include="Projectiles\ThrowProjectile.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SpriteClasses\AnimatedSprite.cs" />
     <Compile Include="SpriteClasses\Animation.cs" />
