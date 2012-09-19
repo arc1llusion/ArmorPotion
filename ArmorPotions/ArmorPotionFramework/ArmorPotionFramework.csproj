@@ -120,9 +120,7 @@
     <Compile Include="SpriteClasses\Animation.cs" />
     <Compile Include="TileEngine\EventType.cs" />
     <Compile Include="TileEngine\Map.cs" />
-    <Compile Include="TileEngine\Room.cs" />
     <Compile Include="TileEngine\Tile.cs" />
-    <Compile Include="TileEngine\TileSheet.cs" />
     <Compile Include="TileEngine\TileType.cs" />
     <Compile Include="Utility\GameMath.cs" />
     <Compile Include="Utility\XmlSource.cs" />

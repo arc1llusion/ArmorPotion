@@ -38,16 +38,17 @@ namespace ArmorPotion.MapStuff
 
 
             Map loadedMap = new Map(loadMap(mapTopLocation, textureDictionary), loadMap(mapBottomLocation, textureDictionary), world);
-            for (int i = 0; i <= loadedMap.getMapLevel(0).GetLength(0) - 1; i++)
+            for (int i = 0; i <= loadedMap.getMapLevel(1).GetLength(0) - 1; i++)
             {
-                for (int c = 0; c <= loadedMap.getMapLevel(0).GetLength(1) - 1; c++)
+                for (int c = 0; c <= loadedMap.getMapLevel(1).GetLength(1) - 1; c++)
                 {
                     Tile tempTile = loadedMap.getMapLevel(1)[c, i];
                     if (tempTile != null)
                     {
                         if (tempTile.TileID == 11||tempTile.TileID == 12||tempTile.TileID == 13)
                         {
-
+                            SwitchTile switchTile = (SwitchTile)tempTile;
+                            switchTile.parseOneselfAndAddThineSelfToThouDictionaryOfLinkedTileObjects_Cheers(loadedMap.getMapLevel(1));
                         }
                     }
                 }
