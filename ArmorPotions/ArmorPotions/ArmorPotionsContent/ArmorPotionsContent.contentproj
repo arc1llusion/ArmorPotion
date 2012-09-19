@@ -228,8 +228,15 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Tiles\LadderTile.png">
-      <Name>LadderTile</Name>
+    <Compile Include="Enemy\LightBugAttackAnimation.png">
+      <Name>LightBugAttackAnimation</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Items\Weapons\FireballAnimation.png">
+      <Name>FireballAnimation</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
