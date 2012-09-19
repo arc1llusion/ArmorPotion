@@ -31,7 +31,7 @@ namespace ArmorPotions.Items.TempaQuipItems
             {
                 _currentWaitTime = _maxWaitTime;
 
-                ConeProjectile projectile = new ConeProjectile(activatedBy.World, this, 75, CenterEntity(activatedBy), InputHandler.CurrentMousePosition, Math.PI / 4);
+                ConeProjectile projectile = new ConeProjectile(activatedBy.World, this, 75, CenterEntity(activatedBy), MathHelper.ToRadians((int)activatedBy.CurrentSprite.CurrentAnimation * 90), Math.PI / 4);
                 projectile.AnimatedSprites.Add("Normal", AnimatedSprite);
 
                 activatedBy.World.Projectiles.Add(projectile);

@@ -7,7 +7,7 @@ using System;
 
 namespace ArmorPotionFramework.SpriteClasses
 {
-    public enum AnimationKey { Down, Left, Right, Up } //Add Jump here
+    public enum AnimationKey { Down = 1, Left = 2, Right = 0, Up = 3 } //Add Jump here
 
     public class Animation : ICloneable
     {

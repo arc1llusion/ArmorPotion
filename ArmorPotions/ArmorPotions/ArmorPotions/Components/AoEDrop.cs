@@ -62,7 +62,7 @@ namespace ArmorPotions.Components
                 Vector2 newPosition = new Vector2(enemy.Position.X - enemy.CurrentSprite.Width / 2, enemy.Position.Y - enemy.CurrentSprite.Height / 2);
 
                 Animation animation = new Animation(1, 256, 256, 0, 0);
-                AnimatedSprite sprite = new AnimatedSprite(_texture, new Dictionary<AnimationKey, Animation> { { AnimationKey.Down, animation } });
+                AnimatedSprite sprite = new AnimatedSprite(_texture, new Dictionary<AnimationKey, Animation> { { AnimationKey.Right, animation } });
                 _projectile = new AreaOfEffectProjectile(enemy.World, null, newPosition, _defaultLifetime);
                 _projectile.AnimatedSprites.Add("Normal", sprite);
                 enemy.World.Projectiles.Add(_projectile);

@@ -78,8 +78,8 @@ namespace ArmorPotions
             Animation animation = new Animation(1, 32, 32, 0, 0);
             Animation animation2 = new Animation(1, 256, 256, 0, 0);
 
-            AnimatedSprite sprite = new AnimatedSprite(Content.Load<Texture2D>(@"Items\Weapons\Fireball"), new Dictionary<AnimationKey, Animation> { { AnimationKey.Down, animation } });
-            AnimatedSprite light = new AnimatedSprite(Content.Load<Texture2D>(@"Images\Enemy\LightBugAttack"), new Dictionary<AnimationKey, Animation> { { AnimationKey.Down, animation2 } });
+            AnimatedSprite sprite = new AnimatedSprite(Content.Load<Texture2D>(@"Items\Weapons\Fireball"), new Dictionary<AnimationKey, Animation> { { AnimationKey.Right, animation } });
+            AnimatedSprite light = new AnimatedSprite(Content.Load<Texture2D>(@"Images\Enemy\LightBugAttack"), new Dictionary<AnimationKey, Animation> { { AnimationKey.Right, animation2 } });
 
             world.Player.Inventory.TempaQuips.Add(new Gun(null, "BobsGun", sprite));
             world.Player.Inventory.SelectRelativeTempaQuip(world.Player, 0);

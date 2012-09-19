@@ -27,6 +27,7 @@ namespace ArmorPotionFramework.Projectiles
             Position = startingPosition;
             Velocity = new Vector2((float)Math.Cos(_angle) * 2, (float)Math.Sin(_angle) * 2);
         }
+
         public LinearProjectile(World world, Item source, float liveDistance, Vector2 startingPosition, double angle)
             : base(world, source)
         {

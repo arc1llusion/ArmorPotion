@@ -21,6 +21,14 @@ namespace ArmorPotionFramework.Projectiles
             Velocity = new Vector2((float)Math.Cos(_angle ) * 2 + (float)spread, (float)Math.Sin(_angle) * 2 + (float)spread);
         }
 
+        public ConeProjectile(World world, Item source, float liveDistance, Vector2 startingPosition, double angle, double angleSpread)
+            : base(world, source, liveDistance, startingPosition, angle)
+        {
+
+            double spread = RandomGenerator.Random.NextDouble() * (angleSpread);
+            Velocity = new Vector2((float)Math.Cos(_angle) * 2 + (float)spread, (float)Math.Sin(_angle) * 2 + (float)spread);
+        }
+
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
