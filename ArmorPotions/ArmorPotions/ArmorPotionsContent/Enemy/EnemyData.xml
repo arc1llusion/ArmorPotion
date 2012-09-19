@@ -24,21 +24,25 @@
     <IdleComponent Type="ArmorPotions.Components.MoveRandom" />
     <DecisionComponent Type="ArmorPotions.Components.Decide" />
     <ActionComponents>
-      <ActionComponent Name="AoEDrop" Type="ArmorPotions.Components.AoEDrop" Wait="1000" LifeTime ="300" AttackTexture="Enemy\LightBugAttack" EventType="LightningEvent"/>
+      <ActionComponent Name="AoEDrop" Type="ArmorPotions.Components.AoEDrop" Wait="1000" LifeTime ="300" EventType="LightningEvent">
+        <Properties Type="SpriteSheet" PropertyName="AttackTexture" Texture="LightBugAttackAnimation" Name="Normal" IsAnimating="True">
+          <Animation Key="Right" Width="256" Height="256" FrameCount="6" xOffset="256" yOffset="0" FramesPerSecond="18" />
+        </Properties>
+      </ActionComponent>
     </ActionComponents>
     <CollisionOffset Left="0" Right="0" Top="55" Bottom="10" />
     <SpriteSheets>
       <Sprite Texture="LightBugWalking" Name="Walking">
-        <Animation Key="Down" Width="128" Height="128" FrameCount="4" xOffset="0" yOffset="0" FramesPerSecond="1" />
-        <Animation Key="Left" Width="128" Height="128" FrameCount="4" xOffset="0" yOffset="128" FramesPerSecond="1" />
-        <Animation Key="Right" Width="128" Height="128" FrameCount="4" xOffset="0" yOffset="256" FramesPerSecond="1" />
-        <Animation Key="Up" Width="128" Height="128" FrameCount="4" xOffset="0" yOffset="384" FramesPerSecond="1" />
+        <Animation Key="Down" Width="128" Height="128" FrameCount="4" xOffset="0" yOffset="0" FramesPerSecond="5" />
+        <Animation Key="Left" Width="128" Height="128" FrameCount="4" xOffset="0" yOffset="128" FramesPerSecond="5" />
+        <Animation Key="Right" Width="128" Height="128" FrameCount="4" xOffset="0" yOffset="256" FramesPerSecond="5" />
+        <Animation Key="Up" Width="128" Height="128" FrameCount="4" xOffset="0" yOffset="384" FramesPerSecond="5" />
       </Sprite>
       <Sprite Texture="LightBugCharge" Name="Charging">
-        <Animation Key="Down" Width="128" Height="128" FrameCount="4" xOffset="0" yOffset="0" FramesPerSecond="1" />
-        <Animation Key="Left" Width="128" Height="128" FrameCount="4" xOffset="0" yOffset="128" FramesPerSecond="1" />
-        <Animation Key="Right" Width="128" Height="128" FrameCount="4" xOffset="0" yOffset="256" FramesPerSecond="1" />
-        <Animation Key="Up" Width="128" Height="128" FrameCount="4" xOffset="0" yOffset="384" FramesPerSecond="1" />
+        <Animation Key="Down" Width="128" Height="128" FrameCount="4" xOffset="0" yOffset="0" FramesPerSecond="5" />
+        <Animation Key="Left" Width="128" Height="128" FrameCount="4" xOffset="0" yOffset="128" FramesPerSecond="5" />
+        <Animation Key="Right" Width="128" Height="128" FrameCount="4" xOffset="0" yOffset="256" FramesPerSecond="5" />
+        <Animation Key="Up" Width="128" Height="128" FrameCount="4" xOffset="0" yOffset="384" FramesPerSecond="5" />
       </Sprite>
     </SpriteSheets>
     <Fields SightRadius="100" />

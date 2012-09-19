@@ -22,7 +22,7 @@ namespace ArmorPotions.Components
         private int _defaultLifetime;
         private int _defaultWaitTime;
 
-        private Texture2D _texture;
+        private AnimatedSprite _sprite;
         private EventType _eventType;
 
         public AoEDrop()
@@ -51,9 +51,9 @@ namespace ArmorPotions.Components
             set { this._defaultWaitTime = value; }
         }
 
-        public Texture2D AttackTexture
+        public AnimatedSprite AttackTexture
         {
-            set { this._texture = value; }
+            set { this._sprite = value; }
         }
 
         public EventType EventType
@@ -69,9 +69,8 @@ namespace ArmorPotions.Components
                 Vector2 newPosition = new Vector2(enemy.Position.X - enemy.CurrentSprite.Width / 2, enemy.Position.Y - enemy.CurrentSprite.Height / 2);
 
                 Animation animation = new Animation(1, 256, 256, 0, 0);
-                AnimatedSprite sprite = new AnimatedSprite(_texture, new Dictionary<AnimationKey, Animation> { { AnimationKey.Right, animation } });
                 _projectile = new AreaOfEffectProjectile(enemy.World, null, EventType.LightningEvent, false, newPosition, _defaultLifetime);
-                _projectile.AnimatedSprites.Add("Normal", sprite);
+                _projectile.AnimatedSprites.Add("Normal", _sprite.Clone());
                 enemy.World.Projectiles.Add(_projectile);
                 _lifetime = _defaultLifetime;
                 _isSetUp = true;

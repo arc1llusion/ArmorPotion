@@ -123,6 +123,7 @@ namespace ArmorPotionFramework.SpriteClasses
 
             animationClone._frameWidth = this._frameWidth;
             animationClone._frameHeight = this._frameHeight;
+            animationClone.FramesPerSecond = this._framesPerSecond;
             animationClone.Reset();
 
             return animationClone;
