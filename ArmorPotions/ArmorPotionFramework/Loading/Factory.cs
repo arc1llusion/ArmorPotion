@@ -8,9 +8,21 @@ using ArmorPotionFramework.Utility;
 using System.Xml;
 using System.Reflection;
 using Microsoft.Xna.Framework.Graphics;
+using ArmorPotionFramework.SpriteClasses;
 
 namespace ArmorPotionFramework.Loading
 {
+    public struct SpriteInfo
+    {
+        public String Name;
+        public AnimatedSprite Sprite;
+        public SpriteInfo(String name, AnimatedSprite sprite)
+        {
+            Name = name;
+            Sprite = sprite;
+        }
+    }
+
     public abstract class Factory<T, K>
     {
         #region Fields
@@ -92,6 +104,32 @@ namespace ArmorPotionFramework.Loading
                         property.SetValue(obj, Convert.ChangeType(node.Attributes[property.Name].Value, property.PropertyType), null);
                 }
             }
+        }
+
+        protected virtual SpriteInfo CreateSpriteSheet(XmlNode sprite)
+        {
+            Dictionary<AnimationKey, Animation> animations = new Dictionary<AnimationKey, Animation>();
+
+            foreach (XmlNode node in sprite.SelectNodes("Animation"))
+            {
+                Animation animation = new Animation(
+                    int.Parse(node.Attributes["FrameCount"].Value),
+                    int.Parse(node.Attributes["Width"].Value),
+                    int.Parse(node.Attributes["Height"].Value),
+                    int.Parse(node.Attributes["xOffset"].Value),
+                    int.Parse(node.Attributes["yOffset"].Value));
+
+                animation.FramesPerSecond = int.Parse(node.Attributes["FramesPerSecond"].Value);
+
+                animations.Add((AnimationKey)Enum.Parse(typeof(AnimationKey), node.Attributes["Key"].Value), animation);
+            }
+
+            return new SpriteInfo(sprite.Attributes["Name"].Value, new AnimatedSprite(ReadTexture(sprite), animations));
+        }
+
+        protected Texture2D ReadTexture(XmlNode element)
+        {
+            return Content.Load<Texture2D>(BasePath + @"\" + element.Attributes["Texture"].Value);
         }
 
         #endregion

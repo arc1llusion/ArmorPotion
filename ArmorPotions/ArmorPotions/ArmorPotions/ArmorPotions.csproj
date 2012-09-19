@@ -114,6 +114,7 @@
     <Compile Include="Factories\EnemyFactory.cs" />
     <Compile Include="Factories\ItemFactory.cs" />
     <Compile Include="Items\Potion.cs" />
+    <Compile Include="Items\TempaQuipItems\EBall.cs" />
     <Compile Include="Items\TempaQuipItems\Gun.cs" />
     <Compile Include="Items\TempaQuipItems\SomeConeWeapon.cs" />
     <Compile Include="Items\TempaQuipItems\Zapper.cs" />

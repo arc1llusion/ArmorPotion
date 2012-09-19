@@ -68,7 +68,7 @@ namespace ArmorPotions
             world.EnemyFactory = factory;
 
             Enemy enemy = world.EnemyFactory.Create("LightBug");
-            enemy.Position = new Vector2(400, 400);
+            enemy.Position = new Vector2(300, 300);
             world.Enemies.Add(enemy);
 
             Item item = itemFactory.Create("Super Awesome Potion");
@@ -87,6 +87,8 @@ namespace ArmorPotions
             world.Player.Inventory.TempaQuips.Add(new Zapper(null, "BobsZapper", light));
 
             world.Player.Inventory.TempaQuips.Add(new SomeConeWeapon(null, "BobsCone", sprite.Clone()));
+
+            world.Player.Inventory.TempaQuips.Add((EBall)itemFactory.Create("E-Ball Fire"));
         }
 
         /// <summary>
@@ -101,7 +103,7 @@ namespace ArmorPotions
         /// <summary>
         /// Allows the game to run logic such as updating the world,
         /// checking for collisions, gathering input, and playing audio.
-        /// </summary>
+        /// </sumaaaawwadswwsssssssmary>
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {

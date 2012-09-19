@@ -14,12 +14,14 @@ namespace ArmorPotionFramework.Items
         public Texture2D Icon;
         public String Name;
         public Type Type;
+        public AnimatedSprite Sprite;
+        public List<Object> Args;
 
         public ItemData()
         {
         }
 
-        public ItemData(Texture2D icon, String name,Type type)
+        public ItemData(Texture2D icon, String name, Type type)
         {
             this.Icon = icon;
             this.Name = name;
@@ -34,7 +36,7 @@ namespace ArmorPotionFramework.Items
         protected List<Modifier> _modifiers;
         protected Vector2 _position;
         protected AnimatedSprite _sprite;
-        
+
         protected bool _allowMulti;
         protected bool _hasProjectile;
 
@@ -117,7 +119,7 @@ namespace ArmorPotionFramework.Items
 
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            
+
         }
 
         public void DrawIcon(GameTime gameTime, SpriteBatch spriteBatch)
