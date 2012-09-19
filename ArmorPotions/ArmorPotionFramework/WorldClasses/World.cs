@@ -24,6 +24,7 @@ namespace ArmorPotionFramework.WorldClasses
         private Camera _camera;
         private List<Enemy> _enemies;
         private List<Projectile> _projectiles;
+        private List<Projectile> _projectilesToAdd;
         private Map currentDungeon;
 
         private Factory<Enemy, EnemyData> _enemyFactory;
@@ -33,6 +34,8 @@ namespace ArmorPotionFramework.WorldClasses
             _game = game;
             _enemies = new List<Enemy>();
             _projectiles = new List<Projectile>();
+            _projectilesToAdd = new List<Projectile>();
+
             _player = new Player(this, _game.Content.Load<Texture2D>(@"Player\PlayerWalking"));
             _player.Position = new Vector2(350, 350);
 
@@ -70,6 +73,14 @@ namespace ArmorPotionFramework.WorldClasses
             get
             {
                 return this._projectiles;
+            }
+        }
+
+        public List<Projectile> ProjectilesToAdd
+        {
+            get
+            {
+                return this._projectilesToAdd;
             }
         }
 
@@ -151,9 +162,12 @@ namespace ArmorPotionFramework.WorldClasses
 
             foreach (Projectile projectile in removedProjectiles)
             {
-                if(projectile.Source != null) projectile.Source.HasProjectile = false;
+                if (projectile.Source != null) projectile.Source.HasProjectile = false;
                 _projectiles.Remove(projectile);
             }
+
+            _projectiles.AddRange(_projectilesToAdd);
+            _projectilesToAdd.Clear();
         }
 
         public void DrawProjectiles(GameTime gameTime, SpriteBatch spriteBatch)
