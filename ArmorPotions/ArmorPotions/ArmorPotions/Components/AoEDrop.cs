@@ -8,6 +8,7 @@ using ArmorPotionFramework.SpriteClasses;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using ArmorPotionFramework.EntityClasses;
+using ArmorPotionFramework.TileEngine;
 
 namespace ArmorPotions.Components
 {
@@ -22,6 +23,7 @@ namespace ArmorPotions.Components
         private int _defaultWaitTime;
 
         private Texture2D _texture;
+        private EventType _eventType;
 
         public AoEDrop()
         {
@@ -54,6 +56,11 @@ namespace ArmorPotions.Components
             set { this._texture = value; }
         }
 
+        public EventType EventType
+        {
+            set { this._eventType = value; }
+        }
+
         public void Update(Microsoft.Xna.Framework.GameTime gameTime, ArmorPotionFramework.EntityClasses.Enemy enemy)
         {
             bool canAttack = WaitTimer(gameTime);
@@ -63,7 +70,7 @@ namespace ArmorPotions.Components
 
                 Animation animation = new Animation(1, 256, 256, 0, 0);
                 AnimatedSprite sprite = new AnimatedSprite(_texture, new Dictionary<AnimationKey, Animation> { { AnimationKey.Right, animation } });
-                _projectile = new AreaOfEffectProjectile(enemy.World, null, newPosition, _defaultLifetime);
+                _projectile = new AreaOfEffectProjectile(enemy.World, null, EventType.LightningEvent, false, newPosition, _defaultLifetime);
                 _projectile.AnimatedSprites.Add("Normal", sprite);
                 enemy.World.Projectiles.Add(_projectile);
                 _lifetime = _defaultLifetime;

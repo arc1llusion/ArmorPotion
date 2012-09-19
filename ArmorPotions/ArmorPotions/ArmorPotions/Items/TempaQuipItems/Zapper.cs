@@ -30,7 +30,7 @@ namespace ArmorPotions.Items.TempaQuipItems
         {
             if (!_hasProjectile)
             {
-                AreaOfEffectProjectile projectile = new AreaOfEffectProjectile(activatedBy.World, this, CenterEntity(activatedBy), 3000);
+                AreaOfEffectProjectile projectile = new AreaOfEffectProjectile(activatedBy.World, this, ArmorPotionFramework.TileEngine.EventType.LightningEvent, false, CenterEntity(activatedBy), 3000);
                 projectile.AnimatedSprites.Add("Normal", AnimatedSprite);
 
                 activatedBy.World.Projectiles.Add(projectile);

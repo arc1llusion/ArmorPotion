@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework.Graphics;
 using ArmorPotionFramework.SpriteClasses;
 using ArmorPotionFramework.Projectiles;
 using Microsoft.Xna.Framework;
+using ArmorPotionFramework.TileEngine;
 
 namespace ArmorPotions.Items.TempaQuipItems
 {
@@ -46,13 +47,17 @@ namespace ArmorPotions.Items.TempaQuipItems
 
                 ThrowProjectile projectile = new ThrowProjectile(
                     activatedBy.World, 
-                    this, this.CenterEntity(activatedBy), 
+                    this,
+                    EventType.FireEvent,
+                    false,
+                    this.CenterEntity(activatedBy), 
                     _throwDistance, 
                     MathHelper.ToRadians((int)activatedBy.CurrentSprite.CurrentAnimation * 90), 
                     _projectileDistance, 
                     _spreadAngle, 
                     _revolutions, 
-                    _projectilesPerIteration);
+                    _projectilesPerIteration,
+                    true);
 
                 projectile.AnimatedSprites.Add("Normal", AnimatedSprite);
                 projectile.AnimatedSprites.Add("Projectile", _secondaryProjectileSprite);

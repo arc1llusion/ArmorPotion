@@ -192,6 +192,7 @@ namespace ArmorPotionFramework.EntityClasses
         public CollisionData HandleCollisions(Vector2 velocity)
         {
             Rectangle bounds = BoundingRectangle;
+            List<Tile> collidingTiles = new List<Tile>();
 
             int leftTile = (int)Math.Floor(((float)bounds.Left + velocity.X) / Tile.Width);
             int rightTile = (int)Math.Ceiling((((float)bounds.Right + velocity.X) / Tile.Width)) - 1;
@@ -224,13 +225,19 @@ namespace ArmorPotionFramework.EntityClasses
                                                             bounds.Width,
                                                             bounds.Height);
 
+                        bool currentXAxisCollision = xAxisRectangle.Intersects(tileRect);
+                        bool currentYAxisCollision = yAxisRectangle.Intersects(tileRect);
+
+                        if (currentXAxisCollision | currentYAxisCollision)
+                            collidingTiles.Add(tile.Value.Tile);
+
                         xAxisCollision |= xAxisRectangle.Intersects(tileRect);
                         yAxisCollision |= yAxisRectangle.Intersects(tileRect);
                     }
                 }
             }
 
-            return new CollisionData(xAxisCollision | yAxisCollision, xAxisCollision, yAxisCollision);
+            return new CollisionData(xAxisCollision | yAxisCollision, xAxisCollision, yAxisCollision, collidingTiles);
         }
 
         public virtual void Update(GameTime gameTime)

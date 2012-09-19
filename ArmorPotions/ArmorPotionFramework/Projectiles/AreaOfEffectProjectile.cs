@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework;
 using ArmorPotionFramework.WorldClasses;
 using Microsoft.Xna.Framework.Graphics;
 using ArmorPotionFramework.Items;
+using ArmorPotionFramework.TileEngine;
 
 namespace ArmorPotionFramework.Projectiles
 {
@@ -14,8 +15,8 @@ namespace ArmorPotionFramework.Projectiles
         private Vector2 _destination;
         private int _lifetime;
 
-        public AreaOfEffectProjectile(World world, Item source, Vector2 destination, int lifetime)
-            : base(world, source)
+        public AreaOfEffectProjectile(World world, Item source, EventType eventType, bool triggerEvents, Vector2 destination, int lifetime)
+            : base(world, source, eventType, triggerEvents)
         {
             _position = destination;
             _destination = destination;
@@ -34,6 +35,10 @@ namespace ArmorPotionFramework.Projectiles
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             CurrentSprite.Draw(gameTime, spriteBatch, _destination - World.Camera.CameraOffset, World.Camera);
+        }
+
+        public override void OnCollide(List<TileEngine.Tile> tileData)
+        {
         }
     }
 }

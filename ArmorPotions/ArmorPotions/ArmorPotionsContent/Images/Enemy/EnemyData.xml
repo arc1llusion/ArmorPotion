@@ -23,7 +23,7 @@
     <IdleComponent Type="ArmorPotions.Components.MoveRandom" />
     <DecisionComponent Type="ArmorPotions.Components.Decide" />
     <ActionComponents>
-      <ActionComponent Name="AoEDrop" Type="ArmorPotions.Components.AoEDrop" Wait="1000" LifeTime ="300" AttackTexture="Images\Enemy\LightBugAttack"/>
+      <ActionComponent Name="AoEDrop" Type="ArmorPotions.Components.AoEDrop" Wait="1000" LifeTime ="300" AttackTexture="Images\Enemy\LightBugAttack" EventType="LightningEvent"/>
     </ActionComponents>
     <CollisionOffset Left="0" Right="0" Top="55" Bottom="10" />
     <SpriteSheets>

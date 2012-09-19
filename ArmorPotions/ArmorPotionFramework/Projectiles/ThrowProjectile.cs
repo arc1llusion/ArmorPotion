@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework.Graphics;
 using ArmorPotionFramework.WorldClasses;
 using ArmorPotionFramework.Items;
 using ArmorPotionFramework.Utility;
+using ArmorPotionFramework.TileEngine;
 
 namespace ArmorPotionFramework.Projectiles
 {
@@ -29,11 +30,12 @@ namespace ArmorPotionFramework.Projectiles
 
         private double _projectileSpread;
         private float _projectileDistance;
+        private bool _triggerSecondaryProjectileEvents;
 
         #endregion
 
-        public ThrowProjectile(World world, Item source, Vector2 startingPostion, float throwDistance, float beginningAngle, float projectileDistance, double projectileSpread, float revolutions, float projectilesPerIteration)
-            : base(world, source)
+        public ThrowProjectile(World world, Item source, EventType eventType, bool triggerEvents, Vector2 startingPostion, float throwDistance, float beginningAngle, float projectileDistance, double projectileSpread, float revolutions, float projectilesPerIteration, bool triggerSecondaryProjectileEvents)
+            : base(world, source, eventType, triggerEvents)
         {
             _position = startingPostion;
 
@@ -43,11 +45,13 @@ namespace ArmorPotionFramework.Projectiles
             _angle = _beginningAngle;
             _projectileDistance = projectileDistance;
             _projectileSpread = projectileSpread;
+            _triggerSecondaryProjectileEvents = triggerSecondaryProjectileEvents;
             _angleCycle = revolutions * 2 * Math.PI;
             _deltaAngle = projectilesPerIteration / _angleCycle;
 
             _thrown = false;
             Velocity = new Vector2((float)Math.Cos(beginningAngle) * 2, (float)Math.Sin(beginningAngle) * 2);
+            _triggerEvents = false;
         }
 
         public override void Update(GameTime gameTime)
@@ -66,7 +70,7 @@ namespace ArmorPotionFramework.Projectiles
                 if (_angle < _beginningAngle + _angleCycle)
                 {
                     _angle += _deltaAngle;
-                    ConeProjectile projectile = new ConeProjectile(World, null, _projectileDistance, _position, _angle, _projectileSpread);
+                    ConeProjectile projectile = new ConeProjectile(World, null, _eventType, _triggerSecondaryProjectileEvents,  _projectileDistance, _position, _angle, _projectileSpread);
                     projectile.AnimatedSprites.Add("Normal", AnimatedSprites["Projectile"]);
 
                     World.ProjectilesToAdd.Add(projectile);
@@ -81,6 +85,11 @@ namespace ArmorPotionFramework.Projectiles
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             CurrentSprite.Draw(gameTime, spriteBatch, _position - World.Camera.CameraOffset, World.Camera);
+        }
+
+        public override void OnCollide(List<TileEngine.Tile> tileData)
+        {
+            _thrown = true;
         }
     }
 }

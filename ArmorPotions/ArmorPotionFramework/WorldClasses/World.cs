@@ -13,6 +13,7 @@ using ArmorPotionFramework.Projectiles;
 using ArmorPotionFramework.TileEngine;
 using ArmorPotionFramework.Loading;
 using ArmorPotionFramework.EntityClasses.Data;
+using ArmorPotionFramework.Data;
 
 namespace ArmorPotionFramework.WorldClasses
 {
@@ -149,7 +150,7 @@ namespace ArmorPotionFramework.WorldClasses
 
         #region Helper Methods
 
-        public void UpdateProjectiles(GameTime gameTime)
+        private void UpdateProjectiles(GameTime gameTime)
         {
             List<Projectile> removedProjectiles = new List<Projectile>();
             foreach (Projectile projectile in _projectiles)
@@ -170,14 +171,15 @@ namespace ArmorPotionFramework.WorldClasses
             _projectilesToAdd.Clear();
         }
 
-        public void DrawProjectiles(GameTime gameTime, SpriteBatch spriteBatch)
+        private void DrawProjectiles(GameTime gameTime, SpriteBatch spriteBatch)
         {
             for (int i = _projectiles.Count - 1; i >= 0; i--)
             {
                 _projectiles[i].Draw(gameTime, spriteBatch);
             }
         }
-        public void DrawMap(GameTime gameTime, SpriteBatch spritebatch)
+
+        private void DrawMap(GameTime gameTime, SpriteBatch spritebatch)
         {
             currentDungeon.Draw(gameTime, spritebatch);
         }

@@ -6,6 +6,7 @@ using ArmorPotionFramework.WorldClasses;
 using Microsoft.Xna.Framework;
 using ArmorPotionFramework.Utility;
 using ArmorPotionFramework.Items;
+using ArmorPotionFramework.TileEngine;
 
 namespace ArmorPotionFramework.Projectiles
 {
@@ -16,8 +17,8 @@ namespace ArmorPotionFramework.Projectiles
         protected Vector2 _destination;
         protected double _angle;
 
-        public LinearProjectile(World world, Item source, float liveDistance, Vector2 startingPosition, Vector2 destination)
-            : base(world, source)
+        public LinearProjectile(World world, Item source, EventType eventType, bool triggerEvents, float liveDistance, Vector2 startingPosition, Vector2 destination)
+            : base(world, source, eventType, triggerEvents)
         {
             _liveDistance = liveDistance;
             _startingPosition = startingPosition;
@@ -28,8 +29,8 @@ namespace ArmorPotionFramework.Projectiles
             Velocity = new Vector2((float)Math.Cos(_angle) * 2, (float)Math.Sin(_angle) * 2);
         }
 
-        public LinearProjectile(World world, Item source, float liveDistance, Vector2 startingPosition, double angle)
-            : base(world, source)
+        public LinearProjectile(World world, Item source, EventType eventType, bool triggerEvents, float liveDistance, Vector2 startingPosition, double angle)
+            : base(world, source, eventType, triggerEvents)
         {
             _liveDistance = liveDistance;
             _startingPosition = startingPosition;
@@ -69,6 +70,11 @@ namespace ArmorPotionFramework.Projectiles
         public override void Draw(GameTime gameTime, Microsoft.Xna.Framework.Graphics.SpriteBatch spriteBatch)
         {
             CurrentSprite.Draw(gameTime, spriteBatch, _position - World.Camera.CameraOffset, World.Camera);
+        }
+
+        public override void OnCollide(List<TileEngine.Tile> tileData)
+        {
+            this._isAlive = false;
         }
     }
 }

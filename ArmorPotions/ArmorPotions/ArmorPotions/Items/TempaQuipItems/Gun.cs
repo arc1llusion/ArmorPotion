@@ -34,7 +34,7 @@ namespace ArmorPotions.Items.TempaQuipItems
             {
                 _currentWaitTime = _maxWaitTime;
 
-                _projectile = new LinearProjectile(activatedBy.World, this, 75, CenterEntity(activatedBy), MathHelper.ToRadians((int)activatedBy.CurrentSprite.CurrentAnimation * 90));
+                _projectile = new LinearProjectile(activatedBy.World, this, ArmorPotionFramework.TileEngine.EventType.DoorTrigger, false, 75, CenterEntity(activatedBy), MathHelper.ToRadians((int)activatedBy.CurrentSprite.CurrentAnimation * 90));
                 _projectile.AnimatedSprites.Add("Normal", AnimatedSprite);
 
                 activatedBy.World.Projectiles.Add(_projectile);

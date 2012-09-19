@@ -100,6 +100,8 @@ namespace ArmorPotionFramework.Loading
                 {
                     if (property.PropertyType == typeof(Texture2D))
                         property.SetValue(obj, Content.Load<Texture2D>(node.Attributes[property.Name].Value), null);
+                    else if(property.PropertyType.IsEnum)
+                        property.SetValue(obj, Enum.Parse(property.PropertyType, node.Attributes[property.Name].Value), null);
                     else
                         property.SetValue(obj, Convert.ChangeType(node.Attributes[property.Name].Value, property.PropertyType), null);
                 }
