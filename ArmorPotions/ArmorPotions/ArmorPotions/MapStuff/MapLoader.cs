@@ -31,6 +31,7 @@ namespace ArmorPotion.MapStuff
             textureDictionary.Add(11, world.Game.Content.Load<Texture2D>(@"Tiles\LightningSwitch"));
             textureDictionary.Add(12, world.Game.Content.Load<Texture2D>(@"Tiles\FireSwitch"));
             textureDictionary.Add(13, world.Game.Content.Load<Texture2D>(@"Tiles\IceSwitch"));
+            textureDictionary.Add(14, world.Game.Content.Load<Texture2D>(@"Tiles\DoorOpenTile"));
 
 
 
@@ -85,7 +86,7 @@ namespace ArmorPotion.MapStuff
                                    map[c, i].Position = new Vector2(c*192,i*192);
                                    break;
                                 case 3:
-                                   map[c, i] = new DoorTile(TileType.NonPassable, tileID, textureDict[3]);
+                                   map[c, i] = new DoorTile(TileType.NonPassable, tileID, textureDict[3], textureDict[14]);
                                    map[c, i].Position = new Vector2(c*192,i*192);
                                    break;
                                 case 4:

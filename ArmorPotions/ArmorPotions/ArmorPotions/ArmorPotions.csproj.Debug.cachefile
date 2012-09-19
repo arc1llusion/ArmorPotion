@@ -20,6 +20,7 @@ Content\Tiles\HoleTile.xnb
 Content\Tiles\SwitchTile.xnb
 Content\Tiles\DeepWaterTile.xnb
 Content\Items\Weapons\Fireball.xnb
+Content\Tiles\DoorOpenTile.xnb
 Content\Images\Enemy\EnemyData.xnb
 Content\Items\ItemData.xnb
 Content\Fonts\ControlFont.xnb

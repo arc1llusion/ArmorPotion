@@ -35,15 +35,15 @@ namespace ArmorPotions.Tiles
                 {
                     if (switchType == SwitchType.FireSwitch && sendEvent == EventType.FireEvent)
                     {
-                        _switchOn = !_switchOn;
+                        triggerTheFuxingSwitches();
                     }
                     else if (switchType == SwitchType.IceSwitch && sendEvent == EventType.IceEvent)
                     {
-                        _switchOn = !_switchOn;
+                        triggerTheFuxingSwitches();
                     }
                     else if (switchType == SwitchType.LightningSwitch && sendEvent == EventType.LightningEvent)
                     {
-                        _switchOn = !_switchOn;
+                        triggerTheFuxingSwitches();
                     }
                 }
             }
@@ -52,16 +52,18 @@ namespace ArmorPotions.Tiles
             }
 
 
-            if (_switchOn)
+        }
+
+        public void triggerTheFuxingSwitches()
+        {
+            foreach (EventType type in linkedTileDict.Keys)
             {
-                foreach (EventType type in linkedTileDict.Keys)
+                foreach (Tile tile in linkedTileDict[type])
                 {
-                    foreach (Tile tile in linkedTileDict[type])
-                    {
-                        tile.onEvent(type);
-                    }
+                    tile.onEvent(type);
                 }
             }
+
         }
 
         public void addTile(EventType typeToTrigger, Tile tileToBeAdded)

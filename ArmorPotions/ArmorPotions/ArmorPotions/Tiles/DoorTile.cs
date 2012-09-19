@@ -9,12 +9,15 @@ namespace ArmorPotions.Tiles
 {
     class DoorTile : Tile
     {
-        public DoorTile(TileType tileType, int tileID, Texture2D texture)
-            : base(tileType, tileID, texture)
+        bool _isOpened = false;
+        Texture2D _doorTexture;
+        Texture2D _doorOpenTexture;
+        public DoorTile(TileType tileType, int tileID, Texture2D doorTexture, Texture2D doorOpenTexture)
+            : base(tileType, tileID, doorTexture)
         {
-
+            _doorTexture = doorTexture;
+            _doorOpenTexture = doorOpenTexture;
         }
-        bool _isOpened;
 
 
 
@@ -23,7 +26,19 @@ namespace ArmorPotions.Tiles
         {
             if (sendEvent == EventType.DoorTrigger)
             {
-                _isOpened = !_isOpened;
+                
+                if (_isOpened)
+                {
+                    _isOpened = false;
+                    Texture = _doorTexture;
+                    TileType = TileType.NonPassable;
+                }
+                else
+                {
+                    _isOpened = true;
+                    Texture = _doorOpenTexture;
+                    TileType = TileType.Passable;
+                }
             }
         }
     }

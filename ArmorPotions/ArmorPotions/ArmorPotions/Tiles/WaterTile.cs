@@ -57,11 +57,14 @@ namespace ArmorPotions.Tiles
             }
             else if (sendEvent == EventType.FireEvent && _isFrozen)
             {
+                _isFrozen = false;
                 if (_isDeep)
                 {
                     Texture = _deepWaterTexture;
+                    TileType = TileType.Hole;
                 }else{
                     Texture = _waterTexture;
+                    TileType = TileType.Passable;
                 }
             }
 

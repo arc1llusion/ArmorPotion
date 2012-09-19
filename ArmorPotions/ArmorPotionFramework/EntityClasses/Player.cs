@@ -163,12 +163,19 @@ namespace ArmorPotionFramework.EntityClasses
                     {
                         if (World.CurrentDungeon.getMapLevel(1)[c, i] != null)
                         {
-                            World.CurrentDungeon.getMapLevel(1)[c, i].onEvent(EventType.IceEvent);
+                            Tile tempTile = World.CurrentDungeon.getMapLevel(1)[c, i];
+                            if (tempTile.TileID == 11 || tempTile.TileID == 12 || tempTile.TileID == 13)
+                            {
+                                tempTile.onEvent(EventType.IceEvent);
+                            }
+                            else
+                            {
+                            }
                         }
                     }
                 }
             }
-            
+
             if (InputHandler.KeyPressed(Keys.O))
             {
                 for (int i = 0; i <= World.CurrentDungeon.getMapLevel(1).GetLength(0) - 1; i++)
@@ -177,7 +184,56 @@ namespace ArmorPotionFramework.EntityClasses
                     {
                         if (World.CurrentDungeon.getMapLevel(1)[c, i] != null)
                         {
-                            World.CurrentDungeon.getMapLevel(1)[c, i].onEvent(EventType.FireEvent);
+                            Tile tempTile = World.CurrentDungeon.getMapLevel(1)[c, i];
+                            if (tempTile.TileID == 11 || tempTile.TileID == 12 || tempTile.TileID == 13)
+                            {
+                                tempTile.onEvent(EventType.FireEvent);
+                            }
+                            else
+                            {
+                            }
+                        }
+                    }
+                }
+            }
+
+
+            if (InputHandler.KeyPressed(Keys.P))
+            {
+                for (int i = 0; i <= World.CurrentDungeon.getMapLevel(1).GetLength(0) - 1; i++)
+                {
+                    for (int c = 0; c <= World.CurrentDungeon.getMapLevel(1).GetLength(1) - 1; c++)
+                    {
+                        if (World.CurrentDungeon.getMapLevel(1)[c, i] != null)
+                        {
+                            Tile tempTile = World.CurrentDungeon.getMapLevel(1)[c, i];
+                            if (tempTile.TileID == 11 || tempTile.TileID == 12 || tempTile.TileID == 13)
+                            {
+                                tempTile.onEvent(EventType.LightningEvent);
+                            }
+                            else
+                            {
+                            }
+                        }
+                    }
+                }
+            }
+            if (InputHandler.KeyPressed(Keys.U))
+            {
+                for (int i = 0; i <= World.CurrentDungeon.getMapLevel(1).GetLength(0) - 1; i++)
+                {
+                    for (int c = 0; c <= World.CurrentDungeon.getMapLevel(1).GetLength(1) - 1; c++)
+                    {
+                        if (World.CurrentDungeon.getMapLevel(1)[c, i] != null)
+                        {
+                            Tile tempTile = World.CurrentDungeon.getMapLevel(1)[c, i];
+                            if (tempTile.TileID == 11 || tempTile.TileID == 12 || tempTile.TileID == 13)
+                            {
+                            }
+                            else
+                            {
+                                tempTile.onEvent(EventType.DoorTrigger);
+                            }
                         }
                     }
                 }

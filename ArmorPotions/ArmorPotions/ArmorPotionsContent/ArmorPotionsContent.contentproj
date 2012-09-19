@@ -210,7 +210,13 @@
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Compile Include="Tiles\DoorOpenTile.png">
+      <Name>DoorOpenTile</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
   <ItemGroup>
     <None Include="Maps\DungeonOne_bottom.txt">
       <Name>DungeonOne_bottom</Name>
