@@ -224,13 +224,13 @@ namespace ArmorPotionFramework.EntityClasses
                                                             bounds.Width,
                                                             bounds.Height);
 
-                        xAxisCollision = xAxisRectangle.Intersects(tileRect);
-                        yAxisCollision = yAxisRectangle.Intersects(tileRect);
+                        xAxisCollision |= xAxisRectangle.Intersects(tileRect);
+                        yAxisCollision |= yAxisRectangle.Intersects(tileRect);
                     }
                 }
             }
 
-            return new CollisionData(xAxisCollision & yAxisCollision, xAxisCollision, yAxisCollision);
+            return new CollisionData(xAxisCollision | yAxisCollision, xAxisCollision, yAxisCollision);
         }
 
         public virtual void Update(GameTime gameTime)
