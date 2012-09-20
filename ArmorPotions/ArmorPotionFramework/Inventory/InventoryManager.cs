@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework;
 using ArmorPotionFramework.EntityClasses;
 using Microsoft.Xna.Framework.Graphics;
 using ArmorPotionFramework.Utility;
+using Microsoft.Xna.Framework.Content;
 
 namespace ArmorPotionFramework.Inventory
 {
@@ -22,8 +23,9 @@ namespace ArmorPotionFramework.Inventory
 
         private Vector2 _position;
         private Texture2D _cherry;
+        private Texture2D _selector;
 
-        public InventoryManager(Texture2D cherry, Vector2 position)
+        public InventoryManager(ContentManager content, Vector2 position)
         {
             _tempaQuips = new List<TempaQuip>();
             _instaQuips = new List<InstaQuip>();
@@ -35,7 +37,9 @@ namespace ArmorPotionFramework.Inventory
 
             _position = position;
 
-            _cherry = cherry;
+            _cherry = content.Load<Texture2D>(@"Gui/CherryGearBackground");
+            _selector = content.Load<Texture2D>(@"Gui/Selector");
+
         }
 
         public List<TempaQuip> TempaQuips
@@ -141,14 +145,16 @@ namespace ArmorPotionFramework.Inventory
             float y = _position.Y;
 
             spriteBatch.Draw(_cherry, new Vector2(x, y - _cherry.Height / 2), Color.White);
+
             x += 37;
             y -= 37;
+
             for (int i = 0; i < _tempaQuips.Count; i++)
             {
-                _tempaQuips[i].DrawIcon(gameTime, spriteBatch, x, y);
-
                 if (i == _tempaQuipIndex)
-                    RectangleExtensions.DrawRectangleBorder(new Rectangle((int)Math.Floor(x), (int)Math.Floor(y), 68, 68), spriteBatch, 4, Color.Blue);
+                    spriteBatch.Draw(_selector, new Vector2(x-2, y), Color.White);
+
+                _tempaQuips[i].DrawIcon(gameTime, spriteBatch, x, y);
 
                 x += 69;
             }

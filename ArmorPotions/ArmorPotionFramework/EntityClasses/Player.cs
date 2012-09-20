@@ -84,7 +84,7 @@ namespace ArmorPotionFramework.EntityClasses
             _shield = new AttributePair(200);
             
             Rectangle windowBounds = World.Game.Window.ClientBounds;
-            _inventory = new InventoryManager(World.Game.Content.Load<Texture2D>(@"Gui/CherryGearBackground"), new Vector2(10, windowBounds.Height - 70));
+            _inventory = new InventoryManager(World.Game.Content, new Vector2(10, windowBounds.Height - 70));
             _velocity = new Vector2(3, 3);
 
             this.XCollisionOffset = 30;
@@ -134,6 +134,7 @@ namespace ArmorPotionFramework.EntityClasses
                     CurrentSprite.IsAnimating = true;
                 }
 
+                World.Camera.LockToSprite(this);
                 if (InputHandler.KeyPressed(Keys.Space) || InputHandler.GamePadStates[(int)PlayerIndex.One].Buttons.X == ButtonState.Pressed)
                 {
                     AnimationKey key = CurrentSprite.CurrentAnimation;
@@ -159,6 +160,7 @@ namespace ArmorPotionFramework.EntityClasses
 
                     _inventory.ActivateTempaQuip(gameTime, this);
                 }
+
             }
             else
             {
@@ -190,7 +192,6 @@ namespace ArmorPotionFramework.EntityClasses
                 _inventory.SelectRelativeTempaQuip(this, 1);
 
             _healthClock.Update(gameTime);
-            World.Camera.LockToSprite(this);
 
             /*
              * Temp Code below for Switch check, Please Remove eventually
@@ -303,10 +304,6 @@ namespace ArmorPotionFramework.EntityClasses
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             CurrentSprite.Draw(gameTime, spriteBatch, PositionOffset + _currentTranslation, World.Camera);
-
-            spriteBatch.DrawString(World.Game.Content.Load<SpriteFont>(@"Fonts\ControlFont"), "Player Shield: " + _shield.CurrentValue, new Vector2(500, 50), Color.White);
-
-            if(_inventory.CurrentTempaQuip != null) spriteBatch.DrawString(World.Game.Content.Load<SpriteFont>(@"Fonts\ControlFont"), "Currently equipped: " + _inventory.CurrentTempaQuip.Name, new Vector2(300, 90), Color.White);
 
             int coordX = (int)Math.Ceiling( _position.X / Tile.Width);
             int coordY = (int)Math.Ceiling(_position.Y / Tile.Height);
