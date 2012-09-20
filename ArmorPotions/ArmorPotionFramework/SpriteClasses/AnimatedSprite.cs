@@ -105,7 +105,11 @@ namespace ArmorPotionFramework.SpriteClasses
         public void Update(GameTime gameTime)
         {
             if (_isAnimating)
+            {
                 _animations[_currentAnimation].Update(gameTime);
+                if (_animations[_currentAnimation].Iterated)
+                    _isAnimating = false;
+            }
         }
 
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch, Vector2 position, Camera camera)

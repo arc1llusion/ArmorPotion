@@ -20,6 +20,8 @@ namespace ArmorPotionFramework.SpriteClasses
         private int _currentFrame;
         private int _frameWidth;
         private int _frameHeight;
+        private bool _loop;
+        private bool _iterated;
 
         #endregion
 
@@ -64,15 +66,28 @@ namespace ArmorPotionFramework.SpriteClasses
             get { return _frameHeight; }
         }
 
+        public bool Iterated
+        {
+            get { return this._iterated; }
+            set { this._iterated = value; }
+        }
+
+        public bool Loop
+        {
+            get { return this._loop; }
+            set { this._loop = value; }
+        }
+
         #endregion
 
         #region Constructor Region
 
-        public Animation(int frameCount, int frameWidth, int frameHeight, int xOffset, int yOffset)
+        public Animation(int frameCount, int frameWidth, int frameHeight, int xOffset, int yOffset, bool loop)
         {
             _frames = new Rectangle[frameCount];
             this._frameWidth = frameWidth;
             this._frameHeight = frameHeight;
+            this._loop = loop;
 
             for (int i = 0; i < frameCount; i++)
             {
@@ -84,6 +99,10 @@ namespace ArmorPotionFramework.SpriteClasses
             }
             FramesPerSecond = 5;
             Reset();
+        }
+
+        public Animation(int frameCount, int frameWidth, int frameHeight, int xOffset, int yOffset) : this(frameCount, frameWidth, frameHeight, xOffset, yOffset, true)
+        {
         }
 
         private Animation(Animation animation)
@@ -100,16 +119,19 @@ namespace ArmorPotionFramework.SpriteClasses
         {
             _frameTimer += gameTime.ElapsedGameTime;
 
-            if (_frameTimer >= _frameLength)
+            if (_frameTimer >= _frameLength && !_iterated)
             {
                 _frameTimer = TimeSpan.Zero;
                 _currentFrame = (_currentFrame + 1) % _frames.Length;
+                if (!_loop && _currentFrame == 0)
+                    _iterated = true;
             }
         }
 
         public void Reset()
         {
             _currentFrame = 0;
+            _iterated = false;
             _frameTimer = TimeSpan.Zero;
         }
 
@@ -124,6 +146,7 @@ namespace ArmorPotionFramework.SpriteClasses
             animationClone._frameWidth = this._frameWidth;
             animationClone._frameHeight = this._frameHeight;
             animationClone.FramesPerSecond = this._framesPerSecond;
+            animationClone.Loop = this._loop;
             animationClone.Reset();
 
             return animationClone;

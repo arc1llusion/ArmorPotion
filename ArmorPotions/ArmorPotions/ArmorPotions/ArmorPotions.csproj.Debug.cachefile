@@ -34,6 +34,7 @@ Content\Gui\HealthClock_Back.xnb
 Content\Gui\HealthClock_Center.xnb
 Content\Gui\HealthClock_HeartHand.xnb
 Content\Gui\HealthClock_ShieldHand.xnb
+Content\Player\SwordAttack.xnb
 Content\Enemy\EnemyData.xnb
 Content\Items\ItemData.xnb
 Content\Fonts\ControlFont.xnb

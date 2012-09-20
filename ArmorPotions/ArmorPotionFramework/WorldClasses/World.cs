@@ -37,7 +37,7 @@ namespace ArmorPotionFramework.WorldClasses
             _projectiles = new List<Projectile>();
             _projectilesToAdd = new List<Projectile>();
 
-            _player = new Player(this, _game.Content.Load<Texture2D>(@"Player\PlayerWalking"));
+            _player = new Player(this, _game.Content.Load<Texture2D>(@"Player\PlayerWalking"), _game.Content.Load<Texture2D>(@"Player\SwordAttack"));
             _player.Position = new Vector2(350, 350);
 
             _camera = new Camera(_game, 0, 0, _game.Window.ClientBounds.Width, _game.Window.ClientBounds.Height, 1f);

@@ -22,9 +22,15 @@ namespace ArmorPotionFramework.EntityClasses
         private readonly InventoryManager _inventory;
         private HealthClock _healthClock;
 
-        public Player(World world, Texture2D texture)
+        private readonly Vector2 AttackTranslation;
+        private Vector2 _currentTranslation;
+
+        public Player(World world, Texture2D texture, Texture2D attackTexture)
             : base(world)
         {
+            AttackTranslation = new Vector2(-64, -64);
+            _currentTranslation = Vector2.Zero;
+
             int spriteWidth = 128;
             int spriteHeight = 128;
             int frameCount = 4;
@@ -49,6 +55,30 @@ namespace ArmorPotionFramework.EntityClasses
                 Color.White);
 
             AnimatedSprites.Add("Normal", sprite);
+
+            spriteWidth = 256;
+            spriteHeight = 256;
+
+            animations = new Dictionary<AnimationKey, Animation>();
+
+            animation = new Animation(frameCount, spriteWidth, spriteHeight, 0, 0, false);
+            animations.Add(AnimationKey.Down, animation);
+
+            animation = new Animation(frameCount, spriteWidth, spriteHeight, 0, spriteHeight, false);
+            animations.Add(AnimationKey.Right, animation);
+
+            animation = new Animation(frameCount, spriteWidth, spriteHeight, 0, spriteHeight * 2, false);
+            animations.Add(AnimationKey.Left, animation);
+
+            animation = new Animation(frameCount, spriteWidth, spriteHeight, 0, spriteHeight * 3, false);
+            animations.Add(AnimationKey.Up, animation);
+
+            sprite = new AnimatedSprite(
+                attackTexture,
+                animations,
+                Color.White);
+
+            AnimatedSprites.Add("Attack", sprite);
 
             _health = new AttributePair(400);
             _shield = new AttributePair(200);
@@ -75,47 +105,71 @@ namespace ArmorPotionFramework.EntityClasses
             float deltaX = 0;
             float deltaY = 0;
 
-            if (InputHandler.KeyDown(Keys.W) || InputHandler.GamePadStates[(int)PlayerIndex.One].ThumbSticks.Left.Y >= 0.5f)
+            if (CurrentSpriteKey != "Attack")
             {
-                deltaY -= _velocity.Y;
-                CurrentSprite.CurrentAnimation = AnimationKey.Up;
-                CurrentSprite.IsAnimating = true;
-            }
-            else if (InputHandler.KeyDown(Keys.S) || InputHandler.GamePadStates[(int)PlayerIndex.One].ThumbSticks.Left.Y <= -0.5f)
-            {
-                deltaY += _velocity.Y;
-                CurrentSprite.CurrentAnimation = AnimationKey.Down;
-                CurrentSprite.IsAnimating = true;
-            }
 
-            if (InputHandler.KeyDown(Keys.A) || InputHandler.GamePadStates[(int)PlayerIndex.One].ThumbSticks.Left.X <= -0.5f)
-            {
-                deltaX -= _velocity.X;
-                CurrentSprite.CurrentAnimation = AnimationKey.Left;
-                CurrentSprite.IsAnimating = true;
+                if (InputHandler.KeyDown(Keys.W) || InputHandler.GamePadStates[(int)PlayerIndex.One].ThumbSticks.Left.Y >= 0.5f)
+                {
+                    deltaY -= _velocity.Y;
+                    CurrentSprite.CurrentAnimation = AnimationKey.Up;
+                    CurrentSprite.IsAnimating = true;
+                }
+                else if (InputHandler.KeyDown(Keys.S) || InputHandler.GamePadStates[(int)PlayerIndex.One].ThumbSticks.Left.Y <= -0.5f)
+                {
+                    deltaY += _velocity.Y;
+                    CurrentSprite.CurrentAnimation = AnimationKey.Down;
+                    CurrentSprite.IsAnimating = true;
+                }
+
+                if (InputHandler.KeyDown(Keys.A) || InputHandler.GamePadStates[(int)PlayerIndex.One].ThumbSticks.Left.X <= -0.5f)
+                {
+                    deltaX -= _velocity.X;
+                    CurrentSprite.CurrentAnimation = AnimationKey.Left;
+                    CurrentSprite.IsAnimating = true;
+                }
+                else if (InputHandler.KeyDown(Keys.D) || InputHandler.GamePadStates[(int)PlayerIndex.One].ThumbSticks.Left.X >= 0.5f)
+                {
+                    deltaX += _velocity.X;
+                    CurrentSprite.CurrentAnimation = AnimationKey.Right;
+                    CurrentSprite.IsAnimating = true;
+                }
+
+                if (InputHandler.KeyPressed(Keys.Space) || InputHandler.GamePadStates[(int)PlayerIndex.One].Buttons.X == ButtonState.Pressed)
+                {
+                    AnimationKey key = CurrentSprite.CurrentAnimation;
+                    CurrentSpriteKey = "Attack";
+                    CurrentSprite.CurrentAnimation = key;
+                    CurrentSprite.IsAnimating = true;
+                    _currentTranslation = AttackTranslation;
+                }
+
+                if ((!InputHandler.KeyDown(Keys.A) && !InputHandler.KeyDown(Keys.D) && !InputHandler.KeyDown(Keys.W) && !InputHandler.KeyDown(Keys.S)) && !InputHandler.KeyDown(Keys.Space) &&
+                    ((InputHandler.GamePadStates[(int)PlayerIndex.One].ThumbSticks.Left.X < 0.5f && InputHandler.GamePadStates[(int)PlayerIndex.One].ThumbSticks.Left.X > -0.5f) &&
+                (InputHandler.GamePadStates[(int)PlayerIndex.One].ThumbSticks.Left.Y < 0.5f && InputHandler.GamePadStates[(int)PlayerIndex.One].ThumbSticks.Left.Y > -0.5f)))
+                {
+                    CurrentSprite.IsAnimating = false;
+                    CurrentSprite.Reset();
+                }
+
+                if (InputHandler.MouseButtonDown(InputHandler.MouseState.LeftButton) || InputHandler.GamePadStates[(int)PlayerIndex.One].Buttons.Y == ButtonState.Pressed)
+                {
+                    //object o = _inventory.CurrentInstaQuip;
+                    //_inventory.ConsumeInstaQuip(this);
+                    //Damage(IncrementalValue.Full, 1);
+
+                    _inventory.ActivateTempaQuip(gameTime, this);
+                }
             }
-            else if (InputHandler.KeyDown(Keys.D) ||InputHandler.GamePadStates[(int)PlayerIndex.One].ThumbSticks.Left.X >= 0.5f)
+            else
             {
-                deltaX += _velocity.X;
-                CurrentSprite.CurrentAnimation = AnimationKey.Right;
-                CurrentSprite.IsAnimating = true;
-            }
-
-            if ((!InputHandler.KeyDown(Keys.A) && !InputHandler.KeyDown(Keys.D) && !InputHandler.KeyDown(Keys.W) && !InputHandler.KeyDown(Keys.S)) &&
-                ((InputHandler.GamePadStates[(int)PlayerIndex.One].ThumbSticks.Left.X < 0.5f && InputHandler.GamePadStates[(int)PlayerIndex.One].ThumbSticks.Left.X > -0.5f)&&
-            (InputHandler.GamePadStates[(int)PlayerIndex.One].ThumbSticks.Left.Y < 0.5f && InputHandler.GamePadStates[(int)PlayerIndex.One].ThumbSticks.Left.Y > -0.5f)))
-            {
-                CurrentSprite.IsAnimating = false;
-                CurrentSprite.Reset();
-            }        
-
-            if (InputHandler.MouseButtonDown(InputHandler.MouseState.LeftButton)||InputHandler.GamePadStates[(int)PlayerIndex.One].Buttons.Y == ButtonState.Pressed)
-            {
-                //object o = _inventory.CurrentInstaQuip;
-                //_inventory.ConsumeInstaQuip(this);
-                //Damage(IncrementalValue.Full, 1);
-
-                _inventory.ActivateTempaQuip(gameTime, this);
+                if (!CurrentSprite.IsAnimating)
+                {
+                    CurrentSprite.Reset();
+                    AnimationKey key = CurrentSprite.CurrentAnimation;
+                    CurrentSpriteKey = "Normal";
+                    CurrentSprite.CurrentAnimation = key;
+                    _currentTranslation = Vector2.Zero;
+                }
             }
 
             Vector2 currentVelocity = new Vector2(deltaX, deltaY);
@@ -247,7 +301,7 @@ namespace ArmorPotionFramework.EntityClasses
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            CurrentSprite.Draw(gameTime, spriteBatch, PositionOffset, World.Camera);
+            CurrentSprite.Draw(gameTime, spriteBatch, PositionOffset + _currentTranslation, World.Camera);
 
             spriteBatch.DrawString(World.Game.Content.Load<SpriteFont>(@"Fonts\ControlFont"), "Player Shield: " + _shield.CurrentValue, new Vector2(500, 50), Color.White);
 
