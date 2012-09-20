@@ -19,4 +19,10 @@
       <Argument Type="System.Single" Value="1" /> <!-- Projectiles Per Iteration -->
     </ConstructorArgs>
   </Item>
+  <Item Type="ArmorPotions.Items.TempaQuipItems.Gun" Texture="Gui\GunIcon" Name="Bobs Gun">
+    <SpriteSheet Texture="Weapons\FireballAnimation" Name="Eball" IsAnimating="True">
+      <Animation Key="Right" Width="32" Height="32" FrameCount="30" xOffset="0" yOffset="0" FramesPerSecond="22" />
+    </SpriteSheet>
+    <ConstructorArgs />
+  </Item>
 </Items>

@@ -53,7 +53,9 @@ namespace ArmorPotionFramework.EntityClasses
 
             _health = new AttributePair(400);
             _shield = new AttributePair(200);
-            _inventory = new InventoryManager();
+            
+            Rectangle windowBounds = World.Game.Window.ClientBounds;
+            _inventory = new InventoryManager(new Vector2(10, windowBounds.Height - 70));
             _velocity = new Vector2(3, 3);
 
             this.XCollisionOffset = 30;
@@ -306,7 +308,7 @@ namespace ArmorPotionFramework.EntityClasses
             int coordX = (int)Math.Ceiling( _position.X / Tile.Width);
             int coordY = (int)Math.Ceiling(_position.Y / Tile.Height);
 
-            //spriteBatch.DrawString(World.Game.Content.Load<SpriteFont>(@"Fonts\ControlFont"), "Coords: " + + coordX + ":" + coordY, new Vector2(0, 0), Color.White);
+            _inventory.Draw(gameTime, spriteBatch, World.Game.Window.ClientBounds.Bottom);
         }
 
         private void PopulateHearts()

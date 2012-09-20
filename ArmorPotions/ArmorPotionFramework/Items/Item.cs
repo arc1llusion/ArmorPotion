@@ -57,6 +57,9 @@ namespace ArmorPotionFramework.Items
         {
             this._name = data.Name;
             this._icon = data.Icon;
+
+            if (data.Sprite != null)
+                this._sprite = data.Sprite.Clone();
         }
 
         public Texture2D ItemIcon
@@ -122,9 +125,9 @@ namespace ArmorPotionFramework.Items
 
         }
 
-        public void DrawIcon(GameTime gameTime, SpriteBatch spriteBatch)
+        public void DrawIcon(GameTime gameTime, SpriteBatch spriteBatch, float x, float y)
         {
-            if (_icon != null) spriteBatch.Draw(_icon, _position, Color.White);
+            if (_icon != null) spriteBatch.Draw(_icon, new Vector2(x, y), Color.White);
         }
 
         /// <summary>

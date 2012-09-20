@@ -37,7 +37,7 @@ namespace ArmorPotionFramework.Projectiles
             _angle = angle;
 
             Position = startingPosition;
-            Velocity = new Vector2((float)Math.Cos(_angle) * 2, (float)Math.Sin(_angle) * 2);
+            Velocity = new Vector2((float)Math.Cos(_angle) * 4, (float)Math.Sin(_angle) * 4);
         }
 
         public float LiveDistance

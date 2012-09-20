@@ -37,8 +37,6 @@ namespace ArmorPotions
         {
             graphics = new GraphicsDeviceManager(this);
             //graphics.IsFullScreen = true;
-            graphics.PreferredBackBufferWidth = 1024;
-            graphics.PreferredBackBufferHeight = 768;
 
             Content.RootDirectory = "Content";
         }
@@ -86,12 +84,14 @@ namespace ArmorPotions
             AnimatedSprite sprite = new AnimatedSprite(Content.Load<Texture2D>(@"Items\Weapons\Fireball"), new Dictionary<AnimationKey, Animation> { { AnimationKey.Right, animation } });
             AnimatedSprite light = new AnimatedSprite(Content.Load<Texture2D>(@"Enemy\LightBugAttack"), new Dictionary<AnimationKey, Animation> { { AnimationKey.Right, animation2 } });
 
-            world.Player.Inventory.TempaQuips.Add(new Gun(null, "BobsGun", sprite));
+            world.Player.Inventory.TempaQuips.Add(new Sword(Content.Load<Texture2D>(@"Gui\SwordIcon"), "Sword"));
+
+            world.Player.Inventory.TempaQuips.Add((Gun)itemFactory.Create("Bobs Gun"));
             world.Player.Inventory.SelectRelativeTempaQuip(world.Player, 0);
 
-            world.Player.Inventory.TempaQuips.Add(new Zapper(null, "BobsZapper", light));
+            world.Player.Inventory.TempaQuips.Add(new Zapper(Content.Load<Texture2D>(@"Gui\GogglesIcon"), "BobsZapper", light));
 
-            world.Player.Inventory.TempaQuips.Add(new SomeConeWeapon(null, "BobsCone", sprite.Clone()));
+            world.Player.Inventory.TempaQuips.Add(new SomeConeWeapon(Content.Load<Texture2D>(@"Gui\GravityBootsIcon"), "BobsCone", sprite.Clone()));
 
             world.Player.Inventory.TempaQuips.Add((EBall)itemFactory.Create("E-Ball Fire"));
         }

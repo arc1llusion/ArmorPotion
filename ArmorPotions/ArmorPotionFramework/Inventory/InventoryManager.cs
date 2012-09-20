@@ -5,6 +5,8 @@ using System.Text;
 using ArmorPotionFramework.Items;
 using Microsoft.Xna.Framework;
 using ArmorPotionFramework.EntityClasses;
+using Microsoft.Xna.Framework.Graphics;
+using ArmorPotionFramework.Utility;
 
 namespace ArmorPotionFramework.Inventory
 {
@@ -18,7 +20,9 @@ namespace ArmorPotionFramework.Inventory
         private int _instaQuipIndex;
         private int _permaQuipIndex;
 
-        public InventoryManager()
+        private Vector2 _position;
+
+        public InventoryManager(Vector2 position)
         {
             _tempaQuips = new List<TempaQuip>();
             _instaQuips = new List<InstaQuip>();
@@ -27,6 +31,8 @@ namespace ArmorPotionFramework.Inventory
             _tempaQuipIndex = 0;
             _instaQuipIndex = 0;
             _permaQuipIndex = 0;
+
+            _position = position;
         }
 
         public List<TempaQuip> TempaQuips
@@ -82,7 +88,7 @@ namespace ArmorPotionFramework.Inventory
             if (CurrentTempaQuip != null)
                 CurrentTempaQuip.OnUnEquip(player);
 
-            _tempaQuipIndex = (int)MathHelper.Clamp(_tempaQuipIndex + deltaIndex, 0, _tempaQuips.Count - 1);
+            _tempaQuipIndex = (int)MathHelper.Clamp(_tempaQuipIndex + deltaIndex, 1, _tempaQuips.Count - 1);
 
             CurrentTempaQuip.OnEquip(player);
         }
@@ -124,6 +130,22 @@ namespace ArmorPotionFramework.Inventory
         {
             if (--index < 0)
                 index = 0;
+        }
+
+        public void Draw(GameTime gameTime, SpriteBatch spriteBatch, float bottomWindowBound)
+        {
+            float x = _position.X;
+            float y = _position.Y;
+
+            for (int i = 0; i < _tempaQuips.Count; i++)
+            {
+                _tempaQuips[i].DrawIcon(gameTime, spriteBatch, x, y);
+
+                if (i == _tempaQuipIndex)
+                    RectangleExtensions.DrawRectangleBorder(new Rectangle((int)Math.Floor(x), (int)Math.Floor(y), 68, 68), spriteBatch, 4, Color.Blue);
+
+                x += 70;
+            }
         }
     }
 }
