@@ -27,6 +27,8 @@ namespace ArmorPotionFramework.Characteristics
         private float _shieldRotation;
 
         private const float SCALE = .75f;
+        private const double MAX_ANGLE = -2d * Math.PI;
+        private const double MIN_ANGLE = 0d;
 
         //timing related
         private float _currentHeartAngle;
@@ -35,7 +37,7 @@ namespace ArmorPotionFramework.Characteristics
         private float _targetHeartAngle;
         private float _targetShieldAngle;
 
-        private const float DELTA_ANGLE = 1f / (2f * (float)Math.PI);
+        private const float DELTA_ANGLE = 1f / ((2f * (float)Math.PI) * 2f);
 
         private readonly int _maxWaitTime;
         private int _currentTime;
@@ -57,7 +59,7 @@ namespace ArmorPotionFramework.Characteristics
 
             _heartRotation = 0f;
 
-            _maxWaitTime = 40;
+            _maxWaitTime = 20;
             _currentTime = _maxWaitTime;
 
             _currentHeartAngle = -2f * (float)Math.PI;
@@ -82,12 +84,26 @@ namespace ArmorPotionFramework.Characteristics
                 {
                     _currentHeartAngle += DELTA_ANGLE;
                     if (_currentHeartAngle > 0) _currentHeartAngle = 0;
+                    else if (_currentHeartAngle > _targetHeartAngle) _currentHeartAngle = _targetHeartAngle;
+                }
+                else if (_currentHeartAngle > _targetHeartAngle)
+                {
+                    _currentHeartAngle -= DELTA_ANGLE;
+                    if(_currentHeartAngle < MAX_ANGLE) _currentHeartAngle = (float)MAX_ANGLE;
+                    else if (_currentHeartAngle < _targetHeartAngle) _currentHeartAngle = _targetHeartAngle;
                 }
 
                 if (_currentShieldAngle < _targetShieldAngle)
                 {
                     _currentShieldAngle += DELTA_ANGLE;
                     if (_currentShieldAngle > 0) _currentShieldAngle = 0;
+                    else if (_currentShieldAngle > _targetShieldAngle) _currentShieldAngle = _targetShieldAngle;
+                }
+                else if (_currentShieldAngle > _targetShieldAngle)
+                {
+                    _currentShieldAngle -= DELTA_ANGLE;
+                    if (_currentShieldAngle < MAX_ANGLE) _currentShieldAngle = (float)MAX_ANGLE;
+                    else if (_currentShieldAngle < _targetShieldAngle) _currentShieldAngle = _targetShieldAngle;
                 }
             }
 
