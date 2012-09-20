@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using ArmorPotionFramework.Game;
 using ArmorPotionFramework.Input;
+using ArmorPotionFramework.TileEngine;
 
 namespace ArmorPotionFramework.CameraSystem
 {
@@ -22,17 +23,20 @@ namespace ArmorPotionFramework.CameraSystem
         float _scale = 0;
 
         Vector2 _cameraCenter;
+        Rectangle _viewportRectangle;
 
-        public Camera(ArmorPotionsGame game, float _setX, float _setY, float _setW, float _setH, float _setScale) : base(game)
+        public Camera(ArmorPotionsGame game, float _setX, float _setY, float _setW, float _setH, float _setScale)
+            : base(game)
         {
             this._cameraX = _setX;
             this._cameraY = _setY;
             this._cameraW = _setW;
             this._cameraH = _setH;
-            this._cameraCenter.X = this._cameraX+(this.CameraW/2);
-            this._cameraCenter.Y = this._cameraY+(this.CameraH/2);
+            this._cameraCenter.X = this._cameraX + (this.CameraW / 2);
+            this._cameraCenter.Y = this._cameraY + (this.CameraH / 2);
             this._scale = _setScale;
 
+            _viewportRectangle = game.ScreenRectangle;
         }
 
         public float CameraX
@@ -100,19 +104,32 @@ namespace ArmorPotionFramework.CameraSystem
             }
             set
             {
-                _cameraX =(int)value.X - (this._cameraW / 2);
-                _cameraY =(int)value.Y - (this._cameraH / 2);
+                _cameraX = (int)value.X - (this._cameraW / 2);
+                _cameraY = (int)value.Y - (this._cameraH / 2);
                 _cameraCenter = value;
             }
         }
 
+        public void LockToSprite(ArmorPotionFramework.EntityClasses.Player player)
+        {
+            _cameraX = (player.Position.X + player.CurrentSprite.Width / 2) - (_viewportRectangle.Width / 2);
+            _cameraY = (player.Position.Y + player.CurrentSprite.Height / 2) - (_viewportRectangle.Height / 2);
+            LockCamera();
+        }
+
+        private void LockCamera()
+        {
+            _cameraX = MathHelper.Clamp(_cameraX, 0, (Tile.Width * 50) - _viewportRectangle.Width);
+            _cameraY = MathHelper.Clamp(_cameraY, 0, (Tile.Height * 50) - _viewportRectangle.Height);
+        }
+
         public float Scale
         {
-            get 
+            get
             {
                 return _scale;
             }
-            set 
+            set
             {
                 this._scale = value;
             }

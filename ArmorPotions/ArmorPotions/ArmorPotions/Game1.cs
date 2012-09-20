@@ -36,6 +36,11 @@ namespace ArmorPotions
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
+            graphics.PreferredBackBufferWidth = 1024;
+            graphics.PreferredBackBufferHeight = 768;
+
+            ScreenRectangle = new Rectangle(0, 0, 1024, 768);
+
             //graphics.IsFullScreen = true;
 
             Content.RootDirectory = "Content";
@@ -133,7 +138,7 @@ namespace ArmorPotions
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(Color.Black);
 
             SpriteBatch.Begin();
 

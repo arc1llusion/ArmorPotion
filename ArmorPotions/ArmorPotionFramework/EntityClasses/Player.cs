@@ -190,6 +190,7 @@ namespace ArmorPotionFramework.EntityClasses
                 _inventory.SelectRelativeTempaQuip(this, 1);
 
             _healthClock.Update(gameTime);
+            World.Camera.LockToSprite(this);
 
             /*
              * Temp Code below for Switch check, Please Remove eventually

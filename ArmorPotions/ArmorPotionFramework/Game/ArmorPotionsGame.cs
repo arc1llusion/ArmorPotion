@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework.Graphics;
 using ArmorPotionFramework.EntityClasses;
+using Microsoft.Xna.Framework;
 
 namespace ArmorPotionFramework.Game
 {
@@ -21,6 +22,12 @@ namespace ArmorPotionFramework.Game
             {
                 _spriteBatch = value;
             }
+        }
+
+        public Rectangle ScreenRectangle
+        {
+            get;
+            set;
         }
     }
 }
