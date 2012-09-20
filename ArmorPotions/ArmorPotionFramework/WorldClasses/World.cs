@@ -142,7 +142,7 @@ namespace ArmorPotionFramework.WorldClasses
             _enemies.ForEach(enemy => enemy.Draw(gameTime, spriteBatch));
             _player.Draw(gameTime, spriteBatch);
             DrawProjectiles(gameTime, spriteBatch);
-            if(item != null) item.DrawIcon(gameTime, spriteBatch, Camera.CameraOffset);
+            //if(item != null) item.DrawIcon(gameTime, spriteBatch, Camera.CameraOffset);
         }
 
         #region Helper Methods

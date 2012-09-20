@@ -30,6 +30,10 @@ Content\Gui\GravityBootsIcon.xnb
 Content\Gui\GunIcon.xnb
 Content\Gui\HoverBootsIcon.xnb
 Content\Gui\SwordIcon.xnb
+Content\Gui\HealthClock_Back.xnb
+Content\Gui\HealthClock_Center.xnb
+Content\Gui\HealthClock_HeartHand.xnb
+Content\Gui\HealthClock_ShieldHand.xnb
 Content\Enemy\EnemyData.xnb
 Content\Items\ItemData.xnb
 Content\Fonts\ControlFont.xnb
