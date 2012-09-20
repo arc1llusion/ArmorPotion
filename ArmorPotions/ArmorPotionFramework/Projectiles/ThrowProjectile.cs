@@ -34,7 +34,14 @@ namespace ArmorPotionFramework.Projectiles
 
         #endregion
 
-        public ThrowProjectile(World world, Item source, ProjectileTarget target, EventType eventType, bool triggerEvents, Vector2 startingPostion, float throwDistance, float beginningAngle, float projectileDistance, double projectileSpread, float revolutions, float projectilesPerIteration, bool triggerSecondaryProjectileEvents)
+        #region Area of Effect fields
+
+        private Vector2 _aoeDestination;
+        private int _aoeLife;
+
+        #endregion
+
+        public ThrowProjectile(World world, Item source, ProjectileTarget target, EventType eventType, bool triggerEvents, Vector2 startingPostion, float throwDistance, float beginningAngle, float projectileDistance, double projectileSpread, float revolutions, float projectilesPerIteration, bool triggerSecondaryProjectileEvents, Vector2 aoeDestination, int aoeLife)
             : base(world, source, target, eventType, triggerEvents)
         {
             _position = startingPostion;
@@ -48,6 +55,8 @@ namespace ArmorPotionFramework.Projectiles
             _triggerSecondaryProjectileEvents = triggerSecondaryProjectileEvents;
             _angleCycle = revolutions * 2 * Math.PI;
             _deltaAngle = projectilesPerIteration / _angleCycle;
+            _aoeDestination = aoeDestination;
+            _aoeLife = aoeLife;
 
             _thrown = false;
             Velocity = new Vector2((float)Math.Cos(beginningAngle) * 2, (float)Math.Sin(beginningAngle) * 2);
@@ -67,22 +76,42 @@ namespace ArmorPotionFramework.Projectiles
             }
             else
             {
-                if (_angle < _beginningAngle + _angleCycle)
+                if (_eventType == EventType.FireEvent || _eventType == EventType.IceEvent)
                 {
-                    double newAngle = _angle += _deltaAngle;
+                    if (_angle < _beginningAngle + _angleCycle)
+                    {
+                        double newAngle = _angle += _deltaAngle;
 
-                    if(_eventType == EventType.IceEvent)
-                        newAngle = RandomGenerator.Random.NextDouble() * Math.PI * 2;
+                        if (_eventType == EventType.IceEvent)
+                            newAngle = RandomGenerator.Random.NextDouble() * Math.PI * 2;
 
-                    ConeProjectile projectile = new ConeProjectile(World, null, this._target, _eventType, _triggerSecondaryProjectileEvents, _projectileDistance, _position, newAngle, _projectileSpread);
-                    projectile.DamageAmount = this.DamageAmount;
+                        ConeProjectile projectile = new ConeProjectile(World, null, this._target, _eventType, _triggerSecondaryProjectileEvents, _projectileDistance, _position, newAngle, _projectileSpread);
+                        projectile.DamageAmount = this.DamageAmount;
+
+                        projectile.AnimatedSprites.Add("Normal", AnimatedSprites["Projectile"].Clone());
+
+                        World.ProjectilesToAdd.Add(projectile);
+                    }
+                    else
+                    {
+                        this._isAlive = false;
+                    }
+                }
+                else if (_eventType == EventType.LightningEvent)
+                {
+                    AreaOfEffectProjectile projectile = new AreaOfEffectProjectile(
+                        World,
+                        null,
+                        this._target,
+                        _eventType,
+                        _triggerSecondaryProjectileEvents,
+                        new Vector2(_position.X - AnimatedSprites["Projectile"].Width / 2, _position.Y - AnimatedSprites["Projectile"].Height / 2),
+                        _aoeLife);
 
                     projectile.AnimatedSprites.Add("Normal", AnimatedSprites["Projectile"].Clone());
 
                     World.ProjectilesToAdd.Add(projectile);
-                }
-                else
-                {
+
                     this._isAlive = false;
                 }
             }
