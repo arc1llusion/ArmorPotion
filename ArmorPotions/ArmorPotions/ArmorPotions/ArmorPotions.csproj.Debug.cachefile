@@ -25,6 +25,11 @@ Content\Enemy\LightBugAttackAnimation.xnb
 Content\Items\Weapons\FireballAnimation.xnb
 Content\Tiles\LadderTile.xnb
 Content\Gui\Hearts.xnb
+Content\Gui\GogglesIcon.xnb
+Content\Gui\GravityBootsIcon.xnb
+Content\Gui\GunIcon.xnb
+Content\Gui\HoverBootsIcon.xnb
+Content\Gui\SwordIcon.xnb
 Content\Enemy\EnemyData.xnb
 Content\Items\ItemData.xnb
 Content\Fonts\ControlFont.xnb
