@@ -3,7 +3,7 @@
   <Item Type="ArmorPotions.Items.Potion" Texture="Items\Images\Potion" Name="Super Awesome Potion">
     <ConstructorArgs />
   </Item>
-  <Item Type="ArmorPotions.Items.TempaQuipItems.EBall" Texture="Items\Weapons\Eball" Name="E-Ball Fire">
+  <Item Type="ArmorPotions.Items.TempaQuipItems.EBall" Texture="Gui\FireEballIcon" Name="E-Ball Fire">
     <SpriteSheet Texture="Weapons\Eball" Name="Eball">
       <Animation Key="Right" Width="32" Height="32" FrameCount="1" xOffset="0" yOffset="0" FramesPerSecond="1" />
     </SpriteSheet>
@@ -35,7 +35,7 @@
       <!-- AOE Life -->
     </ConstructorArgs>
   </Item>
-  <Item Type="ArmorPotions.Items.TempaQuipItems.EBall" Texture="Items\Weapons\Eball" Name="E-Ball Ice">
+  <Item Type="ArmorPotions.Items.TempaQuipItems.EBall" Texture="Gui\IceEballIcon" Name="E-Ball Ice">
     <SpriteSheet Texture="Weapons\Eball" Name="Eball">
       <Animation Key="Right" Width="32" Height="32" FrameCount="1" xOffset="0" yOffset="0" FramesPerSecond="1" />
     </SpriteSheet>
@@ -67,7 +67,7 @@
       <!-- AOE Life -->
     </ConstructorArgs>
   </Item>
-  <Item Type="ArmorPotions.Items.TempaQuipItems.EBall" Texture="Items\Weapons\Eball" Name="E-Ball Lightning">
+  <Item Type="ArmorPotions.Items.TempaQuipItems.EBall" Texture="Gui\LightningEballIcon" Name="E-Ball Lightning">
     <SpriteSheet Texture="Weapons\Eball" Name="Eball">
       <Animation Key="Right" Width="32" Height="32" FrameCount="1" xOffset="0" yOffset="0" FramesPerSecond="1" />
     </SpriteSheet>
