@@ -22,15 +22,14 @@ namespace ArmorPotions.Items.TempaQuipItems
 
         public override void OnEquip(ArmorPotionFramework.EntityClasses.Player equippedBy)
         {
-            equippedBy.Health.AddToMax(ArmorPotionFramework.Characteristics.IncrementalValue.Full, 2);
-            equippedBy.Health.Heal(ArmorPotionFramework.Characteristics.IncrementalValue.Full, 2);
+            equippedBy.Health.ChangeMaxRelative(200);
         }
 
         public override void OnActivate(GameTime gameTime, ArmorPotionFramework.EntityClasses.Player activatedBy)
         {
             if (!_hasProjectile)
             {
-                AreaOfEffectProjectile projectile = new AreaOfEffectProjectile(activatedBy.World, this, ArmorPotionFramework.TileEngine.EventType.LightningEvent, false, CenterEntity(activatedBy), 3000);
+                AreaOfEffectProjectile projectile = new AreaOfEffectProjectile(activatedBy.World, this, ProjectileTarget.Enemy, ArmorPotionFramework.TileEngine.EventType.LightningEvent, false, CenterEntity(activatedBy), 3000);
                 projectile.AnimatedSprites.Add("Normal", AnimatedSprite);
 
                 activatedBy.World.Projectiles.Add(projectile);
@@ -41,7 +40,7 @@ namespace ArmorPotions.Items.TempaQuipItems
 
         public override void OnUnEquip(ArmorPotionFramework.EntityClasses.Player removedBy)
         {
-            removedBy.Health.RemoveFromMax(ArmorPotionFramework.Characteristics.IncrementalValue.Full, 2);
+            removedBy.Health.ChangeMaxRelative(-200);
         }
     }
 }

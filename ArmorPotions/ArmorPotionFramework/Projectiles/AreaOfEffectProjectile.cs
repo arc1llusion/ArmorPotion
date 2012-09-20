@@ -15,8 +15,8 @@ namespace ArmorPotionFramework.Projectiles
         private Vector2 _destination;
         private int _lifetime;
 
-        public AreaOfEffectProjectile(World world, Item source, EventType eventType, bool triggerEvents, Vector2 destination, int lifetime)
-            : base(world, source, eventType, triggerEvents)
+        public AreaOfEffectProjectile(World world, Item source, ProjectileTarget target, EventType eventType, bool triggerEvents, Vector2 destination, int lifetime)
+            : base(world, source, target, eventType, triggerEvents)
         {
             _position = destination;
             _destination = destination;

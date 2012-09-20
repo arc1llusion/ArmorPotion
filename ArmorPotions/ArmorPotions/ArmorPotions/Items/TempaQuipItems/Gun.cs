@@ -9,6 +9,7 @@ using ArmorPotionFramework.Projectiles;
 using ArmorPotionFramework.Input;
 using ArmorPotionFramework.SpriteClasses;
 using Microsoft.Xna.Framework;
+using ArmorPotionFramework.TileEngine;
 
 namespace ArmorPotions.Items.TempaQuipItems
 {
@@ -34,7 +35,7 @@ namespace ArmorPotions.Items.TempaQuipItems
             {
                 _currentWaitTime = _maxWaitTime;
 
-                _projectile = new LinearProjectile(activatedBy.World, this, ArmorPotionFramework.TileEngine.EventType.DoorTrigger, false, 75, CenterEntity(activatedBy), MathHelper.ToRadians((int)activatedBy.CurrentSprite.CurrentAnimation * 90));
+                _projectile = new LinearProjectile(activatedBy.World, this, ProjectileTarget.Enemy, EventType.DoorTrigger, false, 300, CenterEntity(activatedBy), MathHelper.ToRadians((int)activatedBy.CurrentSprite.CurrentAnimation * 90));
                 _projectile.AnimatedSprites.Add("Normal", AnimatedSprite);
 
                 activatedBy.World.Projectiles.Add(_projectile);

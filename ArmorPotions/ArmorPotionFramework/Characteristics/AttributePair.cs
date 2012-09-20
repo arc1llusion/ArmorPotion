@@ -79,6 +79,12 @@ namespace ArmorPotionFramework.Characteristics
                 currentValue = maximumValue;
         }
 
+        public void ChangeMaxRelative(int value)
+        {
+            maximumValue += value;
+            currentValue += value;
+        }
+
         #endregion
     }
 }

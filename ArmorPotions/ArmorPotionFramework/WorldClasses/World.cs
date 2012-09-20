@@ -124,10 +124,8 @@ namespace ArmorPotionFramework.WorldClasses
         {
             Camera.CameraCenter = _player.Position;
 
-            _enemies.ForEach(enemy => enemy.Update(gameTime));
-
+            UpdateEnemies(gameTime);
             UpdateProjectiles(gameTime);
-
             _player.Update(gameTime);
 
             if (_player.Position.X > 70 &&
@@ -149,6 +147,23 @@ namespace ArmorPotionFramework.WorldClasses
         }
 
         #region Helper Methods
+
+        private void UpdateEnemies(GameTime gameTime)
+        {
+            List<Enemy> removedEnemies = new List<Enemy>();
+            foreach (Enemy enemy in _enemies)
+            {
+                enemy.Update(gameTime);
+
+                if (!enemy.IsAlive)
+                    removedEnemies.Add(enemy);
+            }
+
+            foreach (Enemy enemy in removedEnemies)
+            {
+                _enemies.Remove(enemy);
+            }
+        }
 
         private void UpdateProjectiles(GameTime gameTime)
         {

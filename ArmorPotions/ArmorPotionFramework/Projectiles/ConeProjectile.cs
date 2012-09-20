@@ -13,8 +13,8 @@ namespace ArmorPotionFramework.Projectiles
     public class ConeProjectile : LinearProjectile
     {
 
-        public ConeProjectile(World world, Item source, EventType eventType, bool triggerEvents, float liveDistance, Vector2 startingPosition, Vector2 destination, double angleSpread)
-            : base(world, source, eventType, triggerEvents, liveDistance, startingPosition, destination)
+        public ConeProjectile(World world, Item source, ProjectileTarget target, EventType eventType, bool triggerEvents, float liveDistance, Vector2 startingPosition, Vector2 destination, double angleSpread)
+            : base(world, source, target, eventType, triggerEvents, liveDistance, startingPosition, destination)
         {
             this._destination = destination;
 
@@ -22,8 +22,8 @@ namespace ArmorPotionFramework.Projectiles
             Velocity = new Vector2((float)Math.Cos(_angle ) * 2 + (float)spread, (float)Math.Sin(_angle) * 2 + (float)spread);
         }
 
-        public ConeProjectile(World world, Item source, EventType eventType, bool triggerEvents, float liveDistance, Vector2 startingPosition, double angle, double angleSpread)
-            : base(world, source, eventType, triggerEvents, liveDistance, startingPosition, angle)
+        public ConeProjectile(World world, Item source, ProjectileTarget target, EventType eventType, bool triggerEvents, float liveDistance, Vector2 startingPosition, double angle, double angleSpread)
+            : base(world, source, target, eventType, triggerEvents, liveDistance, startingPosition, angle)
         {
 
             double spread = RandomGenerator.Random.NextDouble() * (angleSpread);

@@ -21,6 +21,7 @@ namespace ArmorPotions.Components
 
         private int _defaultLifetime;
         private int _defaultWaitTime;
+        private ushort _aoeDamage;
 
         private AnimatedSprite _sprite;
         private EventType _eventType;
@@ -61,6 +62,11 @@ namespace ArmorPotions.Components
             set { this._eventType = value; }
         }
 
+        public ushort Damage
+        {
+            set { this._aoeDamage = value; }
+        }
+
         public void Update(Microsoft.Xna.Framework.GameTime gameTime, ArmorPotionFramework.EntityClasses.Enemy enemy)
         {
             bool canAttack = WaitTimer(gameTime);
@@ -69,8 +75,10 @@ namespace ArmorPotions.Components
                 Vector2 newPosition = new Vector2(enemy.Position.X - enemy.CurrentSprite.Width / 2, enemy.Position.Y - enemy.CurrentSprite.Height / 2);
 
                 Animation animation = new Animation(1, 256, 256, 0, 0);
-                _projectile = new AreaOfEffectProjectile(enemy.World, null, EventType.LightningEvent, false, newPosition, _defaultLifetime);
+                _projectile = new AreaOfEffectProjectile(enemy.World, null, ProjectileTarget.Player, EventType.LightningEvent, false, newPosition, _defaultLifetime);
                 _projectile.AnimatedSprites.Add("Normal", _sprite.Clone());
+                _projectile.DamageAmount = _aoeDamage;
+
                 enemy.World.Projectiles.Add(_projectile);
                 _lifetime = _defaultLifetime;
                 _isSetUp = true;

@@ -7,6 +7,7 @@ using ArmorPotionFramework.SpriteClasses;
 using ArmorPotionFramework.WorldClasses;
 using ArmorPotionFramework.TileEngine;
 using ArmorPotionFramework.Data;
+using ArmorPotionFramework.Characteristics;
 
 namespace ArmorPotionFramework.EntityClasses
 {
@@ -29,6 +30,10 @@ namespace ArmorPotionFramework.EntityClasses
         private int _topCollisionOffset;
         private int _bottomCollisionOffset;
 
+        protected AttributePair _health;
+        protected AttributePair _shield;
+
+        protected bool _isAlive;
 
         public Entity(World world)
         {
@@ -44,6 +49,12 @@ namespace ArmorPotionFramework.EntityClasses
             _rightCollisionOffset = 0;
             _topCollisionOffset = 0;
             _bottomCollisionOffset = 0;
+
+            _isAlive = true;
+
+            //TODO: Temp Health, need to allow health to be set for individual enemies
+            _health = new AttributePair(300);
+            _shield = new AttributePair(300);
         }
 
         public World World
@@ -187,6 +198,24 @@ namespace ArmorPotionFramework.EntityClasses
                     CurrentSprite.Width - (_rightCollisionOffset + _leftCollisionOffset),
                     CurrentSprite.Height - (_bottomCollisionOffset + _topCollisionOffset));
             }
+        }
+
+        public AttributePair Health
+        {
+            get { return this._health; }
+            set { this._health = value; }
+        }
+
+        public AttributePair Shield
+        {
+            get { return this._shield; }
+            set { this._shield = value; }
+        }
+
+        public bool IsAlive
+        {
+            get { return this._isAlive; }
+            protected set { this._isAlive = value; }
         }
 
         public CollisionData HandleCollisions(Vector2 velocity)

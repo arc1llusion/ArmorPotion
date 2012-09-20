@@ -17,8 +17,8 @@ namespace ArmorPotionFramework.Projectiles
         protected Vector2 _destination;
         protected double _angle;
 
-        public LinearProjectile(World world, Item source, EventType eventType, bool triggerEvents, float liveDistance, Vector2 startingPosition, Vector2 destination)
-            : base(world, source, eventType, triggerEvents)
+        public LinearProjectile(World world, Item source, ProjectileTarget target, EventType eventType, bool triggerEvents, float liveDistance, Vector2 startingPosition, Vector2 destination)
+            : base(world, source, target, eventType, triggerEvents)
         {
             _liveDistance = liveDistance;
             _startingPosition = startingPosition;
@@ -29,8 +29,8 @@ namespace ArmorPotionFramework.Projectiles
             Velocity = new Vector2((float)Math.Cos(_angle) * 2, (float)Math.Sin(_angle) * 2);
         }
 
-        public LinearProjectile(World world, Item source, EventType eventType, bool triggerEvents, float liveDistance, Vector2 startingPosition, double angle)
-            : base(world, source, eventType, triggerEvents)
+        public LinearProjectile(World world, Item source, ProjectileTarget target, EventType eventType, bool triggerEvents, float liveDistance, Vector2 startingPosition, double angle)
+            : base(world, source, target, eventType, triggerEvents)
         {
             _liveDistance = liveDistance;
             _startingPosition = startingPosition;

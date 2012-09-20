@@ -19,8 +19,6 @@ namespace ArmorPotionFramework.EntityClasses
 {
     public sealed class Player : Entity
     {
-        public IncrementalPair _health;
-        public IncrementalPair _shield;
         public readonly InventoryManager _inventory;
 
         public Player(World world, Texture2D texture)
@@ -51,25 +49,13 @@ namespace ArmorPotionFramework.EntityClasses
 
             AnimatedSprites.Add("Normal", sprite);
 
-            _health = new IncrementalPair(IncrementalValue.Full, 3);
-            _shield = new IncrementalPair(IncrementalValue.Full, 3);
+            _health = new AttributePair(300);
+            _shield = new AttributePair(300);
             _inventory = new InventoryManager();
             _velocity = new Vector2(3, 3);
 
             this.XCollisionOffset = 30;
             this.TopCollisionOffset = (int)(CurrentSprite.Height / 2);
-        }
-
-        public IncrementalPair Health
-        {
-            get { return this._health; }
-            set { this._health = value; }
-        }
-
-        public IncrementalPair Shield
-        {
-            get { return this._shield; }
-            set { this._shield = value; }
         }
 
         public InventoryManager Inventory
@@ -116,11 +102,7 @@ namespace ArmorPotionFramework.EntityClasses
             {
                 CurrentSprite.IsAnimating = false;
                 CurrentSprite.Reset();
-            }
-
-            
-
-
+            }        
 
             if (InputHandler.MouseButtonDown(InputHandler.MouseState.LeftButton)||InputHandler.GamePadStates[(int)PlayerIndex.One].Buttons.Y == ButtonState.Pressed)
             {
@@ -238,41 +220,15 @@ namespace ArmorPotionFramework.EntityClasses
                     }
                 }
             }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         }
 
-        public void Damage(IncrementalValue pair, int modifier)
+        public void Damage(int value)
         {
-            float ratio = ((float)_shield.MaximumValue / _shield.CurrentValue);
-            _shield.Damage(IncrementalValue.Quarter, 1);
 
-            if (ratio < 1.5f)
-                _health.Damage(IncrementalValue.Quarter, modifier);
-            else if (ratio < 2f)
-                _health.Damage(IncrementalValue.Half, modifier);
-            else if (ratio < 2.5f)
-                _health.Damage(IncrementalValue.ThreeQuarters, modifier);
-            else if (ratio < 3.0f)
-                _health.Damage(IncrementalValue.Full, modifier);
         }
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            RectangleExtensions.DrawRectangleBorder(VisualBoundingRectangle, spriteBatch, 4, Color.White);
-
             CurrentSprite.Draw(gameTime, spriteBatch, PositionOffset, World.Camera);
             spriteBatch.DrawString(World.Game.Content.Load<SpriteFont>(@"Fonts\ControlFont"), "Player Health: " + _health.CurrentValue, new Vector2(500, 10), Color.White);
             spriteBatch.DrawString(World.Game.Content.Load<SpriteFont>(@"Fonts\ControlFont"), "Player Shield: " + _shield.CurrentValue, new Vector2(500, 50), Color.White);

@@ -120,6 +120,9 @@ namespace ArmorPotionFramework.EntityClasses
         {
             base.Update(gameTime);
 
+            if (this._health.CurrentValue <= 0)
+                this._isAlive = false;
+
             if (!_isAction)
             {
                 _isAction = true;

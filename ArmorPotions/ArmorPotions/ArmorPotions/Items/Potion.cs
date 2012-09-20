@@ -17,7 +17,7 @@ namespace ArmorPotions.Items
 
         public override void ConsumedBy(ArmorPotionFramework.EntityClasses.Player player)
         {
-            player.Health.Damage(IncrementalValue.Quarter, 1);
+            player.Health.Damage(25);
         }
     }
 }

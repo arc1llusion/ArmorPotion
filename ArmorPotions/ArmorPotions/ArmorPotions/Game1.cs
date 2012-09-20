@@ -32,11 +32,14 @@ namespace ArmorPotions
     {
         World world;
         GraphicsDeviceManager graphics;
-        LinearProjectile lProj;
 
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
+            //graphics.IsFullScreen = true;
+            graphics.PreferredBackBufferWidth = 1024;
+            graphics.PreferredBackBufferHeight = 768;
+
             Content.RootDirectory = "Content";
         }
 
@@ -103,7 +106,7 @@ namespace ArmorPotions
         /// <summary>
         /// Allows the game to run logic such as updating the world,
         /// checking for collisions, gathering input, and playing audio.
-        /// </sumaaaawwadswwsssssssmary>
+        /// </summary>
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {

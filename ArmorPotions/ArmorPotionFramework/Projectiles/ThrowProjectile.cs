@@ -34,8 +34,8 @@ namespace ArmorPotionFramework.Projectiles
 
         #endregion
 
-        public ThrowProjectile(World world, Item source, EventType eventType, bool triggerEvents, Vector2 startingPostion, float throwDistance, float beginningAngle, float projectileDistance, double projectileSpread, float revolutions, float projectilesPerIteration, bool triggerSecondaryProjectileEvents)
-            : base(world, source, eventType, triggerEvents)
+        public ThrowProjectile(World world, Item source, ProjectileTarget target, EventType eventType, bool triggerEvents, Vector2 startingPostion, float throwDistance, float beginningAngle, float projectileDistance, double projectileSpread, float revolutions, float projectilesPerIteration, bool triggerSecondaryProjectileEvents)
+            : base(world, source, target, eventType, triggerEvents)
         {
             _position = startingPostion;
 
@@ -74,7 +74,7 @@ namespace ArmorPotionFramework.Projectiles
                     if(_eventType == EventType.IceEvent)
                         newAngle = RandomGenerator.Random.NextDouble() * Math.PI * 2;
 
-                    ConeProjectile projectile = new ConeProjectile(World, null, _eventType, _triggerSecondaryProjectileEvents,  _projectileDistance, _position, newAngle, _projectileSpread);
+                    ConeProjectile projectile = new ConeProjectile(World, null, this._target, _eventType, _triggerSecondaryProjectileEvents, _projectileDistance, _position, newAngle, _projectileSpread);
                     projectile.AnimatedSprites.Add("Normal", AnimatedSprites["Projectile"].Clone());
 
                     World.ProjectilesToAdd.Add(projectile);

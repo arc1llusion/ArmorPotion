@@ -48,6 +48,7 @@ namespace ArmorPotions.Items.TempaQuipItems
                 ThrowProjectile projectile = new ThrowProjectile(
                     activatedBy.World, 
                     this,
+                    ProjectileTarget.Enemy,
                     EventType.FireEvent,
                     false,
                     this.CenterEntity(activatedBy), 
