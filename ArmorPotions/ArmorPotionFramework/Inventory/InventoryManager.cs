@@ -21,8 +21,9 @@ namespace ArmorPotionFramework.Inventory
         private int _permaQuipIndex;
 
         private Vector2 _position;
+        private Texture2D _cherry;
 
-        public InventoryManager(Vector2 position)
+        public InventoryManager(Texture2D cherry, Vector2 position)
         {
             _tempaQuips = new List<TempaQuip>();
             _instaQuips = new List<InstaQuip>();
@@ -33,6 +34,8 @@ namespace ArmorPotionFramework.Inventory
             _permaQuipIndex = 0;
 
             _position = position;
+
+            _cherry = cherry;
         }
 
         public List<TempaQuip> TempaQuips
@@ -137,6 +140,9 @@ namespace ArmorPotionFramework.Inventory
             float x = _position.X;
             float y = _position.Y;
 
+            spriteBatch.Draw(_cherry, new Vector2(x, y - _cherry.Height / 2), Color.White);
+            x += 37;
+            y -= 37;
             for (int i = 0; i < _tempaQuips.Count; i++)
             {
                 _tempaQuips[i].DrawIcon(gameTime, spriteBatch, x, y);
@@ -144,7 +150,7 @@ namespace ArmorPotionFramework.Inventory
                 if (i == _tempaQuipIndex)
                     RectangleExtensions.DrawRectangleBorder(new Rectangle((int)Math.Floor(x), (int)Math.Floor(y), 68, 68), spriteBatch, 4, Color.Blue);
 
-                x += 70;
+                x += 69;
             }
         }
     }

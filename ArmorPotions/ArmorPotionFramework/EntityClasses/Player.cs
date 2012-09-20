@@ -84,7 +84,7 @@ namespace ArmorPotionFramework.EntityClasses
             _shield = new AttributePair(200);
             
             Rectangle windowBounds = World.Game.Window.ClientBounds;
-            _inventory = new InventoryManager(new Vector2(10, windowBounds.Height - 70));
+            _inventory = new InventoryManager(World.Game.Content.Load<Texture2D>(@"Gui/CherryGearBackground"), new Vector2(10, windowBounds.Height - 70));
             _velocity = new Vector2(3, 3);
 
             this.XCollisionOffset = 30;
