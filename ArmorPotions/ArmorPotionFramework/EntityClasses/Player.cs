@@ -19,7 +19,9 @@ namespace ArmorPotionFramework.EntityClasses
 {
     public sealed class Player : Entity
     {
-        public readonly InventoryManager _inventory;
+        private readonly InventoryManager _inventory;
+        private Dictionary<String, AnimatedSprite> _heartAnimations;
+        private List<AnimatedSprite> _hearts;
 
         public Player(World world, Texture2D texture)
             : base(world)
@@ -56,6 +58,48 @@ namespace ArmorPotionFramework.EntityClasses
 
             this.XCollisionOffset = 30;
             this.TopCollisionOffset = (int)(CurrentSprite.Height / 2);
+
+            _heartAnimations = new Dictionary<String, AnimatedSprite>();
+            _hearts = new List<AnimatedSprite>();
+
+            Animation fullHeartAnimation = new Animation(16, 44, 44, 0, 0);
+            Animation threeQuarter = new Animation(16, 44, 44, 0, 44);
+            Animation half = new Animation(16, 44, 44, 0, 88);
+            Animation quarter = new Animation(16, 44, 44, 0, 132);
+            Animation none = new Animation(16, 44, 44, 0, 176);
+            Texture2D heartTexture = World.Game.Content.Load<Texture2D>(@"Gui/Hearts");
+
+            fullHeartAnimation.FramesPerSecond = 8;
+
+            Dictionary<AnimationKey, Animation> heartAnimation = new Dictionary<AnimationKey, Animation>();
+            heartAnimation.Add(AnimationKey.Right, fullHeartAnimation);
+            
+            AnimatedSprite fullSprite = new AnimatedSprite(heartTexture, heartAnimation);
+            fullSprite.IsAnimating = true;
+
+            _heartAnimations.Add("Full", fullSprite);
+
+            heartAnimation = new Dictionary<AnimationKey, Animation>();
+            heartAnimation.Add(AnimationKey.Right, threeQuarter);
+
+            _heartAnimations.Add("ThreeQuarter", new AnimatedSprite(heartTexture, heartAnimation));
+
+            heartAnimation = new Dictionary<AnimationKey, Animation>();
+            heartAnimation.Add(AnimationKey.Right, half);
+
+            _heartAnimations.Add("HalfHeart", new AnimatedSprite(heartTexture, heartAnimation));
+
+            heartAnimation = new Dictionary<AnimationKey, Animation>();
+            heartAnimation.Add(AnimationKey.Right, quarter);
+
+            _heartAnimations.Add("QuarterHeart", new AnimatedSprite(heartTexture, heartAnimation));
+
+            heartAnimation = new Dictionary<AnimationKey, Animation>();
+            heartAnimation.Add(AnimationKey.Right, none);
+
+            _heartAnimations.Add("NoHeart", new AnimatedSprite(heartTexture, heartAnimation));
+
+            PopulateHearts();
         }
 
         public InventoryManager Inventory
@@ -130,7 +174,7 @@ namespace ArmorPotionFramework.EntityClasses
             else if (InputHandler.KeyPressed(Keys.Right) || InputHandler.ButtonPressed(Buttons.RightShoulder,PlayerIndex.One))
                 _inventory.SelectRelativeTempaQuip(this, 1);
 
-
+            _hearts.ForEach(heart => heart.Update(gameTime));
 
             /*
              * Temp Code below for Switch check, Please Remove eventually
@@ -238,19 +282,57 @@ namespace ArmorPotionFramework.EntityClasses
 
             _shield.Damage((ushort)shieldDamage);
             _health.Damage((ushort)healthDamage);
+
+            PopulateHearts();
         }
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             CurrentSprite.Draw(gameTime, spriteBatch, PositionOffset, World.Camera);
-            spriteBatch.DrawString(World.Game.Content.Load<SpriteFont>(@"Fonts\ControlFont"), "Player Health: " + _health.CurrentValue, new Vector2(500, 10), Color.White);
+
             spriteBatch.DrawString(World.Game.Content.Load<SpriteFont>(@"Fonts\ControlFont"), "Player Shield: " + _shield.CurrentValue, new Vector2(500, 50), Color.White);
+
+            int heartX = 10;
+            int heartY = 10;
+
+            for (int i = 0; i < _hearts.Count; i++)
+            {
+                _hearts[i].Draw(gameTime, spriteBatch, new Vector2(heartX, heartY), World.Camera);
+                heartX += _hearts[i].Width + 6;
+            }
+
             if(_inventory.CurrentTempaQuip != null) spriteBatch.DrawString(World.Game.Content.Load<SpriteFont>(@"Fonts\ControlFont"), "Currently equipped: " + _inventory.CurrentTempaQuip.Name, new Vector2(300, 90), Color.White);
 
             int coordX = (int)Math.Ceiling( _position.X / Tile.Width);
             int coordY = (int)Math.Ceiling(_position.Y / Tile.Height);
 
-            spriteBatch.DrawString(World.Game.Content.Load<SpriteFont>(@"Fonts\ControlFont"), "Coords: " + + coordX + ":" + coordY, new Vector2(0, 0), Color.White);
+            //spriteBatch.DrawString(World.Game.Content.Load<SpriteFont>(@"Fonts\ControlFont"), "Coords: " + + coordX + ":" + coordY, new Vector2(0, 0), Color.White);
+        }
+
+        private void PopulateHearts()
+        {
+            _hearts.Clear();
+
+            int currentHealth = _health.CurrentValue;
+            while ((currentHealth / 100) >= 1)
+            {
+                _hearts.Add(_heartAnimations["Full"].Clone());
+                currentHealth -= 100;
+            }
+
+            if (currentHealth > 75)
+                _hearts.Add(_heartAnimations["Full"].Clone());
+            else if (currentHealth > 50)
+                _hearts.Add(_heartAnimations["ThreeQuarter"].Clone());
+            else if (currentHealth > 25)
+                _hearts.Add(_heartAnimations["HalfHeart"].Clone());
+            else if (currentHealth > 0)
+                _hearts.Add(_heartAnimations["QuarterHeart"].Clone());
+
+            int emptyHearts = (_health.MaximumValue - _health.CurrentValue) / 100;
+
+            for (int i = 0; i < emptyHearts; i++)
+                _hearts.Add(_heartAnimations["NoHeart"].Clone());
         }
     }
 }

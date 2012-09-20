@@ -52,6 +52,8 @@ namespace ArmorPotions
         protected override void Initialize()
         {
             base.Initialize();
+
+            this.Components.Add(new InputHandler(this));
         }
 
         /// <summary>
@@ -119,6 +121,10 @@ namespace ArmorPotions
             world.Update(gameTime);
 
             base.Update(gameTime);
+
+            if (world.Player.Health.CurrentValue == 0)
+                this.LoadContent();
+
         }
 
         /// <summary>

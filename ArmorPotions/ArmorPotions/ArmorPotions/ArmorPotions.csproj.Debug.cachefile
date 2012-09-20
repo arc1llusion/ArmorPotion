@@ -24,6 +24,7 @@ Content\Tiles\DoorOpenTile.xnb
 Content\Enemy\LightBugAttackAnimation.xnb
 Content\Items\Weapons\FireballAnimation.xnb
 Content\Tiles\LadderTile.xnb
+Content\Gui\Hearts.xnb
 Content\Enemy\EnemyData.xnb
 Content\Items\ItemData.xnb
 Content\Fonts\ControlFont.xnb
