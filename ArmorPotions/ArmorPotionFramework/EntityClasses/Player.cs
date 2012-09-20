@@ -49,8 +49,8 @@ namespace ArmorPotionFramework.EntityClasses
 
             AnimatedSprites.Add("Normal", sprite);
 
-            _health = new AttributePair(300);
-            _shield = new AttributePair(300);
+            _health = new AttributePair(400);
+            _shield = new AttributePair(200);
             _inventory = new InventoryManager();
             _velocity = new Vector2(3, 3);
 
@@ -224,7 +224,20 @@ namespace ArmorPotionFramework.EntityClasses
 
         public void Damage(int value)
         {
+            int shieldDamage = value / 4;
+            float healthDamage = value;
 
+            double shieldToHealthRatio = (float)_shield.CurrentValue / (float)_shield.MaximumValue;
+
+            if (shieldToHealthRatio >= .50d)
+                healthDamage /= 4;
+            else if (shieldToHealthRatio >= .25d)
+                healthDamage /= 2;
+            else if (shieldToHealthRatio > 0d)
+                healthDamage *= (2f/3f);
+
+            _shield.Damage((ushort)shieldDamage);
+            _health.Damage((ushort)healthDamage);
         }
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)

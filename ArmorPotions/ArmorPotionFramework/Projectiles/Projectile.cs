@@ -83,7 +83,7 @@ namespace ArmorPotionFramework.Projectiles
                 {
                     if (World.Player.BoundingRectangle.Intersects(this.BoundingRectangle))
                     {
-                        World.Player.Health.Damage(_damageAmount);
+                        World.Player.Damage(_damageAmount);
                         _damagedOnce = true;
                     }
                 }

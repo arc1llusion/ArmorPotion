@@ -53,7 +53,7 @@ namespace ArmorPotionFramework.EntityClasses
             _isAlive = true;
 
             //TODO: Temp Health, need to allow health to be set for individual enemies
-            _health = new AttributePair(300);
+            _health = new AttributePair(600);
             _shield = new AttributePair(300);
         }
 

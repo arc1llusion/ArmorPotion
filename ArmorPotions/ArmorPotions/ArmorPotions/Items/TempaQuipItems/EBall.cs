@@ -60,6 +60,7 @@ namespace ArmorPotions.Items.TempaQuipItems
                     _projectilesPerIteration,
                     true);
 
+                projectile.DamageAmount = 1;
                 projectile.AnimatedSprites.Add("Normal", AnimatedSprite);
                 projectile.AnimatedSprites.Add("Projectile", _secondaryProjectileSprite);
 
