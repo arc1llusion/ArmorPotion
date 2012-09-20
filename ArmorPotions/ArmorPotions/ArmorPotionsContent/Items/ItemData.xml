@@ -7,16 +7,96 @@
     <SpriteSheet Texture="Weapons\Eball" Name="Eball">
       <Animation Key="Right" Width="32" Height="32" FrameCount="1" xOffset="0" yOffset="0" FramesPerSecond="1" />
     </SpriteSheet>
-    <ConstructorArgs> <!-- For additional parameters in an item -->
-      <Argument Type="System.Int32" Value="10" /><!-- Wait -->
-      <Argument Type="Sprite" Texture="Weapons\FireballAnimation" Name="Projectile" IsAnimating="True"><!-- Second Projectile Animation-->
+    <ConstructorArgs>
+      <!-- For additional parameters in an item -->
+      <Argument Type="System.Int32" Value="10" />
+      <!-- Wait -->
+      <Argument Type="Sprite" Texture="Weapons\FireballAnimation" Name="Projectile" IsAnimating="True">
+        <!-- Second Projectile Animation-->
         <Animation Key="Right" Width="32" Height="32" FrameCount="30" xOffset="32" yOffset="0" FramesPerSecond="19"/>
       </Argument>
-      <Argument Type="System.Single" Value="75" /> <!-- Throw Distance -->
-      <Argument Type="System.Single" Value="100" /> <!-- Projectile Distance -->
-      <Argument Type="System.Int32" Value="45" /> <!-- spread angle -->
-      <Argument Type="System.Single" Value="2" /> <!-- Revolutions -->
-      <Argument Type="System.Single" Value="1" /> <!-- Projectiles Per Iteration -->
+      <Argument Type="System.Single" Value="75" />
+      <!-- Throw Distance -->
+      <Argument Type="System.Single" Value="100" />
+      <!-- Projectile Distance -->
+      <Argument Type="System.Int32" Value="45" />
+      <!-- spread angle -->
+      <Argument Type="System.Single" Value="1" />
+      <!-- Revolutions -->
+      <Argument Type="System.Single" Value="1" />
+      <!-- Projectiles Per Iteration -->
+      <Argument Type="System.String" Value="FireEvent" />
+      <!-- Event Type -->
+      <Argument Type="System.Single" Value="0" />
+      <!-- AOE Destination X -->
+      <Argument Type="System.Single" Value="0" />
+      <!-- AOE Destination Y -->
+      <Argument Type="System.Int32" Value="0" />
+      <!-- AOE Life -->
+    </ConstructorArgs>
+  </Item>
+  <Item Type="ArmorPotions.Items.TempaQuipItems.EBall" Texture="Items\Weapons\Eball" Name="E-Ball Ice">
+    <SpriteSheet Texture="Weapons\Eball" Name="Eball">
+      <Animation Key="Right" Width="32" Height="32" FrameCount="1" xOffset="0" yOffset="0" FramesPerSecond="1" />
+    </SpriteSheet>
+    <ConstructorArgs>
+      <!-- For additional parameters in an item -->
+      <Argument Type="System.Int32" Value="10" />
+      <!-- Wait -->
+      <Argument Type="Sprite" Texture="Weapons\IceballAnimation" Name="Projectile" IsAnimating="True">
+        <!-- Second Projectile Animation-->
+        <Animation Key="Right" Width="32" Height="32" FrameCount="30" xOffset="32" yOffset="0" FramesPerSecond="19"/>
+      </Argument>
+      <Argument Type="System.Single" Value="75" />
+      <!-- Throw Distance -->
+      <Argument Type="System.Single" Value="100" />
+      <!-- Projectile Distance -->
+      <Argument Type="System.Int32" Value="45" />
+      <!-- spread angle -->
+      <Argument Type="System.Single" Value="1" />
+      <!-- Revolutions -->
+      <Argument Type="System.Single" Value="2" />
+      <!-- Projectiles Per Iteration -->
+      <Argument Type="System.String" Value="IceEvent" />
+      <!-- Event Type -->
+      <Argument Type="System.Single" Value="0" />
+      <!-- AOE Destination X -->
+      <Argument Type="System.Single" Value="0" />
+      <!-- AOE Destination Y -->
+      <Argument Type="System.Int32" Value="0" />
+      <!-- AOE Life -->
+    </ConstructorArgs>
+  </Item>
+  <Item Type="ArmorPotions.Items.TempaQuipItems.EBall" Texture="Items\Weapons\Eball" Name="E-Ball Lightning">
+    <SpriteSheet Texture="Weapons\Eball" Name="Eball">
+      <Animation Key="Right" Width="32" Height="32" FrameCount="1" xOffset="0" yOffset="0" FramesPerSecond="1" />
+    </SpriteSheet>
+    <ConstructorArgs>
+      <!-- For additional parameters in an item -->
+      <Argument Type="System.Int32" Value="10" />
+      <!-- Wait -->
+      <Argument Type="Sprite" Texture="Weapons\LightningAnimation" Name="Projectile" IsAnimating="True">
+        <!-- Second Projectile Animation-->
+        <Animation Key="Right" Width="256" Height="256" FrameCount="6" xOffset="256" yOffset="0" FramesPerSecond="5" />
+      </Argument>
+      <Argument Type="System.Single" Value="75" />
+      <!-- Throw Distance -->
+      <Argument Type="System.Single" Value="100" />
+      <!-- Projectile Distance -->
+      <Argument Type="System.Int32" Value="45" />
+      <!-- spread angle -->
+      <Argument Type="System.Single" Value="1" />
+      <!-- Revolutions -->
+      <Argument Type="System.Single" Value="1.047197551" />
+      <!-- Projectiles Per Iteration -->
+      <Argument Type="System.String" Value="LightningEvent" />
+      <!-- Event Type -->
+      <Argument Type="System.Single" Value="50" />
+      <!-- AOE Destination X -->
+      <Argument Type="System.Single" Value="50" />
+      <!-- AOE Destination Y -->
+      <Argument Type="System.Int32" Value="1000" />
+      <!-- AOE Life -->
     </ConstructorArgs>
   </Item>
   <Item Type="ArmorPotions.Items.TempaQuipItems.Gun" Texture="Gui\GunIcon" Name="Bobs Gun">

@@ -99,6 +99,8 @@ namespace ArmorPotions
             world.Player.Inventory.TempaQuips.Add(new SomeConeWeapon(Content.Load<Texture2D>(@"Gui\GravityBootsIcon"), "BobsCone", sprite.Clone()));
 
             world.Player.Inventory.TempaQuips.Add((EBall)itemFactory.Create("E-Ball Fire"));
+            world.Player.Inventory.TempaQuips.Add((EBall)itemFactory.Create("E-Ball Ice"));
+            world.Player.Inventory.TempaQuips.Add((EBall)itemFactory.Create("E-Ball Lightning"));
         }
 
         /// <summary>
