@@ -1,0 +1,4 @@
+LightBug|128|128
+LightBug|768|256
+LightBug|768|768
+LightBug|1280|768

@@ -62,15 +62,23 @@ namespace ArmorPotionFramework.EntityClasses
             animations = new Dictionary<AnimationKey, Animation>();
 
             animation = new Animation(frameCount, spriteWidth, spriteHeight, 0, 0, false);
+            animation.FramesPerSecond = 10;
+
             animations.Add(AnimationKey.Down, animation);
 
             animation = new Animation(frameCount, spriteWidth, spriteHeight, 0, spriteHeight, false);
+            animation.FramesPerSecond = 10;
+
             animations.Add(AnimationKey.Right, animation);
 
             animation = new Animation(frameCount, spriteWidth, spriteHeight, 0, spriteHeight * 2, false);
+            animation.FramesPerSecond = 10;
+
             animations.Add(AnimationKey.Left, animation);
 
             animation = new Animation(frameCount, spriteWidth, spriteHeight, 0, spriteHeight * 3, false);
+            animation.FramesPerSecond = 10;
+
             animations.Add(AnimationKey.Up, animation);
 
             sprite = new AnimatedSprite(
@@ -98,12 +106,63 @@ namespace ArmorPotionFramework.EntityClasses
             get { return _inventory; }
         }
 
+        public Vector2 CurrentTranslation
+        {
+            get { return this._currentTranslation; }
+        }
+
+        public Rectangle LeftAttackRectangle
+        {
+            get { return new Rectangle(
+                (int)_position.X - CurrentSprite.Width / 4 - (int)_currentTranslation.X / 2, 
+                (int)_position.Y, 
+                (CurrentSprite.Width / 2 + (int)_currentTranslation.X),
+                (CurrentSprite.Height / 2) * 3 + (int)_currentTranslation.Y * 3);
+            }
+        }
+
+        public Rectangle TopAttackRectangle
+        {
+            get
+            {
+                return new Rectangle(
+                    (int)_position.X - LeftCollisionOffset,
+                    (int)_position.Y - (CurrentSprite.Height / 2) - ((int)_currentTranslation.Y),
+                    (CurrentSprite.Width / 2) * 2 + (int)_currentTranslation.X * 2 + LeftCollisionOffset * 2,
+                    ((CurrentSprite.Height / 2) + (int)_currentTranslation.Y) * 2);
+            }
+        }
+
+        public Rectangle RightAttackRectangle
+        {
+            get
+            {
+                return new Rectangle(
+                    (int)_position.X + LeftCollisionOffset + CurrentSprite.Width / 2 + (int)_currentTranslation.X,
+                    (int)_position.Y,
+                    (CurrentSprite.Width / 2 + (int)_currentTranslation.X),
+                    (CurrentSprite.Height / 2) * 3 + (int)_currentTranslation.Y * 3);
+            }
+        }
+
+        public Rectangle BottomAttackRectangle
+        {
+            get
+            {
+                return new Rectangle(
+                    (int)_position.X - LeftCollisionOffset,
+                    (int)_position.Y + TopCollisionOffset + CurrentSprite.Height / 2 + (int)_currentTranslation.Y,
+                    (CurrentSprite.Width / 2) * 2 + (int)_currentTranslation.X * 2 + LeftCollisionOffset * 2,
+                    ((CurrentSprite.Height / 2) + (int)_currentTranslation.Y));
+            }
+        }
+
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
 
             float deltaX = 0;
-            float deltaY = 0;
+            float deltaY = 0; 
 
             if (CurrentSpriteKey != "Attack")
             {
@@ -134,7 +193,6 @@ namespace ArmorPotionFramework.EntityClasses
                     CurrentSprite.IsAnimating = true;
                 }
 
-                World.Camera.LockToSprite(this);
                 if (InputHandler.KeyPressed(Keys.Space) || InputHandler.GamePadStates[(int)PlayerIndex.One].Buttons.X == ButtonState.Pressed)
                 {
                     AnimationKey key = CurrentSprite.CurrentAnimation;
@@ -142,6 +200,23 @@ namespace ArmorPotionFramework.EntityClasses
                     CurrentSprite.CurrentAnimation = key;
                     CurrentSprite.IsAnimating = true;
                     _currentTranslation = AttackTranslation;
+
+                    if (key == AnimationKey.Left)
+                    {
+                        AttackCollision(LeftAttackRectangle);
+                    }
+                    else if (key == AnimationKey.Right)
+                    {
+                        AttackCollision(RightAttackRectangle);
+                    }
+                    else if (key == AnimationKey.Up)
+                    {
+                        AttackCollision(TopAttackRectangle);
+                    }
+                    else if (key == AnimationKey.Down)
+                    {
+                        AttackCollision(BottomAttackRectangle);
+                    }
                 }
 
                 if ((!InputHandler.KeyDown(Keys.A) && !InputHandler.KeyDown(Keys.D) && !InputHandler.KeyDown(Keys.W) && !InputHandler.KeyDown(Keys.S)) && !InputHandler.KeyDown(Keys.Space) &&
@@ -161,6 +236,12 @@ namespace ArmorPotionFramework.EntityClasses
                     _inventory.ActivateTempaQuip(gameTime, this);
                 }
 
+                if (InputHandler.KeyPressed(Keys.Left) || InputHandler.ButtonPressed(Buttons.LeftShoulder, PlayerIndex.One))
+                    _inventory.SelectRelativeTempaQuip(this, -1);
+                else if (InputHandler.KeyPressed(Keys.Right) || InputHandler.ButtonPressed(Buttons.RightShoulder, PlayerIndex.One))
+                    _inventory.SelectRelativeTempaQuip(this, 1);
+
+                World.Camera.LockToSprite(this);
             }
             else
             {
@@ -172,8 +253,11 @@ namespace ArmorPotionFramework.EntityClasses
                     CurrentSprite.CurrentAnimation = key;
                     _currentTranslation = Vector2.Zero;
                 }
+
+                World.Camera.LockToSprite(this);
             }
 
+            //map collision
             Vector2 currentVelocity = new Vector2(deltaX, deltaY);
             CollisionData collisionData = HandleCollisions(currentVelocity);
 
@@ -185,11 +269,6 @@ namespace ArmorPotionFramework.EntityClasses
             {
                 _position.Y += currentVelocity.Y;
             }
-
-            if (InputHandler.KeyPressed(Keys.Left) || InputHandler.ButtonPressed(Buttons.LeftShoulder, PlayerIndex.One))
-                _inventory.SelectRelativeTempaQuip(this, -1);
-            else if (InputHandler.KeyPressed(Keys.Right) || InputHandler.ButtonPressed(Buttons.RightShoulder,PlayerIndex.One))
-                _inventory.SelectRelativeTempaQuip(this, 1);
 
             _healthClock.Update(gameTime);
 
@@ -283,6 +362,19 @@ namespace ArmorPotionFramework.EntityClasses
             }
         }
 
+        private void AttackCollision(Rectangle attackRectangle)
+        {
+            List<Enemy> enemies = World.Enemies;
+
+            foreach (Enemy enemy in enemies)
+            {
+                if (attackRectangle.Intersects(enemy.BoundingRectangle))
+                {
+                    enemy.Health.Damage(50);
+                }
+            }
+        }
+
         public void Damage(int value)
         {
             int shieldDamage = value / 4;
@@ -310,6 +402,13 @@ namespace ArmorPotionFramework.EntityClasses
 
             _inventory.Draw(gameTime, spriteBatch, World.Game.Window.ClientBounds.Bottom);
             _healthClock.Draw(gameTime, spriteBatch);
+
+            Rectangle rect = new Rectangle(
+                BottomAttackRectangle.Left - (int)World.Camera.CameraOffset.X,
+                BottomAttackRectangle.Top - (int)World.Camera.CameraOffset.Y,
+                BottomAttackRectangle.Width,
+                BottomAttackRectangle.Height
+                );
         }
     }
 }

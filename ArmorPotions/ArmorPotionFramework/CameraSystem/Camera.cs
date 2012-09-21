@@ -112,8 +112,9 @@ namespace ArmorPotionFramework.CameraSystem
 
         public void LockToSprite(ArmorPotionFramework.EntityClasses.Player player)
         {
-            _cameraX = (player.Position.X + player.CurrentSprite.Width / 2) - (_viewportRectangle.Width / 2);
-            _cameraY = (player.Position.Y + player.CurrentSprite.Height / 2) - (_viewportRectangle.Height / 2);
+            //TODO: Use local variables to reduce function calls by 3
+            _cameraX = (player.Position.X + player.CurrentSprite.Width / 2) - (_viewportRectangle.Width / 2) + player.CurrentTranslation.X;
+            _cameraY = (player.Position.Y + player.CurrentSprite.Height / 2) - (_viewportRectangle.Height / 2) + player.CurrentTranslation.Y;
             LockCamera();
         }
 
