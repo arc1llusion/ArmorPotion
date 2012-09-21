@@ -20,6 +20,7 @@ namespace ArmorPotionFramework.EntityClasses.Data
         public int BottomCollisionOffset = 0;
         public IAIComponent IdleComponent = null;
         public IAIComponent DecisionComponent = null;
+        public int Health = 0;
         public Dictionary<String, IAIComponent> ActionComponents = new Dictionary<string, IAIComponent>();
         public Dictionary<String, AnimatedSprite> Sprites = new Dictionary<string, AnimatedSprite>();
         public float SightRadius = 0;

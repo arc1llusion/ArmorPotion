@@ -33,6 +33,11 @@ namespace ArmorPotionFramework.TileEngine
             _world = world;
         }
 
+        public List<Enemy> Enemies
+        {
+            get { return this._enemies; }
+        }
+
         public void Update(GameTime gameTime)
         {
             UpdateEnemies(gameTime);

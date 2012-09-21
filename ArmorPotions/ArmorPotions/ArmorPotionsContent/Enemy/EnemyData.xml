@@ -45,6 +45,25 @@
         <Animation Key="Up" Width="128" Height="128" FrameCount="4" xOffset="0" yOffset="384" FramesPerSecond="5" />
       </Sprite>
     </SpriteSheets>
-    <Fields SightRadius="100" />
+    <Fields SightRadius="100" Health="300"/>
+  </Enemy>
+  <Enemy Name="Slime">
+    <Texture Path="Enemy" Width="32" Height="32" FrameCount="4" />
+    <Velocity X="1" Y="0" />
+    <IdleComponent Type="ArmorPotions.Components.MoveRandom" />
+    <DecisionComponent Type="ArmorPotions.Components.Decide" />
+    <ActionComponents>
+      <ActionComponent Name="AoEDrop" Type="ArmorPotions.Components.MoveRandom" />
+    </ActionComponents>
+    <CollisionOffset Left="45" Right="34" Top="75" Bottom="0" />
+    <SpriteSheets>
+      <Sprite Texture="Slimey" Name="Walking">
+        <Animation Key="Down" Width="128" Height="128" FrameCount="4" xOffset="0" yOffset="0" FramesPerSecond="5" />
+        <Animation Key="Left" Width="128" Height="128" FrameCount="4" xOffset="0" yOffset="128" FramesPerSecond="5" />
+        <Animation Key="Right" Width="128" Height="128" FrameCount="4" xOffset="0" yOffset="256" FramesPerSecond="5" />
+        <Animation Key="Up" Width="128" Height="128" FrameCount="4" xOffset="0" yOffset="384" FramesPerSecond="5" />
+      </Sprite>
+    </SpriteSheets>
+    <Fields SightRadius="100" Health="100"/>
   </Enemy>
 </Enemies>

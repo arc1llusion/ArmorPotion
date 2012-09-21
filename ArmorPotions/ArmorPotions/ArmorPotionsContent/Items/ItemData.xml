@@ -49,11 +49,11 @@
       </Argument>
       <Argument Type="System.Single" Value="75" />
       <!-- Throw Distance -->
-      <Argument Type="System.Single" Value="100" />
+      <Argument Type="System.Single" Value="200" />
       <!-- Projectile Distance -->
       <Argument Type="System.Int32" Value="45" />
       <!-- spread angle -->
-      <Argument Type="System.Single" Value="1" />
+      <Argument Type="System.Single" Value="3" />
       <!-- Revolutions -->
       <Argument Type="System.Single" Value="2" />
       <!-- Projectiles Per Iteration -->
@@ -77,7 +77,7 @@
       <!-- Wait -->
       <Argument Type="Sprite" Texture="Weapons\LightningAnimation" Name="Projectile" IsAnimating="True">
         <!-- Second Projectile Animation-->
-        <Animation Key="Right" Width="256" Height="256" FrameCount="6" xOffset="256" yOffset="0" FramesPerSecond="5" />
+        <Animation Key="Right" Width="256" Height="256" FrameCount="6" xOffset="256" yOffset="0" FramesPerSecond="6" />
       </Argument>
       <Argument Type="System.Single" Value="75" />
       <!-- Throw Distance -->

@@ -69,7 +69,7 @@ namespace ArmorPotionFramework.Projectiles
                 /* Enemy Collision */
                 if (this._target == ProjectileTarget.Enemy)
                 {
-                    IEnumerable<Enemy> enemies = World.Enemies.Where(enemy => GameMath.Distance(_position, enemy.Position) < 200);
+                    IEnumerable<Enemy> enemies = World.CurrentDungeon.Enemies.Where(enemy => GameMath.Distance(_position, enemy.Position) < 200);
                     foreach (Enemy enemy in enemies)
                     {
                         if (enemy.BoundingRectangle.Intersects(this.BoundingRectangle))

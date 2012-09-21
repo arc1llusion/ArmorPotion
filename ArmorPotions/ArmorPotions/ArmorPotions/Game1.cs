@@ -77,10 +77,6 @@ namespace ArmorPotions
             Map dungeonOne = MapLoader.Load("Content/Maps/DungeonOne_top.txt", "Content/Maps/DungeonOne_bottom.txt", "Content/Maps/DungeonOne_enemy.txt", world);
             world.CurrentDungeon = dungeonOne;
 
-            Enemy enemy = world.EnemyFactory.Create("LightBug");
-            enemy.Position = new Vector2(300, 300);
-            world.Enemies.Add(enemy);
-
             Item item = itemFactory.Create("Super Awesome Potion");
             item.Position = new Vector2(70, 70);
             world.item = item;

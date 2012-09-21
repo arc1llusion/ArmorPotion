@@ -364,7 +364,7 @@ namespace ArmorPotionFramework.EntityClasses
 
         private void AttackCollision(Rectangle attackRectangle)
         {
-            List<Enemy> enemies = World.Enemies;
+            List<Enemy> enemies = World.CurrentDungeon.Enemies;
 
             foreach (Enemy enemy in enemies)
             {

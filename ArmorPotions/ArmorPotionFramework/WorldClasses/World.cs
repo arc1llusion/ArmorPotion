@@ -23,7 +23,6 @@ namespace ArmorPotionFramework.WorldClasses
         private ArmorPotionsGame _game;
         public Item item;
         private Camera _camera;
-        private List<Enemy> _enemies;
         private List<Projectile> _projectiles;
         private List<Projectile> _projectilesToAdd;
         private Map currentDungeon;
@@ -33,7 +32,6 @@ namespace ArmorPotionFramework.WorldClasses
         public World(ArmorPotionsGame game)
         {
             _game = game;
-            _enemies = new List<Enemy>();
             _projectiles = new List<Projectile>();
             _projectilesToAdd = new List<Projectile>();
 
@@ -57,14 +55,6 @@ namespace ArmorPotionFramework.WorldClasses
             get
             {
                 return _player;
-            }
-        }
-
-        public List<Enemy> Enemies
-        {
-            get
-            {
-                return _enemies;
             }
         }
 

@@ -11,6 +11,7 @@ using Microsoft.Xna.Framework.Content;
 using ArmorPotionFramework.EntityClasses.Data;
 using ArmorPotionFramework.WorldClasses;
 using Microsoft.Xna.Framework.Graphics;
+using ArmorPotionFramework.Characteristics;
 
 namespace ArmorPotionFramework.EntityClasses
 {
@@ -26,6 +27,8 @@ namespace ArmorPotionFramework.EntityClasses
         private delegate void Action(GameTime gameTime, Enemy enemy);
 
         private Action<GameTime, Enemy> _currentAction;
+
+        private Texture2D _healthTexture;
 
         public Enemy(World world)
             : base(world)
@@ -53,8 +56,11 @@ namespace ArmorPotionFramework.EntityClasses
             this.RightCollisionOffset = data.RightCollisionOffset;
             this.TopCollisionOffset = data.TopCollisionOffset;
             this.BottomCollisionOffset = data.BottomCollisionOffset;
+            this._health = new AttributePair(data.Health);
 
             this.AnimatedSprites.First().Value.IsAnimating = true;
+
+            _healthTexture = world.Game.Content.Load<Texture2D>(@"Gui/EnemyHealthBar");
         }
 
         public IAIComponent IdleComponent
@@ -142,8 +148,22 @@ namespace ArmorPotionFramework.EntityClasses
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            RectangleExtensions.DrawRectangleBorder(VisualBoundingRectangle, spriteBatch, 4, Color.White);
             CurrentSprite.Draw(gameTime, spriteBatch, PositionOffset, World.Camera);
+
+            int ratio = (int)((float)_health.CurrentValue / (float)_health.MaximumValue * 100);
+            float x = _position.X;
+            float y = _position.Y;
+
+            Vector2 camOffset = World.Camera.CameraOffset;
+            
+
+            for (int i = 0; i <= ratio; i++)
+            {
+                spriteBatch.Draw(_healthTexture, new Vector2(x, y) - camOffset, Color.White);
+                x++;
+            }
+
+            RectangleExtensions.DrawRectangleBorder(new Rectangle((int)_position.X - (int)camOffset.X, (int)y - (int)camOffset.Y, 100, 15), spriteBatch, 2, Color.Black);
         }
 
         public void ActionComplete()

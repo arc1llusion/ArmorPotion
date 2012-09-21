@@ -70,7 +70,13 @@ namespace ArmorPotions.Items.TempaQuipItems
                     _aoeDestination,
                     _aoeLife);
 
-                projectile.DamageAmount = 1;
+                projectile.DamageAmount = 3;
+
+                if (_eventType == EventType.LightningEvent)
+                    projectile.DamageAmount = 25;
+                else if (_eventType == EventType.IceEvent)
+                    projectile.DamageAmount = 1;
+
                 projectile.AnimatedSprites.Add("Normal", AnimatedSprite);
                 projectile.AnimatedSprites.Add("Projectile", _secondaryProjectileSprite);
 
