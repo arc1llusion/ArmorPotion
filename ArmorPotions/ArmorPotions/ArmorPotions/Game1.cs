@@ -69,11 +69,13 @@ namespace ArmorPotions
             SpriteBatch = new SpriteBatch(GraphicsDevice);            
             world = new World(this);
 
-            ItemFactory itemFactory = new ItemFactory(world, @"Items");
-            Map dungeonOne = MapLoader.Load("Content/Maps/DungeonOne_top.txt", "Content/Maps/DungeonOne_bottom.txt", world);
-            world.CurrentDungeon = dungeonOne;
+            ItemFactory itemFactory = new ItemFactory(world, @"Items");           
+            
             EnemyFactory factory = new EnemyFactory(world, @"Enemy");
             world.EnemyFactory = factory;
+
+            Map dungeonOne = MapLoader.Load("Content/Maps/DungeonOne_top.txt", "Content/Maps/DungeonOne_bottom.txt", "Content/Maps/DungeonOne_enemy.txt", world);
+            world.CurrentDungeon = dungeonOne;
 
             Enemy enemy = world.EnemyFactory.Create("LightBug");
             enemy.Position = new Vector2(300, 300);

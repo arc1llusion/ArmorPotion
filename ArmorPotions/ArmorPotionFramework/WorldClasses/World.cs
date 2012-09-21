@@ -123,7 +123,8 @@ namespace ArmorPotionFramework.WorldClasses
         {
             Camera.CameraCenter = _player.Position;
 
-            UpdateEnemies(gameTime);
+            currentDungeon.Update(gameTime);
+
             UpdateProjectiles(gameTime);
             _player.Update(gameTime);
 
@@ -139,30 +140,12 @@ namespace ArmorPotionFramework.WorldClasses
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             DrawMap(gameTime, spriteBatch);
-            _enemies.ForEach(enemy => enemy.Draw(gameTime, spriteBatch));
             _player.Draw(gameTime, spriteBatch);
             DrawProjectiles(gameTime, spriteBatch);
             //if(item != null) item.DrawIcon(gameTime, spriteBatch, Camera.CameraOffset);
         }
 
         #region Helper Methods
-
-        private void UpdateEnemies(GameTime gameTime)
-        {
-            List<Enemy> removedEnemies = new List<Enemy>();
-            foreach (Enemy enemy in _enemies)
-            {
-                enemy.Update(gameTime);
-
-                if (!enemy.IsAlive)
-                    removedEnemies.Add(enemy);
-            }
-
-            foreach (Enemy enemy in removedEnemies)
-            {
-                _enemies.Remove(enemy);
-            }
-        }
 
         private void UpdateProjectiles(GameTime gameTime)
         {

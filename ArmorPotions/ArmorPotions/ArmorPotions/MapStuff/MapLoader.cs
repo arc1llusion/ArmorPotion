@@ -8,12 +8,13 @@ using ArmorPotionFramework.TileEngine;
 using ArmorPotions.Tiles;
 using Microsoft.Xna.Framework.Graphics;
 using ArmorPotionFramework.WorldClasses;
+using ArmorPotionFramework.EntityClasses;
 
 namespace ArmorPotion.MapStuff
 {
     static class MapLoader
     {
-        public static Map Load(String mapTopLocation, String mapBottomLocation, World world)
+        public static Map Load(String mapTopLocation, String mapBottomLocation, String enemyLocation, World world)
         {
             Dictionary<int, Texture2D> textureDictionary = new Dictionary<int,Texture2D>();
 
@@ -33,7 +34,7 @@ namespace ArmorPotion.MapStuff
             textureDictionary.Add(14, world.Game.Content.Load<Texture2D>(@"Tiles\DoorOpenTile"));
             textureDictionary.Add(15, world.Game.Content.Load<Texture2D>(@"Tiles\LadderTile"));
 
-            Map loadedMap = new Map(loadMap(mapTopLocation, textureDictionary), loadMap(mapBottomLocation, textureDictionary), world);
+            Map loadedMap = new Map(loadMap(mapTopLocation, textureDictionary), loadMap(mapBottomLocation, textureDictionary), LoadEnemies(world, enemyLocation), world);
             for (int i = 0; i <= loadedMap.getMapLevel(1).GetLength(0) - 1; i++)
             {
                 for (int c = 0; c <= loadedMap.getMapLevel(1).GetLength(1) - 1; c++)
@@ -136,6 +137,29 @@ namespace ArmorPotion.MapStuff
                 }
             }
             return map;
+        }
+
+        private static List<Enemy> LoadEnemies(World world, String fileLocation)
+        {
+            List<Enemy> enemies = new List<Enemy>();
+            using (Stream fileStream = TitleContainer.OpenStream(fileLocation))
+            {
+                using (StreamReader reader = new StreamReader(fileStream))
+                {
+                    String enemy = "";
+                    while ((enemy = reader.ReadLine()) != null)
+                    {
+                        String[] enemyData = enemy.Split('|');
+
+                        Enemy loadedEnemy = world.EnemyFactory.Create(enemyData[0]);
+                        loadedEnemy.Position = new Vector2(float.Parse(enemyData[1]), float.Parse(enemyData[2]));
+
+                        enemies.Add(loadedEnemy);
+                    }
+                }
+            }
+
+            return enemies;
         }
     }
 }

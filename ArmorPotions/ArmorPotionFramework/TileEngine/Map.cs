@@ -5,6 +5,7 @@ using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ArmorPotionFramework.WorldClasses;
+using ArmorPotionFramework.EntityClasses;
 
 namespace ArmorPotionFramework.TileEngine
 {
@@ -13,12 +14,15 @@ namespace ArmorPotionFramework.TileEngine
         private List<Tile[,]> _tileMaps;
         private int _width, _height;
         private World _world;
+        private List<Enemy> _enemies;
 
-        public Map(Tile[,] mapTop, Tile[,] mapBottom, World world)
+        public Map(Tile[,] mapTop, Tile[,] mapBottom, List<Enemy> enemies, World world)
         {
             _tileMaps = new List<Tile[,]>();
             _tileMaps.Add(mapBottom);
             _tileMaps.Add(mapTop);
+
+            _enemies = enemies;
 
             if (mapTop.GetLength(0) != mapBottom.GetLength(0) || mapBottom.GetLength(1) != mapTop.GetLength(1))
                 throw new Exception("Invalid map lengths.");
@@ -28,8 +32,27 @@ namespace ArmorPotionFramework.TileEngine
 
             _world = world;
         }
-        public void Update()
+
+        public void Update(GameTime gameTime)
         {
+            UpdateEnemies(gameTime);
+        }
+
+        private void UpdateEnemies(GameTime gameTime)
+        {
+            List<Enemy> removedEnemies = new List<Enemy>();
+            foreach (Enemy enemy in _enemies)
+            {
+                enemy.Update(gameTime);
+
+                if (!enemy.IsAlive)
+                    removedEnemies.Add(enemy);
+            }
+
+            foreach (Enemy enemy in removedEnemies)
+            {
+                _enemies.Remove(enemy);
+            }
         }
 
         public TileInfo? GetTile(int layer, int tileX, int tileY)
@@ -50,7 +73,7 @@ namespace ArmorPotionFramework.TileEngine
             return info;
         }
 
-        public void Draw(GameTime gameTime, SpriteBatch spritebatch)
+        public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             for (int i = 0; i <= _width; i++)
             {
@@ -58,14 +81,16 @@ namespace ArmorPotionFramework.TileEngine
                 {
                     if (_tileMaps[0][c, i] != null)
                     {
-                        spritebatch.Draw(_tileMaps[0][c, i].Texture, new Vector2(c * Tile.Width, i * Tile.Height) - _world.Camera.CameraOffset, null, Color.White, 0f, Vector2.Zero, _world.Camera.Scale, SpriteEffects.None, 0f);
+                        spriteBatch.Draw(_tileMaps[0][c, i].Texture, new Vector2(c * Tile.Width, i * Tile.Height) - _world.Camera.CameraOffset, null, Color.White, 0f, Vector2.Zero, _world.Camera.Scale, SpriteEffects.None, 0f);
                     }
                     if (_tileMaps[1][c, i] != null)
                     {
-                        spritebatch.Draw(_tileMaps[1][c, i].Texture, new Vector2(c * Tile.Width, i * Tile.Height) - _world.Camera.CameraOffset, null, Color.White, 0f, Vector2.Zero, _world.Camera.Scale, SpriteEffects.None, 0f);
+                        spriteBatch.Draw(_tileMaps[1][c, i].Texture, new Vector2(c * Tile.Width, i * Tile.Height) - _world.Camera.CameraOffset, null, Color.White, 0f, Vector2.Zero, _world.Camera.Scale, SpriteEffects.None, 0f);
                     }                    
                 }
             }
+
+            _enemies.ForEach(enemy => enemy.Draw(gameTime, spriteBatch));
         }
 
 

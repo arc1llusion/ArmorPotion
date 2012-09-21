@@ -44,26 +44,31 @@ namespace ArmorPotions.Components
 
         public int LifeTime
         {
+            get { return this._defaultLifetime; }
             set { this._defaultLifetime = value; }
         }
 
         public int Wait
         {
+            get { return this._defaultWaitTime; }
             set { this._defaultWaitTime = value; }
         }
 
         public AnimatedSprite AttackTexture
         {
-            set { this._sprite = value; }
+            get { return this._sprite; }
+            set { this._sprite = value.Clone(); }
         }
 
         public EventType EventType
         {
+            get { return this._eventType; }
             set { this._eventType = value; }
         }
 
         public ushort Damage
         {
+            get { return this._aoeDamage; }
             set { this._aoeDamage = value; }
         }
 

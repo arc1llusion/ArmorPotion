@@ -27,7 +27,26 @@ namespace ArmorPotions.Factories
 
         public override Enemy Create(String name)
         {
-            return new Enemy(World, Objects[name]);
+            EnemyData enemy = Objects[name];
+            enemy.IdleComponent = CreateInstance<IAIComponent>(enemy.IdleComponent.GetType());
+            enemy.DecisionComponent = CreateInstance<IAIComponent>(enemy.DecisionComponent.GetType());
+
+            List<String> keys = new List<String>(enemy.ActionComponents.Keys);
+           
+            foreach (String key in keys)
+            {
+                IAIComponent action = CreateInstance<IAIComponent>(enemy.ActionComponents[key].GetType());
+                PropertyInfo[] newObjectProperties = action.GetType().GetProperties();
+
+                for (int i = 0; i < newObjectProperties.Length; i++)
+                {
+                    newObjectProperties[i].SetValue(action, newObjectProperties[i].GetValue(enemy.ActionComponents[key], null), null);
+                }
+
+                enemy.ActionComponents[key] = action;
+            }
+
+            return new Enemy(World, enemy);
         }
 
         protected override EnemyData ReadObjectData(XmlElement element, out String name)
