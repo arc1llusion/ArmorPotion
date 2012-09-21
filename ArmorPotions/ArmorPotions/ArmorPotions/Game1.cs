@@ -38,6 +38,7 @@ namespace ArmorPotions
             graphics = new GraphicsDeviceManager(this);
             graphics.PreferredBackBufferWidth = 1024;
             graphics.PreferredBackBufferHeight = 768;
+            //graphics.IsFullScreen = true;
 
             ScreenRectangle = new Rectangle(0, 0, 1024, 768);
 

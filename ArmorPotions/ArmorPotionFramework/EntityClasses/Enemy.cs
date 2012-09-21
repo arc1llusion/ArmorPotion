@@ -12,6 +12,7 @@ using ArmorPotionFramework.EntityClasses.Data;
 using ArmorPotionFramework.WorldClasses;
 using Microsoft.Xna.Framework.Graphics;
 using ArmorPotionFramework.Characteristics;
+using ArmorPotionFramework.SpriteClasses;
 
 namespace ArmorPotionFramework.EntityClasses
 {
@@ -61,6 +62,16 @@ namespace ArmorPotionFramework.EntityClasses
             this.AnimatedSprites.First().Value.IsAnimating = true;
 
             _healthTexture = world.Game.Content.Load<Texture2D>(@"Gui/EnemyHealthBar");
+
+            
+            String[] color = data.Color.Split(',');
+            if(color.Length == 3)
+                _tintColor = new Color(int.Parse(color[0]), int.Parse(color[1]), int.Parse(color[2]));
+
+            foreach (AnimatedSprite sprite in AnimatedSprites.Values)
+            {
+                sprite.TintColor = _tintColor;
+            }
         }
 
         public IAIComponent IdleComponent

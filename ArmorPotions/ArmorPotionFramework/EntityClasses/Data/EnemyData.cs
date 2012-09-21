@@ -24,6 +24,7 @@ namespace ArmorPotionFramework.EntityClasses.Data
         public Dictionary<String, IAIComponent> ActionComponents = new Dictionary<string, IAIComponent>();
         public Dictionary<String, AnimatedSprite> Sprites = new Dictionary<string, AnimatedSprite>();
         public float SightRadius = 0;
+        public String Color = "";
 
         public Dictionary<String, AnimatedSprite> DeepCopySprites
         {

@@ -34,10 +34,12 @@ namespace ArmorPotionFramework.EntityClasses
         protected AttributePair _shield;
 
         protected bool _isAlive;
+        protected Color _tintColor;
 
         public Entity(World world)
         {
             _world = world;
+            
 
             _xVelocityLimit = new Vector2(Int32.MinValue, Int32.MaxValue);
             _yVelocityLimit = new Vector2(Int32.MinValue, Int32.MaxValue);
@@ -55,6 +57,7 @@ namespace ArmorPotionFramework.EntityClasses
             //TODO: Temp Health, need to allow health to be set for individual enemies
             _health = new AttributePair(600);
             _shield = new AttributePair(300);
+            _tintColor = Color.White;
         }
 
         public World World

@@ -193,7 +193,15 @@ namespace ArmorPotionFramework.EntityClasses
                     CurrentSprite.IsAnimating = true;
                 }
 
-                if (InputHandler.KeyPressed(Keys.Space) || InputHandler.GamePadStates[(int)PlayerIndex.One].Buttons.X == ButtonState.Pressed)
+                if ((!InputHandler.KeyDown(Keys.A) && !InputHandler.KeyDown(Keys.D) && !InputHandler.KeyDown(Keys.W) && !InputHandler.KeyDown(Keys.S)) && !InputHandler.KeyDown(Keys.Space) &&
+                    ((InputHandler.GamePadStates[(int)PlayerIndex.One].ThumbSticks.Left.X < 0.5f && InputHandler.GamePadStates[(int)PlayerIndex.One].ThumbSticks.Left.X > -0.5f) &&
+                (InputHandler.GamePadStates[(int)PlayerIndex.One].ThumbSticks.Left.Y < 0.5f && InputHandler.GamePadStates[(int)PlayerIndex.One].ThumbSticks.Left.Y > -0.5f)))
+                {
+                    CurrentSprite.IsAnimating = false;
+                    CurrentSprite.Reset();
+                }
+
+                if (InputHandler.KeyPressed(Keys.Space) || InputHandler.ButtonPressed(Buttons.X, (int)PlayerIndex.One))
                 {
                     AnimationKey key = CurrentSprite.CurrentAnimation;
                     CurrentSpriteKey = "Attack";
@@ -217,14 +225,6 @@ namespace ArmorPotionFramework.EntityClasses
                     {
                         AttackCollision(BottomAttackRectangle);
                     }
-                }
-
-                if ((!InputHandler.KeyDown(Keys.A) && !InputHandler.KeyDown(Keys.D) && !InputHandler.KeyDown(Keys.W) && !InputHandler.KeyDown(Keys.S)) && !InputHandler.KeyDown(Keys.Space) &&
-                    ((InputHandler.GamePadStates[(int)PlayerIndex.One].ThumbSticks.Left.X < 0.5f && InputHandler.GamePadStates[(int)PlayerIndex.One].ThumbSticks.Left.X > -0.5f) &&
-                (InputHandler.GamePadStates[(int)PlayerIndex.One].ThumbSticks.Left.Y < 0.5f && InputHandler.GamePadStates[(int)PlayerIndex.One].ThumbSticks.Left.Y > -0.5f)))
-                {
-                    CurrentSprite.IsAnimating = false;
-                    CurrentSprite.Reset();
                 }
 
                 if (InputHandler.MouseButtonDown(InputHandler.MouseState.LeftButton) || InputHandler.GamePadStates[(int)PlayerIndex.One].Buttons.Y == ButtonState.Pressed)
@@ -395,11 +395,11 @@ namespace ArmorPotionFramework.EntityClasses
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            CurrentSprite.Draw(gameTime, spriteBatch, PositionOffset + _currentTranslation, World.Camera);
+            CurrentSprite.Draw(gameTime, spriteBatch, PositionOffset + _currentTranslation, World.Camera);            
 
-            int coordX = (int)Math.Ceiling( _position.X / Tile.Width);
-            int coordY = (int)Math.Ceiling(_position.Y / Tile.Height);
-
+            int coordX = (int)Math.Ceiling( _position.X );
+            int coordY = (int)Math.Ceiling(_position.Y );
+            spriteBatch.DrawString(World.Game.Content.Load<SpriteFont>(@"Fonts\ControlFont"), "Coords: " + coordX + ":" + coordY, new Vector2(50, 0), Color.White);
             _inventory.Draw(gameTime, spriteBatch, World.Game.Window.ClientBounds.Bottom);
             _healthClock.Draw(gameTime, spriteBatch);
 

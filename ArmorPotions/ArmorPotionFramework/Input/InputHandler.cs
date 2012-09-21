@@ -83,6 +83,7 @@ namespace ArmorPotionFramework.Input
             mouseState = Mouse.GetState();
 
             gamePadStates = new GamePadState[Enum.GetValues(typeof(PlayerIndex)).Length];
+            lastGamePadStates = new GamePadState[Enum.GetValues(typeof(PlayerIndex)).Length];
 
             foreach (PlayerIndex index in Enum.GetValues(typeof(PlayerIndex)))
                 gamePadStates[(int)index] = GamePad.GetState(index);

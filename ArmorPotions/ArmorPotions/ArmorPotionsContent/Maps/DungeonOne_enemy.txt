@@ -1,4 +1,10 @@
 Slime|128|128
+Slime|256|256
+LightBug|768|256
+LightBug|768|256
 LightBug|768|256
 LightBug|768|768
+LightBug|768|768
+LightBug|768|768
 LightBug|1280|768
+LightBugBoss|3200|870
