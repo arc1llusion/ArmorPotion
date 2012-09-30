@@ -108,5 +108,19 @@ namespace ArmorPotions.Components
             _waitTime -= gameTime.ElapsedGameTime.Milliseconds;
             return false;
         }
+
+
+        public IAIComponent Clone()
+        {
+            AoEDrop newAOEDropComponent = new AoEDrop();
+            
+            newAOEDropComponent.EventType = this._eventType;
+            newAOEDropComponent.LifeTime = this._defaultLifetime;
+            newAOEDropComponent.AttackTexture = this._sprite; //The set property calls clone already
+            newAOEDropComponent.Damage = this._aoeDamage;
+            newAOEDropComponent.Wait = this._defaultWaitTime;
+
+            return newAOEDropComponent;
+        }
     }
 }

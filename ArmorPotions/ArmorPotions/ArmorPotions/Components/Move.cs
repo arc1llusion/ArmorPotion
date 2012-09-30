@@ -42,5 +42,11 @@ namespace ArmorPotions.Components
         {
             life = 3000;
         }
+
+
+        public IAIComponent Clone()
+        {
+            return new Move();
+        }
     }
 }

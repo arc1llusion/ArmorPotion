@@ -11,5 +11,6 @@ namespace ArmorPotionFramework.EntityClasses.Components
     {
         void SetUp(Enemy enemy);
         void Update(GameTime gameTime, Enemy enemy);
+        IAIComponent Clone();
     }
 }

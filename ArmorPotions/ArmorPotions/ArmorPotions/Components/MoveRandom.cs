@@ -63,5 +63,11 @@ namespace ArmorPotions.Components
         public void SetUp(Enemy enemy)
         {
         }
+
+
+        public IAIComponent Clone()
+        {
+            return new MoveRandom();
+        }
     }
 }

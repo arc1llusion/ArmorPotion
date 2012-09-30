@@ -27,5 +27,11 @@ namespace ArmorPotions.Components
         {
             throw new NotImplementedException();
         }
+
+
+        public IAIComponent Clone()
+        {
+            return new Decide();
+        }
     }
 }
