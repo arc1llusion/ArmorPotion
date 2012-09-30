@@ -112,7 +112,6 @@ namespace ArmorPotionFramework.CameraSystem
 
         public void LockToSprite(ArmorPotionFramework.EntityClasses.Player player)
         {
-            //TODO: Use local variables to reduce function calls by 3
             Vector2 playerPositon = player.Position;
             Vector2 playerTranslation = player.CurrentTranslation;
             Vector2 currentWidthHeight = new Vector2(player.CurrentSprite.Width, player.CurrentSprite.Height);

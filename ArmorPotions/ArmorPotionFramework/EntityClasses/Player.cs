@@ -400,7 +400,7 @@ namespace ArmorPotionFramework.EntityClasses
             int coordX = (int)Math.Ceiling( _position.X );
             int coordY = (int)Math.Ceiling(_position.Y );
             spriteBatch.DrawString(World.Game.Content.Load<SpriteFont>(@"Fonts\ControlFont"), "Coords: " + coordX + ":" + coordY, new Vector2(50, 0), Color.White);
-            _inventory.Draw(gameTime, spriteBatch, World.Game.Window.ClientBounds.Bottom);
+            _inventory.Draw(gameTime, spriteBatch);
             _healthClock.Draw(gameTime, spriteBatch);
 
             Rectangle rect = new Rectangle(

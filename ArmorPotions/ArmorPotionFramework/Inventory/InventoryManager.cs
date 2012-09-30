@@ -139,7 +139,7 @@ namespace ArmorPotionFramework.Inventory
                 index = 0;
         }
 
-        public void Draw(GameTime gameTime, SpriteBatch spriteBatch, float bottomWindowBound)
+        public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             float x = _position.X;
             float y = _position.Y;
