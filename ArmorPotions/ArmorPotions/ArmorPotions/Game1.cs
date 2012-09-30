@@ -118,19 +118,21 @@ namespace ArmorPotions
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-            // Allows the game to exit
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
-                this.Exit();
-            if (InputHandler.KeyDown(Keys.Escape))
-                this.Exit();
+            if (IsActive)
+            {
+                // Allows the game to exit
+                if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
+                    this.Exit();
+                if (InputHandler.KeyDown(Keys.Escape))
+                    this.Exit();
 
-            world.Update(gameTime);
+                world.Update(gameTime);
 
-            base.Update(gameTime);
+                base.Update(gameTime);
 
-            if (world.Player.Health.CurrentValue == 0)
-                this.LoadContent();
-
+                if (world.Player.Health.CurrentValue == 0)
+                    this.LoadContent();
+            }
         }
 
         /// <summary>

@@ -107,8 +107,6 @@ namespace ArmorPotionFramework.TileEngine
             _enemies.ForEach(enemy => enemy.Draw(gameTime, spriteBatch));
         }
 
-
-
         public Tile[,] getMapLevel(int levelNum)
         {
             return _tileMaps[levelNum];

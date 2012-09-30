@@ -165,16 +165,13 @@ namespace ArmorPotionFramework.EntityClasses
             float x = _position.X;
             float y = _position.Y;
 
-            Vector2 camOffset = World.Camera.CameraOffset;
-            
+            Vector2 camOffset = World.Camera.CameraOffset;            
 
             for (int i = 0; i <= ratio; i++)
             {
                 spriteBatch.Draw(_healthTexture, new Vector2(x, y) - camOffset, Color.White);
                 x++;
             }
-
-            RectangleExtensions.DrawRectangleBorder(new Rectangle((int)_position.X - (int)camOffset.X, (int)y - (int)camOffset.Y, 100, 15), spriteBatch, 2, Color.Black);
         }
 
         public void ActionComplete()
