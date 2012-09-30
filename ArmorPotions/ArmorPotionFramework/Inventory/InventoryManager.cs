@@ -149,13 +149,11 @@ namespace ArmorPotionFramework.Inventory
             x += 37;
             y -= 37;
 
+            spriteBatch.Draw(_selector, new Vector2(x + (69 * _tempaQuipIndex) - 2, y), Color.White);
+
             for (int i = 0; i < _tempaQuips.Count; i++)
             {
-                if (i == _tempaQuipIndex)
-                    spriteBatch.Draw(_selector, new Vector2(x-2, y), Color.White);
-
                 _tempaQuips[i].DrawIcon(gameTime, spriteBatch, x, y);
-
                 x += 69;
             }
         }
