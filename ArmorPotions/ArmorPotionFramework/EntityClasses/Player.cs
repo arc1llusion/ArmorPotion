@@ -167,33 +167,33 @@ namespace ArmorPotionFramework.EntityClasses
             if (CurrentSpriteKey != "Attack")
             {
 
-                if (InputHandler.KeyDown(Keys.W) || InputHandler.GamePadStates[(int)PlayerIndex.One].ThumbSticks.Left.Y >= 0.5f)
+                if (InputHandler.KeyDown(Keys.Up) || InputHandler.GamePadStates[(int)PlayerIndex.One].ThumbSticks.Left.Y >= 0.5f)
                 {
                     deltaY -= _velocity.Y;
                     CurrentSprite.CurrentAnimation = AnimationKey.Up;
                     CurrentSprite.IsAnimating = true;
                 }
-                else if (InputHandler.KeyDown(Keys.S) || InputHandler.GamePadStates[(int)PlayerIndex.One].ThumbSticks.Left.Y <= -0.5f)
+                else if (InputHandler.KeyDown(Keys.Down) || InputHandler.GamePadStates[(int)PlayerIndex.One].ThumbSticks.Left.Y <= -0.5f)
                 {
                     deltaY += _velocity.Y;
                     CurrentSprite.CurrentAnimation = AnimationKey.Down;
                     CurrentSprite.IsAnimating = true;
                 }
 
-                if (InputHandler.KeyDown(Keys.A) || InputHandler.GamePadStates[(int)PlayerIndex.One].ThumbSticks.Left.X <= -0.5f)
+                if (InputHandler.KeyDown(Keys.Left) || InputHandler.GamePadStates[(int)PlayerIndex.One].ThumbSticks.Left.X <= -0.5f)
                 {
                     deltaX -= _velocity.X;
                     CurrentSprite.CurrentAnimation = AnimationKey.Left;
                     CurrentSprite.IsAnimating = true;
                 }
-                else if (InputHandler.KeyDown(Keys.D) || InputHandler.GamePadStates[(int)PlayerIndex.One].ThumbSticks.Left.X >= 0.5f)
+                else if (InputHandler.KeyDown(Keys.Right) || InputHandler.GamePadStates[(int)PlayerIndex.One].ThumbSticks.Left.X >= 0.5f)
                 {
                     deltaX += _velocity.X;
                     CurrentSprite.CurrentAnimation = AnimationKey.Right;
                     CurrentSprite.IsAnimating = true;
                 }
 
-                if ((!InputHandler.KeyDown(Keys.A) && !InputHandler.KeyDown(Keys.D) && !InputHandler.KeyDown(Keys.W) && !InputHandler.KeyDown(Keys.S)) && !InputHandler.KeyDown(Keys.Space) &&
+                if ((!InputHandler.KeyDown(Keys.Left) && !InputHandler.KeyDown(Keys.Right) && !InputHandler.KeyDown(Keys.Up) && !InputHandler.KeyDown(Keys.Down)) && !InputHandler.KeyDown(Keys.Z) && !InputHandler.KeyDown(Keys.X) &&
                     ((InputHandler.GamePadStates[(int)PlayerIndex.One].ThumbSticks.Left.X < 0.5f && InputHandler.GamePadStates[(int)PlayerIndex.One].ThumbSticks.Left.X > -0.5f) &&
                 (InputHandler.GamePadStates[(int)PlayerIndex.One].ThumbSticks.Left.Y < 0.5f && InputHandler.GamePadStates[(int)PlayerIndex.One].ThumbSticks.Left.Y > -0.5f)))
                 {
@@ -201,7 +201,7 @@ namespace ArmorPotionFramework.EntityClasses
                     CurrentSprite.Reset();
                 }
 
-                if (InputHandler.KeyPressed(Keys.Space) || InputHandler.ButtonPressed(Buttons.X, (int)PlayerIndex.One))
+                if (InputHandler.KeyPressed(Keys.X) || InputHandler.ButtonPressed(Buttons.X, (int)PlayerIndex.One))
                 {
                     AnimationKey key = CurrentSprite.CurrentAnimation;
                     CurrentSpriteKey = "Attack";
@@ -227,7 +227,7 @@ namespace ArmorPotionFramework.EntityClasses
                     }
                 }
 
-                if (InputHandler.MouseButtonDown(InputHandler.MouseState.LeftButton) || InputHandler.GamePadStates[(int)PlayerIndex.One].Buttons.Y == ButtonState.Pressed)
+                if (InputHandler.KeyDown(Keys.Z) || InputHandler.GamePadStates[(int)PlayerIndex.One].Buttons.Y == ButtonState.Pressed)
                 {
                     //object o = _inventory.CurrentInstaQuip;
                     //_inventory.ConsumeInstaQuip(this);
@@ -236,9 +236,9 @@ namespace ArmorPotionFramework.EntityClasses
                     _inventory.ActivateTempaQuip(gameTime, this);
                 }
 
-                if (InputHandler.KeyPressed(Keys.Left) || InputHandler.ButtonPressed(Buttons.LeftShoulder, PlayerIndex.One))
+                if (InputHandler.KeyPressed(Keys.S) || InputHandler.ButtonPressed(Buttons.LeftShoulder, PlayerIndex.One))
                     _inventory.SelectRelativeTempaQuip(this, -1);
-                else if (InputHandler.KeyPressed(Keys.Right) || InputHandler.ButtonPressed(Buttons.RightShoulder, PlayerIndex.One))
+                else if (InputHandler.KeyPressed(Keys.D) || InputHandler.ButtonPressed(Buttons.RightShoulder, PlayerIndex.One))
                     _inventory.SelectRelativeTempaQuip(this, 1);
 
                 World.Camera.LockToSprite(this);
