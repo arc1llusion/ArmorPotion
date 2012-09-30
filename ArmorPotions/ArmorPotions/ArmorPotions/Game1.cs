@@ -33,16 +33,16 @@ namespace ArmorPotions
         World world;
         GraphicsDeviceManager graphics;
 
+        public const int WindowWidth = 1024;
+        public const int WindowHeight = 768;
+
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
-            graphics.PreferredBackBufferWidth = 1024;
-            graphics.PreferredBackBufferHeight = 768;
-            //graphics.IsFullScreen = true;
+            graphics.PreferredBackBufferWidth = WindowWidth;
+            graphics.PreferredBackBufferHeight = WindowHeight;
 
-            ScreenRectangle = new Rectangle(0, 0, 1024, 768);
-
-            //graphics.IsFullScreen = true;
+            ScreenRectangle = new Rectangle(0, 0, WindowWidth, WindowHeight);
 
             Content.RootDirectory = "Content";
         }

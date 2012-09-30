@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ArmorPotionFramework.WorldClasses;
 using ArmorPotionFramework.EntityClasses;
+using ArmorPotionFramework.CameraSystem;
 
 namespace ArmorPotionFramework.TileEngine
 {
@@ -14,6 +15,7 @@ namespace ArmorPotionFramework.TileEngine
         private List<Tile[,]> _tileMaps;
         private int _width, _height;
         private World _world;
+        private Camera _camera;
         private List<Enemy> _enemies;
 
         public Map(Tile[,] mapTop, Tile[,] mapBottom, List<Enemy> enemies, World world)
@@ -31,6 +33,7 @@ namespace ArmorPotionFramework.TileEngine
             _height = mapBottom.GetLength(1) - 1;
 
             _world = world;
+            _camera = _world.Camera;
         }
 
         public List<Enemy> Enemies
@@ -80,17 +83,23 @@ namespace ArmorPotionFramework.TileEngine
 
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            for (int i = 0; i <= _width; i++)
+            Vector2 cameraOffset = _camera.CameraOffset;
+            int mapX = (int)(Math.Floor(cameraOffset.X / Tile.Width));
+            int mapY = (int)(Math.Floor(cameraOffset.Y / Tile.Height));
+            int mapWidth = mapX + (_world.MaxTileWidth + 1);
+            int mapHeight = mapY + (_world.MaxTileHeight + 1);
+
+            for (int i = mapY; i <= mapHeight; i++)
             {
-                for (int c = 0; c <= _height; c++)
+                for (int c = mapX; c <= mapWidth; c++)
                 {
                     if (_tileMaps[0][c, i] != null)
                     {
-                        spriteBatch.Draw(_tileMaps[0][c, i].Texture, new Vector2(c * Tile.Width, i * Tile.Height) - _world.Camera.CameraOffset, null, Color.White, 0f, Vector2.Zero, _world.Camera.Scale, SpriteEffects.None, 0f);
+                        spriteBatch.Draw(_tileMaps[0][c, i].Texture, new Vector2(c * Tile.Width, i * Tile.Height) - cameraOffset, null, Color.White, 0f, Vector2.Zero, _camera.Scale, SpriteEffects.None, 0f);
                     }
                     if (_tileMaps[1][c, i] != null)
                     {
-                        spriteBatch.Draw(_tileMaps[1][c, i].Texture, new Vector2(c * Tile.Width, i * Tile.Height) - _world.Camera.CameraOffset, null, Color.White, 0f, Vector2.Zero, _world.Camera.Scale, SpriteEffects.None, 0f);
+                        spriteBatch.Draw(_tileMaps[1][c, i].Texture, new Vector2(c * Tile.Width, i * Tile.Height) - cameraOffset, null, Color.White, 0f, Vector2.Zero, _camera.Scale, SpriteEffects.None, 0f);
                     }                    
                 }
             }

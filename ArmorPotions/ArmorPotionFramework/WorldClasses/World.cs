@@ -28,6 +28,8 @@ namespace ArmorPotionFramework.WorldClasses
         private Map currentDungeon;
 
         private Factory<Enemy, EnemyData> _enemyFactory;
+        public readonly int MaxTileWidth;
+        public readonly int MaxTileHeight;
 
         public World(ArmorPotionsGame game)
         {
@@ -38,8 +40,12 @@ namespace ArmorPotionFramework.WorldClasses
             _player = new Player(this, _game.Content.Load<Texture2D>(@"Player\PlayerWalking"), _game.Content.Load<Texture2D>(@"Player\SwordAttack"));
             _player.Position = new Vector2(350, 350);
 
-            _camera = new Camera(_game, 0, 0, _game.Window.ClientBounds.Width, _game.Window.ClientBounds.Height, 1f);
+            Rectangle clientBounds = _game.Window.ClientBounds;
+            _camera = new Camera(_game, 0, 0, clientBounds.Width, clientBounds.Height, 1f);
             _game.Components.Add(_camera);
+
+            MaxTileWidth = clientBounds.Width / Tile.Width;
+            MaxTileHeight = clientBounds.Height / Tile.Height;
         }
 
         public ArmorPotionsGame Game
