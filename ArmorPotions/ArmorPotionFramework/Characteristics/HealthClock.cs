@@ -37,10 +37,15 @@ namespace ArmorPotionFramework.Characteristics
         private float _targetHeartAngle;
         private float _targetShieldAngle;
 
+        private float _alpha;
+
         private const float DELTA_ANGLE = 1f / ((2f * (float)Math.PI) * 2f);
 
         private readonly int _maxWaitTime;
         private int _currentTime;
+
+        public readonly Rectangle Bounds;
+        public bool Fade = false;
 
 
         public HealthClock(AttributePair health, AttributePair shield, Vector2 position, ContentManager content)
@@ -64,6 +69,14 @@ namespace ArmorPotionFramework.Characteristics
 
             _currentHeartAngle = -2f * (float)Math.PI;
             _currentShieldAngle = -2f * (float)Math.PI;
+
+            _alpha = 1.0f;
+
+            Bounds = new Rectangle(
+                (int)_position.X,
+                (int)_position.Y,
+                (int)(_healthClock_Back.Width * SCALE),
+                (int)(_healthClock_Back.Height * SCALE));
         }
 
         public void Update(GameTime gameTime)
@@ -89,7 +102,7 @@ namespace ArmorPotionFramework.Characteristics
                 else if (_currentHeartAngle > _targetHeartAngle)
                 {
                     _currentHeartAngle -= DELTA_ANGLE;
-                    if(_currentHeartAngle < MAX_ANGLE) _currentHeartAngle = (float)MAX_ANGLE;
+                    if (_currentHeartAngle < MAX_ANGLE) _currentHeartAngle = (float)MAX_ANGLE;
                     else if (_currentHeartAngle < _targetHeartAngle) _currentHeartAngle = _targetHeartAngle;
                 }
 
@@ -105,6 +118,20 @@ namespace ArmorPotionFramework.Characteristics
                     if (_currentShieldAngle < MAX_ANGLE) _currentShieldAngle = (float)MAX_ANGLE;
                     else if (_currentShieldAngle < _targetShieldAngle) _currentShieldAngle = _targetShieldAngle;
                 }
+
+                if (Fade)
+                {
+                    if (_alpha > .25f)
+                        _alpha -= .05f;
+                }
+                else
+                {
+                    if (_alpha < 1.0f)
+                        _alpha += .05f;
+
+                    if (_alpha > 1.0f)
+                        _alpha = 0f;
+                }
             }
 
             _heartRotation = _currentHeartAngle;
@@ -113,10 +140,10 @@ namespace ArmorPotionFramework.Characteristics
 
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(_healthClock_Back, _position, null, Color.White, 0f, Vector2.Zero, SCALE, SpriteEffects.None, 0f);
-            spriteBatch.Draw(_healthClock_Center, _position, null, Color.White, 0f, Vector2.Zero, SCALE, SpriteEffects.None, 0f);
-            spriteBatch.Draw(_healthClock_HeartHand, _position + _heartRotationOrigin * SCALE, null, Color.White, _heartRotation, _heartRotationOrigin, SCALE, SpriteEffects.None, 0f);
-            spriteBatch.Draw(_healthClock_ShieldHand, _position + _shieldRotationOrigin * SCALE, null, Color.White, _shieldRotation, _shieldRotationOrigin, SCALE, SpriteEffects.None, 0f);
+            spriteBatch.Draw(_healthClock_Back, _position, null, Color.White * _alpha, 0f, Vector2.Zero, SCALE, SpriteEffects.None, 0f);
+            spriteBatch.Draw(_healthClock_Center, _position, null, Color.White * _alpha, 0f, Vector2.Zero, SCALE, SpriteEffects.None, 0f);
+            spriteBatch.Draw(_healthClock_HeartHand, _position + _heartRotationOrigin * SCALE, null, Color.White * _alpha, _heartRotation, _heartRotationOrigin, SCALE, SpriteEffects.None, 0f);
+            spriteBatch.Draw(_healthClock_ShieldHand, _position + _shieldRotationOrigin * SCALE, null, Color.White * _alpha, _shieldRotation, _shieldRotationOrigin, SCALE, SpriteEffects.None, 0f);
         }
     }
 }

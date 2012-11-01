@@ -270,6 +270,7 @@ namespace ArmorPotionFramework.EntityClasses
                 _position.Y += currentVelocity.Y;
             }
 
+            _healthClock.Fade = this.BoundingRectangle.Intersects(_healthClock.Bounds);
             _healthClock.Update(gameTime);
 
             /*
@@ -277,6 +278,7 @@ namespace ArmorPotionFramework.EntityClasses
              * 
              * 
              */
+
             if (InputHandler.KeyPressed(Keys.I))
             {
                 for (int i = 0; i <= World.CurrentDungeon.getMapLevel(1).GetLength(0) - 1; i++)
