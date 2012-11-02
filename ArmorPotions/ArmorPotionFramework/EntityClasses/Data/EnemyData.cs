@@ -26,6 +26,14 @@ namespace ArmorPotionFramework.EntityClasses.Data
         public float SightRadius = 0;
         public String Color = "";
 
+        public Dictionary<String, IAIComponent> DeepCopyActionComponents
+        {
+            get
+            {
+                return ActionComponents.ToDictionary(k => k.Key, v => v.Value.Clone());
+            }
+        }
+
         public Dictionary<String, AnimatedSprite> DeepCopySprites
         {
             get

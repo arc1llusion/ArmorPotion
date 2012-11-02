@@ -49,9 +49,9 @@ namespace ArmorPotionFramework.EntityClasses
             this.Velocity = data.Velocity;
 
             this.AnimatedSprites = data.DeepCopySprites;
-            this._idleComponent = data.IdleComponent;
-            this._decisionComponent = data.DecisionComponent;
-            this._actionComponents = data.ActionComponents;
+            this._idleComponent = data.IdleComponent.Clone();
+            this._decisionComponent = data.DecisionComponent.Clone();
+            this._actionComponents = data.DeepCopyActionComponents;
 
             this.LeftCollisionOffset = data.LeftCollisionOffset;
             this.RightCollisionOffset = data.RightCollisionOffset;

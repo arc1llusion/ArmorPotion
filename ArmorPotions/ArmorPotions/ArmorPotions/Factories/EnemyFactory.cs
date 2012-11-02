@@ -28,16 +28,6 @@ namespace ArmorPotions.Factories
         public override Enemy Create(String name)
         {
             EnemyData enemy = Objects[name];
-            enemy.IdleComponent = enemy.IdleComponent.Clone();
-            enemy.DecisionComponent = enemy.DecisionComponent.Clone();
-
-            List<String> keys = new List<String>(enemy.ActionComponents.Keys);
-            foreach (String key in keys)
-            {
-                IAIComponent action = enemy.ActionComponents[key].Clone();
-                enemy.ActionComponents[key] = action;
-            }
-
             return new Enemy(World, enemy);
         }
 
