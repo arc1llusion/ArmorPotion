@@ -123,7 +123,7 @@ namespace ArmorPotionFramework.SpriteClasses
             {
                 _frameTimer = TimeSpan.Zero;
                 _currentFrame = (_currentFrame + 1) % _frames.Length;
-                if (!_loop && _currentFrame == 0)
+                if (!_loop && _currentFrame == _frames.Length - 1)
                     _iterated = true;
             }
         }
