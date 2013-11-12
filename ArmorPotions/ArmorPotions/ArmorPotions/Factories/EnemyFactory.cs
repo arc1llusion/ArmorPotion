@@ -27,8 +27,11 @@ namespace ArmorPotions.Factories
 
         public override Enemy Create(String name)
         {
-            EnemyData enemy = Objects[name];
-            return new Enemy(World, enemy);
+            EnemyData enemyData = Objects[name];
+            Enemy enemy = new Enemy(World, enemyData);
+            enemy.Name = name;
+
+            return enemy;
         }
 
         protected override EnemyData ReadObjectData(XmlElement element, out String name)

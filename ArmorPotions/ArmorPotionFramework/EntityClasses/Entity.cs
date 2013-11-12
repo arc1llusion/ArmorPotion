@@ -13,6 +13,7 @@ namespace ArmorPotionFramework.EntityClasses
 {
     public abstract class Entity
     {
+        private string _name;
         private World _world;
 
         protected Vector2 _position;
@@ -58,6 +59,12 @@ namespace ArmorPotionFramework.EntityClasses
             _health = new AttributePair(600);
             _shield = new AttributePair(300);
             _tintColor = Color.White;
+        }
+
+        public string Name
+        {
+            get { return this._name; }
+            set { this._name = value; }
         }
 
         public World World

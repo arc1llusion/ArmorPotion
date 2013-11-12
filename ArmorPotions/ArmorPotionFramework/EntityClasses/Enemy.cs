@@ -172,6 +172,8 @@ namespace ArmorPotionFramework.EntityClasses
                 spriteBatch.Draw(_healthTexture, new Vector2(x, y) - camOffset, Color.White);
                 x++;
             }
+
+            //RectangleExtensions.DrawRectangleBorder(VisualBoundingRectangle, spriteBatch, 5, Color.White);
         }
 
         public void ActionComplete()
