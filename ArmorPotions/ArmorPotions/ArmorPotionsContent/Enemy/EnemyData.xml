@@ -95,4 +95,33 @@
     </SpriteSheets>
     <Fields SightRadius="100" Health="100" />
   </Enemy>
+  <Enemy Name="Valentina">
+    <Texture Path="Enemy" Width="60" Height="92" FrameCount="6" />
+    <Velocity X="1" Y="0" />
+    <IdleComponent Type="ArmorPotions.Components.MoveRandom" />
+    <DecisionComponent Type="ArmorPotions.Components.Decide" />
+    <ActionComponents>
+      <ActionComponent Name="AoEDrop" Type="ArmorPotions.Components.AoEDrop" Wait="1000" LifeTime ="300" EventType="LightningEvent" Damage="1">
+        <Properties Type="SpriteSheet" PropertyName="AttackTexture" Texture="LightBugAttackAnimation" Name="Normal" IsAnimating="True">
+          <Animation Key="Right" Width="256" Height="256" FrameCount="6" xOffset="256" yOffset="0" FramesPerSecond="18" />
+        </Properties>
+      </ActionComponent>
+    </ActionComponents>
+    <CollisionOffset Left="0" Right="0" Top="0" Bottom="0" />
+    <SpriteSheets>
+      <Sprite Texture="Valentina" Name="Walking">
+        <Animation Key="Down" Width="58" Height="92" FrameCount="6" xOffset="2" yOffset="125" FramesPerSecond="5" />
+        <Animation Key="Left" Width="58" Height="92" FrameCount="6" xOffset="2" yOffset="125" FramesPerSecond="5" />
+        <Animation Key="Right" Width="58" Height="92" FrameCount="6" xOffset="2" yOffset="125" FramesPerSecond="5" />
+        <Animation Key="Up" Width="58" Height="92" FrameCount="6" xOffset="2" yOffset="125" FramesPerSecond="5" />
+      </Sprite>
+      <Sprite Texture="Valentina" Name="Charging">
+        <Animation Key="Down" Width="58" Height="92" FrameCount="6" xOffset="2" yOffset="125" FramesPerSecond="10" />
+        <Animation Key="Left" Width="58" Height="92" FrameCount="6" xOffset="2" yOffset="125" FramesPerSecond="10" />
+        <Animation Key="Right" Width="58" Height="92" FrameCount="6" xOffset="2" yOffset="125" FramesPerSecond="10" />
+        <Animation Key="Up" Width="58" Height="92" FrameCount="6" xOffset="2" yOffset="125" FramesPerSecond="10" />
+      </Sprite>
+    </SpriteSheets>
+    <Fields SightRadius="100" Health="100" />
+  </Enemy>
 </Enemies>
