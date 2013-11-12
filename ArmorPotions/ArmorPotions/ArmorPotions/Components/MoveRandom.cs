@@ -23,22 +23,24 @@ namespace ArmorPotions.Components
                 int r = RandomGenerator.Random.Next(0, 4);
                 currentWalkDistance = randomWalkDistance;
 
+                Vector2 velocityAbsolute = new Vector2(Math.Abs(enemy.Velocity.X), Math.Abs(enemy.Velocity.Y));
+
                 switch (r)
                 {
                     case 0:
-                        velocity = new Vector2(1, 0);
+                        velocity = new Vector2(velocityAbsolute.X, 0);
                         enemy.CurrentSprite.CurrentAnimation = AnimationKey.Right;
                         break;
                     case 1:
-                        velocity = new Vector2(-1, 0);
+                        velocity = new Vector2(-velocityAbsolute.X, 0);
                         enemy.CurrentSprite.CurrentAnimation = AnimationKey.Left;
                         break;
                     case 2:
-                        velocity = new Vector2(0, 1);
+                        velocity = new Vector2(0, velocityAbsolute.Y);
                         enemy.CurrentSprite.CurrentAnimation = AnimationKey.Down;
                         break;
                     case 3:
-                        velocity = new Vector2(0, -1);
+                        velocity = new Vector2(0, -velocityAbsolute.Y);
                         enemy.CurrentSprite.CurrentAnimation = AnimationKey.Up;
                         break;
                 }
