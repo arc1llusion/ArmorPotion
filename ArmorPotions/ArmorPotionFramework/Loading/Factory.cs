@@ -141,6 +141,13 @@ namespace ArmorPotionFramework.Loading
 
                 animation.FramesPerSecond = int.Parse(node.Attributes["FramesPerSecond"].Value);
 
+                if (node.Attributes["Loop"] != null)
+                {
+                    bool loop = true;
+                    bool.TryParse(node.Attributes["Loop"].Value, out loop);
+                    animation.Loop = loop;
+                }
+
                 animations.Add((AnimationKey)Enum.Parse(typeof(AnimationKey), node.Attributes["Key"].Value), animation);
             }
 

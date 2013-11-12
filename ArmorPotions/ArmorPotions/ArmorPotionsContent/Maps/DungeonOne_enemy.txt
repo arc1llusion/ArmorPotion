@@ -8,4 +8,4 @@ LightBug|768|768
 LightBug|768|768
 LightBug|1280|768
 LightBugBoss|3200|870
-Valentina|128|128
+Valentina|256|256

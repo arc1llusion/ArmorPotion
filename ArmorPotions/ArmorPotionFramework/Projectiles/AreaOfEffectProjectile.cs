@@ -7,6 +7,7 @@ using ArmorPotionFramework.WorldClasses;
 using Microsoft.Xna.Framework.Graphics;
 using ArmorPotionFramework.Items;
 using ArmorPotionFramework.TileEngine;
+using ArmorPotionFramework.Utility;
 
 namespace ArmorPotionFramework.Projectiles
 {
@@ -35,6 +36,7 @@ namespace ArmorPotionFramework.Projectiles
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             CurrentSprite.Draw(gameTime, spriteBatch, _destination - World.Camera.CameraOffset, World.Camera);
+            RectangleExtensions.DrawRectangleBorder(VisualBoundingRectangle, spriteBatch, 5, Color.White);
         }
 
         public override void OnCollide(List<TileEngine.Tile> tileData)
